@@ -1,0 +1,53 @@
+package motivaatiovalaspeli;
+
+/**
+ * All objects which implement this class are drawn at some point
+ *
+ * @author Gandalf.
+ *         Created 26.11.2012.
+ */
+public interface Drawable
+{
+	/**
+	 *	Draws the object to the applet
+	 *
+	 *@param applet The applet to which the object is drawn
+	 */
+	public void drawSelf(MotivaatiovalasPeli applet);
+	
+	/**
+	 * @return Should the object be drawn at this time
+	 */
+	public boolean isVisible();
+	
+	/**
+	 * Checks if the object should be drawn in the future
+	 * 
+	 * @return Should the object be drawn anymore in the future
+	 */
+	public boolean wontBeDrawn();
+	
+	/**
+	 * 
+	 * Tries to permanently stop the objects ability to draw itself
+	 *
+	 * @return Was the drawing stopped
+	 */
+	public boolean endDrawing();
+	
+	/**
+	 * 
+	 * Tries to set the object visible
+	 *
+	 * @return Was the object made visible
+	 */
+	public boolean setVisible();
+	
+	/**
+	 * 
+	 * Tries to momentarily make the object invisible
+	 *
+	 * @return Was the object made invisible
+	 */
+	public boolean setInvisible();
+}
