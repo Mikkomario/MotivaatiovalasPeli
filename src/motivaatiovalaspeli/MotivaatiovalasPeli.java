@@ -62,7 +62,13 @@ public class MotivaatiovalasPeli extends PApplet
 		stroke(255,0,0);
 		
 		pushMatrix();
+		
+		//rotateX((float) (this.mouseX/this.width * 2*Math.PI));
+		
 		translate(this.width/2 - 20, this.height/2 -20);
+		
+		//rotateZ((float) Math.toRadians(90));
+		
 		arrow(); // red x-axis
 		rotateZ (radians(90));
 		stroke(0,255,0);

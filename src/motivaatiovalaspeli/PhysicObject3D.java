@@ -7,14 +7,15 @@ package motivaatiovalaspeli;
  * @author Gandalf.
  *         Created 28.11.2012.
  */
-public abstract class PhysicObject extends DrawnObject3D implements Actor
+public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 {
 	
 	// TODO: Test this class
 	
 	// ATTRIBUTES	------------------------------------------------------
 	
-	private double hspeed, vspeed, rotation, friction, rotFriction;
+	private double hspeed, vspeed, zspeed, zrotation, yrotation, xrotation, 
+		friction, rotFriction;
 	private boolean active;
 	
 	
@@ -27,16 +28,19 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 	 *
 	 * @param x The ingame x-coordinate of the new object
 	 * @param y The ingame y-coordinate of the new object
-	 * @param sprite The sprite with which the object is drawn
+	 * @param z The ingame z-coordinate of the new object
 	 * @param name The name of the object
 	 */
-	public PhysicObject(int x, int y, String name)
+	public PhysicObject3D(int x, int y, int z, String name)
 	{
-		super(x, y, name);
+		super(x, y, z, name);
 		
 		this.hspeed = 0;
 		this.vspeed = 0;
-		this.rotation = 0;
+		this.zspeed = 0;
+		this.zrotation = 0;
+		this.xrotation = 0;
+		this.yrotation = 0;
 		this.friction = 0;
 		this.rotFriction = 0;
 		this.active = true;
@@ -68,9 +72,8 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 	@Override
 	public boolean kill()
 	{
-		// The object can't be killed if it's still drawn (setting drawing to
-		// false automatically kills the object)
-		return wontBeDrawn();
+		// Kills the object and ends its drawing
+		return endDrawing();
 	}
 	
 	@Override
@@ -107,11 +110,19 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 	}
 	
 	/**
+	 * @return The speed with which the object is moving z-axiswise (pxl / step)
+	 */
+	public double getZspeed()
+	{
+		return this.zspeed;
+	}
+	
+	/**
 	 * @return The speed with which the object is moving (pxl / step)
 	 */
 	public double getSpeed()
 	{
-		return Math.abs(this.hspeed) + Math.abs(this.vspeed);
+		return Math.abs(this.hspeed) + Math.abs(this.vspeed) + Math.abs(this.zspeed);
 	}
 	
 	/**
@@ -120,11 +131,13 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 	 *
 	 * @param hspeed The new horizontal speed (pxl / step)
 	 * @param vspeed The new vertical speed (pxl / step)
+	 * @param zspeed The new z-axiswise speed (pxl / step)
 	 */
-	public void setVelocity(double hspeed, double vspeed)
+	public void setVelocity(double hspeed, double vspeed, double zspeed)
 	{
 		this.hspeed = hspeed;
 		this.vspeed = vspeed;
+		this.zspeed = zspeed;
 	}
 	
 	/**
@@ -134,30 +147,52 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 	 *
 	 * @param haccelration How much speed is increased horizontally (pxl / step)
 	 * @param vacceltarion How much speed is increased vertically (pxl / step)
+	 * @param zaccelration How much speed is increased z-axiswise (pxl / step)
 	 */
-	public void addVelocity(double haccelration, double vacceltarion)
+	public void addVelocity(double haccelration, double vacceltarion, double zaccelration)
 	{
 		this.hspeed += haccelration;
 		this.vspeed += vacceltarion;
+		this.zspeed += zaccelration;
 	}
 	
 	/**
-	 * @return How much the object is rotated at each step (degrees / step)
+	 * @return How much the object is rotated around the z-axis at each step (degrees / step)
 	 */
-	public double getRotation()
+	public double getZRotation()
 	{
-		return this.rotation;
+		return this.zrotation;
+	}
+	
+	/**
+	 * @return How much the object is rotated around the x-axis at each step (degrees / step)
+	 */
+	public double getXRotation()
+	{
+		return this.xrotation;
+	}
+	
+	/**
+	 * @return How much the object is rotated around the y-axis at each step (degrees / step)
+	 */
+	public double getYRotation()
+	{
+		return this.yrotation;
 	}
 	
 	/**
 	 * 
 	 * Changes how fast the object rotates around its origin
 	 *
-	 * @param rotation The speed with which the object rotates (degrees / step)
+	 * @param xrotation The speed with which the object rotates around the x-axis (degrees / step)
+	 * @param yrotation The speed with which the object rotates around the y-axis (degrees / step)
+	 * @param zrotation The speed with which the object rotates around the z-axis (degrees / step)
 	 */
-	public void setRotation(double rotation)
+	public void setRotation(double xrotation, double yrotation, double zrotation)
 	{
-		this.rotation = rotation;
+		this.xrotation = xrotation;
+		this.yrotation = yrotation;
+		this.zrotation = zrotation;
 	}
 	
 	/**
@@ -202,11 +237,15 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 	 *Changes how much the object rotates at each step. The rotation accelration 
 	 *stacks with the previous rotation speed.
 	 *
-	 * @param raccelration How much faster will the object be rotated (degrees / step)
+	 * @param xraccelration How much faster will the object be rotated around the x-axis (degrees / step)
+	 * @param yraccelration How much faster will the object be rotated around the y-axis (degrees / step)
+	 * @param zraccelration How much faster will the object be rotated around the z-axis (degrees / step)
 	 */
-	public void addRotation(double raccelration)
+	public void addRotation(double xraccelration, double yraccelration, double zraccelration)
 	{
-		this.rotation += raccelration;
+		this.xrotation += xraccelration;
+		this.yrotation += yraccelration;
+		this.zrotation += zraccelration;
 	}
 	
 	/**
@@ -216,14 +255,14 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 	 * @param direction Direction towards wich the force is applied (degrees)
 	 * @param force The amount of force applied to the object (pxl / step)
 	 */
-	public void addMotion(int direction, double force)
+	public void addMotion2D(int direction, double force)
 	{
 		//double haccelration = Math.cos(Math.toRadians(direction))*force;
 		double haccelration = HelpMath.lendirX(force, direction);
 		//double vaccelration = Math.sin(Math.toRadians(direction))*force;
 		double vaccelration = HelpMath.lendirY(force, direction);
 		
-		addVelocity(haccelration, vaccelration);
+		addVelocity(haccelration, vaccelration, 0);
 	}
 	
 	/**
@@ -233,12 +272,12 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 	 * @param direction Towards what direction will the object move (degrees)
 	 * @param speed How fast the objec will be moving (pxl / step)
 	 */
-	public void setMotion(int direction, double speed)
+	public void setMotion2D(int direction, double speed)
 	{
 		double newhspeed = HelpMath.lendirX(speed, direction);
 		double newvspeed = HelpMath.lendirY(speed, direction);
 		
-		setVelocity(newhspeed, newvspeed);
+		setVelocity(newhspeed, newvspeed, getZspeed());
 	}
 	
 	/**
@@ -247,17 +286,33 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 	 *
 	 * @param direction The object's new direction (degrees)
 	 */
-	public void setDirection(int direction)
+	public void setDirection2D(int direction)
 	{
-		setMotion(direction, getSpeed());
+		setMotion2D(direction, getSpeed());
 	}
 	
 	/**
-	 * @return The direction towards which the object is currently moving
+	 * @return The direction around the z-axis towards which the object is currently moving
 	 */
-	public int getDirection()
+	public int getZDirection()
 	{
 		return (int) (Math.toDegrees(Math.atan2(getVspeed(), getHspeed())));
+	}
+	
+	/**
+	 * @return The direction around the x-axis towards which the object is currently moving
+	 */
+	public int getXDirection()
+	{
+		return (int) (Math.toDegrees(Math.atan2(getZspeed(), getVspeed())));
+	}
+	
+	/**
+	 * @return The direction around the y-axis towards which the object is currently moving
+	 */
+	public int getYDirection()
+	{
+		return (int) (Math.toDegrees(Math.atan2(getHspeed(), getZspeed())));
 	}
 	
 	/**
@@ -266,9 +321,9 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 	 *
 	 * @param speed The object's new speed (pxl / step)
 	 */
-	public void setSpeed(double speed)
+	public void setSpeed2D(double speed)
 	{
-		setMotion(getDirection(), speed);
+		setMotion2D(getZDirection(), speed);
 	}
 	
 	
@@ -279,7 +334,7 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 	{
 		//this.x += getHspeed();
 		//this.y += getVspeed();
-		addPosition(getHspeed(), getVspeed());
+		addPosition(getHspeed(), getVspeed(), getZspeed());
 		
 		// Checks the friction
 		if (getFriction() == 0)
@@ -292,7 +347,7 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 	private void rotate()
 	{
 		//this.angle += getRotation();
-		addAngle(getRotation());
+		addAngle(getXRotation(), getYRotation(), getZRotation());
 		
 		if (getRotationFriction() == 0)
 			return;
@@ -313,6 +368,7 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 			// Changes the velocity
 			this.hspeed = 0;
 			this.vspeed = 0;
+			this.zspeed = 0;
 		}
 		else
 		{
@@ -320,18 +376,19 @@ public abstract class PhysicObject extends DrawnObject3D implements Actor
 			// Changes the velocity
 			this.hspeed *= newSpeed / lastSpeed;
 			this.vspeed *= newSpeed / lastSpeed;
+			this.zspeed *= newSpeed / lastSpeed;
 		}
 	}
 	
 	// Slows the rotation speed the amoutn of given friction
 	private void implyRotationFriction()
 	{	
-		if (Math.abs(getRotation()) <= getRotationFriction())
-			this.rotation = 0;
-		else if (getRotation() > 0)
-			this.rotation -= getRotationFriction();
+		if (Math.abs(getZRotation()) <= getRotationFriction())
+			this.zrotation = 0;
+		else if (getZRotation() > 0)
+			this.zrotation -= getRotationFriction();
 		else
-			this.rotation += getRotationFriction();
+			this.zrotation += getRotationFriction();
 	}
 
 }
