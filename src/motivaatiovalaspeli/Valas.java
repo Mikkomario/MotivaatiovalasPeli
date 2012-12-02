@@ -1,6 +1,5 @@
 package motivaatiovalaspeli;
 
-import processing.core.PApplet;
 import processing.core.PConstants;
 
 /**
@@ -61,7 +60,7 @@ public class Valas extends PhysicObject3D implements KeyListener
 	}
 
 	@Override
-	public void onKeyPressed(int key, int keyCode, boolean coded)
+	public void onKeyDown(int key, int keyCode, boolean coded)
 	{
 		// TODO Add controlls
 		if (coded && keyCode == PConstants.UP)
@@ -69,15 +68,22 @@ public class Valas extends PhysicObject3D implements KeyListener
 	}
 
 	@Override
-	public void onKeyReleased(int key, int keyCode)
+	public void onKeyPressed(int key, int keyCode, boolean coded)
 	{
-		// Doesn't do anyhting
+		// Does nothing yet
 	}
 
 	@Override
-	public void onKeyTyped(int key, int keyCode)
+	public void onKeyReleased(int key, int keyCode, boolean coded)
 	{
-		// Doesn't do anyhting
+		// Does nothing yet
+	}
+
+	@Override
+	public boolean listens()
+	{
+		// Valas only listens to keys when its active
+		return isActive();
 	}
 
 }

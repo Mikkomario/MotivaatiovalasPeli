@@ -16,6 +16,15 @@ public interface KeyListener
 	 * @param keyCode The key's keycode (used for some keys)
 	 * @param coded Is the pressed key coded
 	 */
+	public void onKeyDown(int key, int keyCode, boolean coded);
+	
+	/**
+	 * This method is called once when a key is pressed
+	 *
+	 * @param key The key that is currently pressed
+	 * @param keyCode The key's keycode (used for some keys)
+	 * @param coded Is the pressed key coded
+	 */
 	public void onKeyPressed(int key, int keyCode, boolean coded);
 	
 	/**
@@ -23,14 +32,12 @@ public interface KeyListener
 	 *
 	 * @param key The key that is currently pressed
 	 * @param keyCode The key's keycode (used for some keys)
+	 * @param coded Is the pressed key coded
 	 */
-	public void onKeyReleased(int key, int keyCode);
+	public void onKeyReleased(int key, int keyCode, boolean coded);
 	
 	/**
-	 * This method is called when the key is typed
-	 *
-	 * @param key The key that is currently pressed
-	 * @param keyCode The key's keycode (used for some keys)
+	 * @return Is teh listener curretly interested to receive these events
 	 */
-	public void onKeyTyped(int key, int keyCode);
+	public boolean listens();
 }

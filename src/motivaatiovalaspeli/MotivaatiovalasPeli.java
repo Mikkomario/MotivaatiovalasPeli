@@ -19,9 +19,8 @@ public class MotivaatiovalasPeli extends PApplet
 	
 	private DrawableHandler mainDrawer;
 	private StepHandler stepHandler;
+	private KeyListenerHandler keyhandler;
 	private Valas player;
-	
-	private ArrayList<KeyListener> listeners;
 	
 	
 	// IMPLEMENTED METHODS	-----------------------------------------------
@@ -32,9 +31,6 @@ public class MotivaatiovalasPeli extends PApplet
 		size(640, 480, P3D);
 		noFill();
 		
-		// Creates the keylisteners List
-		this.listeners = new ArrayList<KeyListener>();
-		
 		// Creates the canyon and adds it to the drawables handled
 		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 5, 0, 1100, 7);
 		this.mainDrawer = new DrawableHandler(testcanyon);
@@ -43,11 +39,15 @@ public class MotivaatiovalasPeli extends PApplet
 		this.stepHandler = new StepHandler(60, this);
 		this.stepHandler.addActor(testcanyon);
 		
-		// Creates the playable valas and adds it to drawer, stephandler and listeners
+		// Creates the listenerhandler and adds it to stephandler
+		this.keyhandler = new KeyListenerHandler();
+		this.stepHandler.addActor(this.keyhandler);
+		
+		// Creates the playable valas and adds it to drawer, stephandler and keyhandler
 		this.player = new Valas(this.width/2, this.height/2, 0, "Testivalas");
 		this.mainDrawer.addDrawable(this.player);
 		this.stepHandler.addActor(this.player);
-		this.listeners.add(this.player);
+		this.keyhandler.addListener(this.player);
 	}
 	
 	@Override
@@ -94,15 +94,16 @@ public class MotivaatiovalasPeli extends PApplet
 		popMatrix();
 	}
 	
-	// TODO: Add keylistening
 	@Override
 	public void keyPressed()
 	{
-		// Informs the listeners
-		for (int i = 0; i < this.listeners.size(); i++)
-		{
-			this.listeners.get(i).onKeyPressed(this.key, this.keyCode, (this.key == CODED));
-		}
+		this.keyhandler.onKeyPressed(this.key, this.keyCode, (this.key == CODED));
+	}
+	
+	@Override
+	public void keyReleased()
+	{
+		this.keyhandler.onKeyReleased(this.key, this.keyCode, (this.key == CODED));
 	}
 	
 	
