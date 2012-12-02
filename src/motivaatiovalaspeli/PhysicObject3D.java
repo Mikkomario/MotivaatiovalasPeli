@@ -250,7 +250,7 @@ public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 	
 	/**
 	 * 
-	 * Adds the objects movement towards the given direction
+	 * Adds the object's movement towards the given direction
 	 *
 	 * @param direction Direction towards wich the force is applied (degrees)
 	 * @param force The amount of force applied to the object (pxl / step)
@@ -267,6 +267,24 @@ public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 	
 	/**
 	 * 
+	 * Adds the object's three dimensional movement towards the given directions
+	 *
+	 * @param zdirection Direction aroudn the z-axis towards wich the force is applied (degrees)
+	 * @param ydirection Direction aroudn the y-axis towards wich the force is applied (degrees)
+	 * @param force The amount of force applied to the object (pxl / step)
+	 */
+	public void addMotion3D(int zdirection, int ydirection, double force)
+	{
+		double zaccelration = HelpMath.lendirY(force, ydirection);
+		double xyaccelration = HelpMath.lendirX(force, ydirection);
+		double haccelration = HelpMath.lendirX(xyaccelration, zdirection);
+		double vaccelration = HelpMath.lendirY(xyaccelration, zdirection);
+		
+		addVelocity(haccelration, vaccelration, zaccelration);
+	}
+	
+	/**
+	 * 
 	 * Makes the object move towards given direction with given speed
 	 *
 	 * @param direction Towards what direction will the object move (degrees)
@@ -278,6 +296,20 @@ public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 		double newvspeed = HelpMath.lendirY(speed, direction);
 		
 		setVelocity(newhspeed, newvspeed, getZspeed());
+	}
+	
+	/**
+	 * 
+	 * Makes the object move towards given directions with given speed
+	 *
+	 * @param zdirection The object's new moving direction around the z-axis (degrees)
+	 * @param ydirection The object's new moving direction around the y-axis (degrees)
+	 * @param speed How fast the objec will be moving (pxl / step)
+	 */
+	public void setMotion3D(int zdirection, int ydirection, double speed)
+	{
+		setVelocity(0, 0, 0);
+		addMotion3D(zdirection, ydirection, speed);
 	}
 	
 	/**
