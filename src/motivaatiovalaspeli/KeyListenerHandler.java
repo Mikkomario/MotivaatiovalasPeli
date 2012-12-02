@@ -94,6 +94,12 @@ public class KeyListenerHandler implements Actor
 			}
 		}
 		
+		// Negates some of the changes (pressed & released)
+		this.keysPressed.clear();
+		this.keysReleased.clear();
+		this.codesPressed.clear();
+		this.codesReleased.clear();
+		
 	}
 
 	@Override
