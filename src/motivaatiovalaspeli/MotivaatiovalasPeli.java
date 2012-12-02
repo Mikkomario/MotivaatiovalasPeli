@@ -19,6 +19,9 @@ public class MotivaatiovalasPeli extends PApplet
 	
 	private DrawableHandler mainDrawer;
 	private StepHandler stepHandler;
+	private Valas player;
+	
+	private ArrayList<KeyListener> listeners;
 	
 	
 	// IMPLEMENTED METHODS	-----------------------------------------------
@@ -29,6 +32,9 @@ public class MotivaatiovalasPeli extends PApplet
 		size(640, 480, P3D);
 		noFill();
 		
+		// Creates the keylisteners List
+		this.listeners = new ArrayList<KeyListener>();
+		
 		// Creates the canyon and adds it to the drawables handled
 		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 5, 0, 1100, 7);
 		this.mainDrawer = new DrawableHandler(testcanyon);
@@ -36,6 +42,12 @@ public class MotivaatiovalasPeli extends PApplet
 		// Also creates the stephandler and ads canyon to its actors
 		this.stepHandler = new StepHandler(60, this);
 		this.stepHandler.addActor(testcanyon);
+		
+		// Creates the playable valas and adds it to drawer, stephandler and listeners
+		this.player = new Valas(this.width/2, this.height/2, 0, "Testivalas");
+		this.mainDrawer.addDrawable(this.player);
+		this.stepHandler.addActor(this.player);
+		this.listeners.add(this.player);
 	}
 	
 	@Override
@@ -80,6 +92,17 @@ public class MotivaatiovalasPeli extends PApplet
 		arrow();
 		
 		popMatrix();
+	}
+	
+	// TODO: Add keylistening
+	@Override
+	public void keyPressed()
+	{
+		// Informs the listeners
+		for (int i = 0; i < this.listeners.size(); i++)
+		{
+			this.listeners.get(i).onKeyPressed(this.key, this.keyCode, (this.key == CODED));
+		}
 	}
 	
 	

@@ -14,8 +14,9 @@ public interface KeyListener
 	 *
 	 * @param key The key that is currently pressed
 	 * @param keyCode The key's keycode (used for some keys)
+	 * @param coded Is the pressed key coded
 	 */
-	public void onKeyPressed(int key, int keyCode);
+	public void onKeyPressed(int key, int keyCode, boolean coded);
 	
 	/**
 	 * This method is called when a key is released
