@@ -125,7 +125,7 @@ public class HelpMath
 	 */
 	public static double lendirX(double length, int direction)
 	{
-		return (int) (Math.cos(Math.toRadians(direction))*length);
+		return Math.cos(Math.toRadians(direction))*length;
 	}
 	
 	/**
@@ -139,6 +139,23 @@ public class HelpMath
 	 */
 	public static double lendirY(double length, int direction)
 	{
-		return (int) (Math.sin(Math.toRadians(direction))*length);
+		return Math.sin(Math.toRadians(direction))*length;
+	}
+	
+	/**
+	 * 
+	 * Changes the direction to a value between 0 and 360. For example -10 becomes 350.
+	 *
+	 * @param direction The direction to be adjusted
+	 * @return The adjusted direction
+	 */
+	public static double checkDirection(double direction)
+	{
+		double tmpdir = direction % 360;
+		
+		if (tmpdir < 0)
+			tmpdir += 360;
+		
+		return tmpdir;
 	}
 }

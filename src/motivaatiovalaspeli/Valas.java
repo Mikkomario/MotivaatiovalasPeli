@@ -13,7 +13,9 @@ public class Valas extends PhysicObject3D implements KeyListener
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
-	// TODO: Add speed
+	// TODO: Add speed / motion
+	private int tillMovement, movementInterval;
+	private double movementForce;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -24,13 +26,23 @@ public class Valas extends PhysicObject3D implements KeyListener
 	 * @param x Object's new position's x-coordinate in game world (Pxl)
 	 * @param y Object's new position's y-coordinate in game world (Pxl)
 	 * @param z Object's new position's z-coordinate in game world (Pxl)
+	 * @param movementInterval How often is the valas moved (steps)
+	 * @param movementForce How much accelration is added to the object at each movement
 	 * @param name Object's new nickname
 	 */
-	public Valas(int x, int y, int z, String name)
+	public Valas(int x, int y, int z, int movementInterval, double movementForce, String name)
 	{
 		super(x, y, z, name);
 		
 		setRotationFriction(1);
+		setFriction(0.1);
+		this.movementForce = movementForce;
+		
+		if (movementInterval > 0)
+			this.movementInterval = movementInterval;
+		else
+			this.movementInterval = 1;
+		this.tillMovement = this.movementInterval;
 	}
 	
 	
@@ -121,7 +133,28 @@ public class Valas extends PhysicObject3D implements KeyListener
 		return 0;
 	}
 	
-	// TODO: Override act and create movement
+	@Override
+	public void act()
+	{
+		// Adds valas' own movement if needed and checks the angles
+		checkAngle(50);
+		
+		this.tillMovement --;
+		if (this.tillMovement == 0)
+		{
+			this.tillMovement = this.movementInterval;
+			//addMotion3D((int) getXAngle(), -(int) getYAngle() -90, this.movementForce);
+			setMotion3D((int) getXAngle(), (int) -getYAngle() - 90, this.movementForce);
+			
+			//System.out.println(getVspeed());
+			//System.out.println(getXAngle());
+			//System.out.println(getYAngle());
+			//System.out.println("Speed: " + getHspeed() + ", " + getVspeed() + ", " + getZspeed());
+			//System.out.println("Direction " + getXAngle() + ", " + getYAngle() + ", " + getZAngle());
+		}
+		
+		super.act();
+	}
 	
 	
 	// OTHER METHODS	--------------------------------------------------

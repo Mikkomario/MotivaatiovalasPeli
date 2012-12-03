@@ -252,7 +252,7 @@ public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 	 * 
 	 * Adds the object's movement towards the given direction
 	 *
-	 * @param direction Direction towards wich the force is applied (degrees)
+	 * @param direction Direction towards which the force is applied (degrees)
 	 * @param force The amount of force applied to the object (pxl / step)
 	 */
 	public void addMotion2D(int direction, double force)
@@ -269,18 +269,35 @@ public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 	 * 
 	 * Adds the object's three dimensional movement towards the given directions
 	 *
-	 * @param zdirection Direction aroudn the z-axis towards wich the force is applied (degrees)
-	 * @param ydirection Direction aroudn the y-axis towards wich the force is applied (degrees)
+	 * @param xorzdirection Direction around the z or x-axis towards which the force is applied (degrees)
+	 * @param ydirection Direction aroudn the y-axis towards which the force is applied (degrees)
 	 * @param force The amount of force applied to the object (pxl / step)
 	 */
-	public void addMotion3D(int zdirection, int ydirection, double force)
+	public void addMotion3D(int xorzdirection, int ydirection, double force)
 	{
-		double zaccelration = HelpMath.lendirY(force, ydirection);
-		double xyaccelration = HelpMath.lendirX(force, ydirection);
-		double haccelration = HelpMath.lendirX(xyaccelration, zdirection);
-		double vaccelration = HelpMath.lendirY(xyaccelration, zdirection);
+		int checkedydir = (int) HelpMath.checkDirection(ydirection);
+		int checkedxzdir = (int) HelpMath.checkDirection(xorzdirection);
+		
+		double vaccelration = HelpMath.lendirY(force, checkedxzdir);
+		double zxaccelration = HelpMath.lendirX(force, checkedxzdir);
+		
+		double haccelration = HelpMath.lendirX(zxaccelration, checkedydir);
+		double zaccelration = HelpMath.lendirY(zxaccelration, checkedydir);
 		
 		addVelocity(haccelration, vaccelration, zaccelration);
+		
+		/*
+		// = yaccelration
+		double zaccelration = HelpMath.lendirY(force, checkedydir);
+		// = zxaccelration
+		double xyaccelration = HelpMath.lendirX(force, checkedydir);
+		
+		double haccelration = HelpMath.lendirX(xyaccelration, checkedxzdir);
+		// = zaccelration
+		double vaccelration = HelpMath.lendirY(xyaccelration, checkedxzdir);
+		
+		addVelocity(haccelration, vaccelration, zaccelration);
+		*/
 	}
 	
 	/**
@@ -302,14 +319,16 @@ public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 	 * 
 	 * Makes the object move towards given directions with given speed
 	 *
-	 * @param zdirection The object's new moving direction around the z-axis (degrees)
+	 * @param xorzdirection The object's new moving direction around the z or x-axis (degrees)
 	 * @param ydirection The object's new moving direction around the y-axis (degrees)
 	 * @param speed How fast the objec will be moving (pxl / step)
 	 */
-	public void setMotion3D(int zdirection, int ydirection, double speed)
+	public void setMotion3D(int xorzdirection, int ydirection, double speed)
 	{
 		setVelocity(0, 0, 0);
-		addMotion3D(zdirection, ydirection, speed);
+		addMotion3D(xorzdirection, ydirection, speed);
+		
+		// TODO: Add checkdirection
 	}
 	
 	/**

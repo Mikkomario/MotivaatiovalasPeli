@@ -321,20 +321,9 @@ public abstract class DrawnObject3D implements Drawable
 	// Restores the angle to between 0 and 360
 	private void checkAngle()
 	{
-		this.zangle = this.zangle % 360;
-		
-		if (this.zangle < 0)
-			this.zangle += 360;
-		
-		this.xangle = this.xangle % 360;
-		
-		if (this.xangle < 0)
-			this.xangle += 360;
-		
-		this.yangle = this.yangle % 360;
-		
-		if (this.yangle < 0)
-			this.yangle += 360;
+		this.xangle = HelpMath.checkDirection(this.xangle);
+		this.yangle = HelpMath.checkDirection(this.yangle);
+		this.zangle = HelpMath.checkDirection(this.zangle);
 	}
 	
 	/**
