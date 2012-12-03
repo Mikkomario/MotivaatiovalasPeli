@@ -13,6 +13,10 @@ import processing.core.PApplet;
  */
 public class MotivaatiovalasPeli extends PApplet
 {
+	// TODO: Add fading using layers with low alpha value
+	// TODO: Add valas' controlling
+	
+	
 	// ATTRIBUTES	-------------------------------------------------------
 	
 	private DrawableHandler mainDrawer;

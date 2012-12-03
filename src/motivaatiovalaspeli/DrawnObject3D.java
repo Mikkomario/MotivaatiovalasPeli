@@ -62,6 +62,21 @@ public abstract class DrawnObject3D implements Drawable
 	 */
 	public abstract void drawSelf3D(MotivaatiovalasPeli applet);
 	
+	/**
+	 * @return The Object's origin's x-translation from the left
+	 */
+	public abstract int getOriginX();
+	
+	/**
+	 * @return The Object's origin's y-translation from the top
+	 */
+	public abstract int getOriginY();
+	
+	/**
+	 * @return The Object's origin's z-translation from the center
+	 */
+	public abstract int getOriginZ();
+	
 	
 	// IMPLEMENTED METHODS	-----------------------------------------------
 
@@ -74,6 +89,8 @@ public abstract class DrawnObject3D implements Drawable
 		
 		// Translates the object
 		applet.translate((float) this.x, (float) this.y, (float) this.z);
+		// Translates the origin
+		applet.translate(getOriginX(), getOriginY(), getOriginZ());
 		// Rotates it
 		applet.rotateX((float) Math.toRadians(getXAngle()));
 		applet.rotateY((float) Math.toRadians(getYAngle()));
@@ -189,6 +206,7 @@ public abstract class DrawnObject3D implements Drawable
 		this.zangle += zrotation;
 		this.xangle += xrotation;
 		this.yangle += yrotation;
+		//System.out.println(getXAngle());
 		checkAngle();
 	}
 	
@@ -303,17 +321,17 @@ public abstract class DrawnObject3D implements Drawable
 	// Restores the angle to between 0 and 360
 	private void checkAngle()
 	{
-		this.zangle = Math.abs(this.zangle % 360);
+		this.zangle = this.zangle % 360;
 		
 		if (this.zangle < 0)
 			this.zangle += 360;
 		
-		this.xangle = Math.abs(this.xangle % 360);
+		this.xangle = this.xangle % 360;
 		
 		if (this.xangle < 0)
 			this.xangle += 360;
 		
-		this.yangle = Math.abs(this.yangle % 360);
+		this.yangle = this.yangle % 360;
 		
 		if (this.yangle < 0)
 			this.yangle += 360;

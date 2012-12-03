@@ -415,12 +415,27 @@ public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 	// Slows the rotation speed the amoutn of given friction
 	private void implyRotationFriction()
 	{	
+		// MIKSI JAVASSA EI OLE FUNCTION POINTEREITA!?!
 		if (Math.abs(getZRotation()) <= getRotationFriction())
 			this.zrotation = 0;
 		else if (getZRotation() > 0)
 			this.zrotation -= getRotationFriction();
 		else
 			this.zrotation += getRotationFriction();
+		
+		if (Math.abs(getXRotation()) <= getRotationFriction())
+			this.xrotation = 0;
+		else if (getXRotation() > 0)
+			this.xrotation -= getRotationFriction();
+		else
+			this.xrotation += getRotationFriction();
+		
+		if (Math.abs(getYRotation()) <= getRotationFriction())
+			this.yrotation = 0;
+		else if (getYRotation() > 0)
+			this.yrotation -= getRotationFriction();
+		else
+			this.yrotation += getRotationFriction();
 	}
 
 }
