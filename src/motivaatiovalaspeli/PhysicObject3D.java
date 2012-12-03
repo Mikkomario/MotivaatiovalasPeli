@@ -342,6 +342,7 @@ public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 		setMotion2D(direction, getSpeed());
 	}
 	
+	// GetDirections won't work!
 	/**
 	 * @return The direction around the z-axis towards which the object is currently moving
 	 */
@@ -377,6 +378,15 @@ public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 		setMotion2D(getZDirection(), speed);
 	}
 	
+	/**
+	 * Changes the objec't movement speed, keeping the same direction
+	 * @param speed Object's new speed
+	 */
+	public void setSpeed3D(double speed)
+	{
+		// TODO: Doesn't work
+		setMotion3D(getZDirection(), getYDirection(), speed);
+	}
 	
 	// OTHER METHODS	----------------------------------------------------
 	

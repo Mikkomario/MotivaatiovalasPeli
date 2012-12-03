@@ -23,7 +23,7 @@ public class MotivaatiovalasPeli extends PApplet
 	private StepHandler stepHandler;
 	private KeyListenerHandler keyhandler;
 	private Valas player;
-	private Scroller scroller;
+	private FollowingScroller playerscroller;
 	
 	
 	// IMPLEMENTED METHODS	-----------------------------------------------
@@ -46,21 +46,20 @@ public class MotivaatiovalasPeli extends PApplet
 		this.stepHandler.addActor(this.keyhandler);
 		
 		// Creates the playable valas and adds it to drawer, stephandler and keyhandler
-		this.player = new Valas(this.width/2, this.height/2, 0, 20, 2, "Testivalas");
+		this.player = new Valas(this.width/2, this.height/2, 0, 20, 3, "Testivalas");
 		this.mainDrawer.addDrawable(this.player);
 		this.stepHandler.addActor(this.player);
 		this.keyhandler.addListener(this.player);
 		
-		// Creates the scroller and adds canyon as one of its scrollables
-		this.scroller = new Scroller(7);
-		this.stepHandler.addActor(this.scroller);
-		this.scroller.addScrollable(testcanyon);
-		//this.scroller.addScrollable(this.player);
+		// Creates the scroller and adds canyon and valas as its scrollables
+		this.playerscroller = new FollowingScroller(this.player);
+		this.stepHandler.addActor(this.playerscroller);
+		this.playerscroller.addScrollable(testcanyon);
 	}
 	
 	@Override
 	public void draw()
-	{
+	{	
 		background(0, 10, 100);
 		//camera(this.width/2, this.height/2, 420, this.width/2, this.height/2,
 		//		0, 0, 1, 0 );

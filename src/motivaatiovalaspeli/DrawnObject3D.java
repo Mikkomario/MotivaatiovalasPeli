@@ -285,7 +285,7 @@ public abstract class DrawnObject3D implements Drawable
 	 * @param y The new position's y-coordinate (pxl)
 	 * @param z The new position's z-coordinate (pxl)
 	 */
-	public void setPosition(int x, int y, int z)
+	public void setPosition(double x, double y, double z)
 	{
 		this.x = x;
 		this.y = y;

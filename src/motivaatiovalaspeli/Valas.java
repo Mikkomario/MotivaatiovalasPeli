@@ -9,7 +9,7 @@ import processing.core.PConstants;
  * @author Gandalf.
  *         Created 2.12.2012.
  */
-public class Valas extends PhysicObject3D implements KeyListener
+public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
@@ -143,8 +143,17 @@ public class Valas extends PhysicObject3D implements KeyListener
 		if (this.tillMovement == 0)
 		{
 			this.tillMovement = this.movementInterval;
-			//addMotion3D((int) getXAngle(), -(int) getYAngle() -90, this.movementForce);
-			setMotion3D((int) getXAngle(), (int) -getYAngle() - 90, this.movementForce);
+			addMotion3D((int) getXAngle(), -(int) getYAngle() -90, this.movementForce);
+			
+			System.out.println(getZDirection());
+			
+			/*
+			if (getSpeed() > 10)
+			{
+				setSpeed3D(10);
+			}
+			*/
+			//setMotion3D((int) getXAngle(), (int) -getYAngle() - 90, this.movementForce);
 			
 			//System.out.println(getVspeed());
 			//System.out.println(getXAngle());
@@ -154,6 +163,40 @@ public class Valas extends PhysicObject3D implements KeyListener
 		}
 		
 		super.act();
+	}
+	
+	@Override
+	public void setZ(double z)
+	{
+		setPosition(getX(), getY(), z);
+	}
+
+
+	@Override
+	public int getMaxZ()
+	{
+		return 5;
+	}
+
+
+	@Override
+	public int getMinZ()
+	{
+		return -5;
+	}
+
+
+	@Override
+	public boolean isReturned()
+	{
+		return false;
+	}
+
+
+	@Override
+	public void onOutOfRange()
+	{
+		// Does nothing
 	}
 	
 	
@@ -174,5 +217,4 @@ public class Valas extends PhysicObject3D implements KeyListener
 		if (getYAngle() < 310 && getYAngle() > 180)
 			setAngle(getXAngle(), -50, getZAngle());
 	}
-
 }

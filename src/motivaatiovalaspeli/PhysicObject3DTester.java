@@ -2,8 +2,6 @@ package motivaatiovalaspeli;
 
 import java.util.Random;
 
-import processing.core.PApplet;
-
 /**
  * This class is supposed to test the physicObject3D class
  *
