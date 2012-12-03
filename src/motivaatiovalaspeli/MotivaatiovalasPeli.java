@@ -1,7 +1,5 @@
 package motivaatiovalaspeli;
 
-import java.util.ArrayList;
-
 import processing.core.PApplet;
 
 /**
@@ -21,6 +19,7 @@ public class MotivaatiovalasPeli extends PApplet
 	private StepHandler stepHandler;
 	private KeyListenerHandler keyhandler;
 	private Valas player;
+	private Scroller scroller;
 	
 	
 	// IMPLEMENTED METHODS	-----------------------------------------------
@@ -32,12 +31,11 @@ public class MotivaatiovalasPeli extends PApplet
 		noFill();
 		
 		// Creates the canyon and adds it to the drawables handled
-		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 5, 0, 1100, 7);
+		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 5, 0, 1100);
 		this.mainDrawer = new DrawableHandler(testcanyon);
 		
-		// Also creates the stephandler and ads canyon to its actors
+		// Also creates the stephandler
 		this.stepHandler = new StepHandler(60, this);
-		this.stepHandler.addActor(testcanyon);
 		
 		// Creates the listenerhandler and adds it to stephandler
 		this.keyhandler = new KeyListenerHandler();
@@ -48,6 +46,11 @@ public class MotivaatiovalasPeli extends PApplet
 		this.mainDrawer.addDrawable(this.player);
 		this.stepHandler.addActor(this.player);
 		this.keyhandler.addListener(this.player);
+		
+		// Creates the scroller and adds canyon as one of its scrollables
+		this.scroller = new Scroller(7);
+		this.stepHandler.addActor(this.scroller);
+		this.scroller.addScrollable(testcanyon);
 	}
 	
 	@Override

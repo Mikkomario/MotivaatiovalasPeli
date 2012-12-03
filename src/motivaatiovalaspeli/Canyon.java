@@ -7,15 +7,15 @@ package motivaatiovalaspeli;
  * @author Gandalf.
  *         Created 29.11.2012.
  */
-public class Canyon implements Drawable, Actor
+public class Canyon implements Drawable, Scrollable
 {
 	// ATTRIBUTES	--------------------------------------------------------
 	
 	// TODO: Add texturing
 	
-	private boolean visible, alive, active;
+	private boolean visible, alive;
 	private int width, height, depth, maxz, minz;
-	private double z, speed;
+	private double z;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -30,10 +30,9 @@ public class Canyon implements Drawable, Actor
 	 * @param z How far the nearest point of the canyon is on the z-axis (pxl)
 	 * @param minz How close the piece of canyon can come before it jumps back to maxz?
 	 * @param maxz How far is the piece of canyon dropped when it goes too far?
-	 * @param speed How fast the canyon moves on the z-axis (pxl / step)
 	 */
 	public Canyon(int width, int height, int depth, int z, int minz,
-			int maxz, double speed)
+			int maxz)
 	{
 		// Initializes attributes
 		this.width = width;
@@ -42,11 +41,9 @@ public class Canyon implements Drawable, Actor
 		this.z = z;
 		this.minz = minz;
 		this.maxz = maxz;
-		this.speed = speed;
 		
 		this.visible = true;
 		this.alive = true;
-		this.active = true;
 	}
 	
 	
@@ -113,67 +110,45 @@ public class Canyon implements Drawable, Actor
 		this.visible = false;
 		return true;
 	}
-
+	
 	@Override
-	public boolean isActive()
+	public double getZ()
 	{
-		return this.active;
+		return this.z;
 	}
 
-	@Override
-	public boolean isDead()
-	{
-		return !this.alive;
-	}
 
 	@Override
-	public void act()
+	public void setZ(double z)
 	{
-		System.out.println(this.z);
-		// The canyon is scrolled at each step
-		move();
+		this.z = z;
 	}
 
-	@Override
-	public boolean kill()
-	{
-		// Canyon can only be killed by ending its drawing
-		return wontBeDrawn();
-	}
 
 	@Override
-	public boolean inActivate()
+	public int getMaxZ()
 	{
-		this.active = false;
+		return this.maxz;
+	}
+
+
+	@Override
+	public int getMinZ()
+	{
+		return this.minz;
+	}
+
+
+	@Override
+	public boolean isReturned()
+	{
 		return true;
 	}
 
-	@Override
-	public boolean activate()
-	{
-		this.active = true;
-		return true;
-	}
-	
-	
-	// OTHER METHODS	----------------------------------------------------
-	
-	private void move()
-	{
-		// Scrolls the canyon forward
-		this.z += this.speed;
-		
-		// Checks if it has gone too far
-		if (this.z > this.maxz)
-		{
-			this.z -= this.maxz - this.minz;
-			System.out.println("Too close!");
-		}
-		if (this.z < this.minz)
-		{
-			this.z += this.maxz - this.minz;
-			System.out.println("Too far!");
-		}
-	}
 
+	@Override
+	public void onOutOfRange()
+	{
+		// Does nothing
+	}
 }
