@@ -15,7 +15,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 	
 	// TODO: Add speed / motion
 	private int tillMovement, movementInterval;
-	private double movementForce;
+	private double movementForce, maxSPeed;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -28,15 +28,17 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 	 * @param z Object's new position's z-coordinate in game world (Pxl)
 	 * @param movementInterval How often is the valas moved (steps)
 	 * @param movementForce How much accelration is added to the object at each movement
+	 * @param maxSpeed How fast can the object move
 	 * @param name Object's new nickname
 	 */
-	public Valas(int x, int y, int z, int movementInterval, double movementForce, String name)
+	public Valas(int x, int y, int z, int movementInterval, double movementForce, double maxSpeed, String name)
 	{
 		super(x, y, z, name);
 		
 		setRotationFriction(1);
-		setFriction(0.1);
+		setFriction(0.15);
 		this.movementForce = movementForce;
+		this.maxSPeed = maxSpeed;
 		
 		if (movementInterval > 0)
 			this.movementInterval = movementInterval;
@@ -145,14 +147,13 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 			this.tillMovement = this.movementInterval;
 			addMotion3D((int) getXAngle(), -(int) getYAngle() -90, this.movementForce);
 			
-			System.out.println(getZDirection());
+			//System.out.println(getZDirection());
 			
-			/*
-			if (getSpeed() > 10)
+			if (getSpeed() > this.maxSPeed)
 			{
-				setSpeed3D(10);
+				//System.out.println("Slows");
+				setSpeed3D(10, false);
 			}
-			*/
 			//setMotion3D((int) getXAngle(), (int) -getYAngle() - 90, this.movementForce);
 			
 			//System.out.println(getVspeed());

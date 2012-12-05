@@ -381,11 +381,26 @@ public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 	/**
 	 * Changes the objec't movement speed, keeping the same direction
 	 * @param speed Object's new speed
+	 * @param relative Is the speed added to the old speed (true) or absolute (false)
 	 */
-	public void setSpeed3D(double speed)
+	public void setSpeed3D(double speed, boolean relative)
 	{
-		// TODO: Doesn't work
-		setMotion3D(getZDirection(), getYDirection(), speed);
+		double oldspeed = getSpeed();
+		
+		// Can't divide by 0
+		if (speed == 0)
+			setVelocity(0, 0, 0);
+		else
+		{
+			double multiplier = speed / oldspeed;
+			
+			if (relative)
+				multiplier++;
+			
+			setVelocity(getHspeed()*multiplier, 
+					getVspeed()*multiplier, getZspeed()*multiplier);
+		}
+		//setMotion3D(getZDirection(), getYDirection(), speed);
 	}
 	
 	// OTHER METHODS	----------------------------------------------------
@@ -418,27 +433,11 @@ public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 	
 	// Slows the speed the amount of given friction
 	private void implyFriction()
-	{
-		// Calculates the old speed
-		double lastSpeed = getSpeed();
-		double newSpeed = lastSpeed;
-		
-		// Calculates the new speed
-		if (lastSpeed <= getFriction())
-		{
-			// Changes the velocity
-			this.hspeed = 0;
-			this.vspeed = 0;
-			this.zspeed = 0;
-		}
+	{	
+		if (getSpeed() <= getFriction())
+			setVelocity(0, 0, 0);
 		else
-		{
-			newSpeed -= getFriction();
-			// Changes the velocity
-			this.hspeed *= newSpeed / lastSpeed;
-			this.vspeed *= newSpeed / lastSpeed;
-			this.zspeed *= newSpeed / lastSpeed;
-		}
+			setSpeed3D(-getFriction(), true);
 	}
 	
 	// Slows the rotation speed the amoutn of given friction
