@@ -60,7 +60,7 @@ public class MotivaatiovalasPeli extends PApplet
 		this.playerscroller.addScrollable(testcanyon);
 		
 		// Creates a single rock for testing
-		Rock testRock = new Rock(this.width/2, this.height/2, -500, -800, 200);
+		Rock testRock = new Rock(this.width/2, this.height/2, -500, -800, 300);
 		this.mainDrawer.addDrawable(testRock);
 		this.playerscroller.addScrollable(testRock);
 	}

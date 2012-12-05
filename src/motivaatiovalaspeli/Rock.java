@@ -1,5 +1,7 @@
 package motivaatiovalaspeli;
 
+import java.util.Random;
+
 /**
  * Rocks are scattered all over the sea floor and serve as simple obstacles for the player.
  *
@@ -7,7 +9,7 @@ package motivaatiovalaspeli;
  *         Created 5.12.2012.
  */
 public class Rock extends DrawnObject3D implements Scrollable
-{
+{	
 	// ATTRIBUTES	------------------------------------------------------
 	
 	private int minZ, maxZ;
@@ -32,7 +34,7 @@ public class Rock extends DrawnObject3D implements Scrollable
 		this.minZ = minZ;
 		this.maxZ = maxZ;
 		
-		// TODO Add appearance transforming
+		randomTransform();
 	}
 	
 	
@@ -75,8 +77,14 @@ public class Rock extends DrawnObject3D implements Scrollable
 	@Override
 	public void drawSelf3D(MotivaatiovalasPeli applet)
 	{
+		// Sets opacity lower if between camera and player
+		int alpha = 255;
+		
+		if (getZ() > 0)
+			alpha = (int) ((1 - getZ() / getMaxZ())*255);
+			
 		// Draws a simple box with a size of 64x64
-		applet.fill(50);
+		applet.fill(50, 50, 50, alpha);
 		applet.stroke(25);
 		applet.box(64, 64, 64);
 		
@@ -120,6 +128,17 @@ public class Rock extends DrawnObject3D implements Scrollable
 	{
 		// TODO Same here, nothing yet
 		return false;
+	}
+	
+	
+	// OTHER METHODS	-------------------------------------------------
+	
+	private void randomTransform()
+	{
+		Random rand = new Random();
+		
+		setAngle(0, 0, rand.nextInt(360));
+		setScale(1 + rand.nextDouble()*3, 1 + rand.nextDouble()*3, 1 + rand.nextDouble()*3);
 	}
 
 }
