@@ -37,8 +37,10 @@ public class MotivaatiovalasPeli extends PApplet
 		noFill();
 		
 		// Creates the canyon and adds it to the drawables handled
-		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 5, 0, 1100);
+		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 100, -900, 1100);
 		this.mainDrawer = new DrawableHandler(testcanyon);
+		Canyon testcanyon2 = new Canyon(this.width, this.height, 1000, -900, -900, 1100);
+		this.mainDrawer.addDrawable(testcanyon2);
 		
 		// Also creates the stephandler
 		this.stepHandler = new StepHandler(60, this);
@@ -58,16 +60,21 @@ public class MotivaatiovalasPeli extends PApplet
 		this.playerscroller = new FollowingScroller(this.player);
 		this.stepHandler.addActor(this.playerscroller);
 		this.playerscroller.addScrollable(testcanyon);
+		this.playerscroller.addScrollable(testcanyon2);
 		
-		// Creates a single rock for testing
-		Rock testRock = new Rock(this.width/2, this.height/2, -500, -800, 300);
-		this.mainDrawer.addDrawable(testRock);
-		this.playerscroller.addScrollable(testRock);
+		// Creates a rockcreator for testing
+		RockCreator rcreator = new RockCreator(2, 12, 10, 100, this.width,
+				this.height, -1000, 300, this.mainDrawer, this.playerscroller);
+		this.stepHandler.addActor(rcreator);
+		
+		//testcanyon.setInvisible();
 	}
 	
 	@Override
 	public void draw()
 	{	
+		//System.out.println(this.frameRate);
+		
 		background(0, 10, 100);
 		//camera(this.width/2, this.height/2, 420, this.width/2, this.height/2,
 		//		0, 0, 1, 0 );
@@ -77,6 +84,7 @@ public class MotivaatiovalasPeli extends PApplet
 		// Updates all objects through the stephandler
 		this.stepHandler.act();
 		// Draws all the objects (Also checks if some are dead)
+		//this.mainDrawer.isVisible();
 		this.mainDrawer.wontBeDrawn();
 		this.mainDrawer.drawSelf(this);
 		

@@ -150,6 +150,10 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 	@Override
 	public void act()
 	{
+		//System.out.println(HelpMath.checkDirection(HelpMath.pointDirection((int) getX(), (int) getY(), 
+		//		this.maxX/2, this.maxY/2)));
+		//System.out.println(HelpMath.pointDistance((int) getX(), (int) getY(), this.maxX/2, this.maxY/2));
+		
 		// Adds valas' own movement if needed and checks the angles
 		checkAngle(50);
 		

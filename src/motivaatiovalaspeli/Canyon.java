@@ -150,5 +150,6 @@ public class Canyon implements Drawable, Scrollable
 	public void onOutOfRange()
 	{
 		// Does nothing
+		//System.out.println("Canyon moves");
 	}
 }

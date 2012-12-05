@@ -85,7 +85,7 @@ public class Rock extends DrawnObject3D implements Scrollable
 			
 		// Draws a simple box with a size of 64x64
 		applet.fill(50, 50, 50, alpha);
-		applet.stroke(25);
+		applet.stroke(40);
 		applet.box(64, 64, 64);
 		
 		// Resets
@@ -130,6 +130,14 @@ public class Rock extends DrawnObject3D implements Scrollable
 		return false;
 	}
 	
+	/*
+	@Override
+	public boolean isVisible()
+	{
+		return super.isVisible() && getZ() > -500;
+	}
+	*/
+	
 	
 	// OTHER METHODS	-------------------------------------------------
 	
@@ -138,7 +146,7 @@ public class Rock extends DrawnObject3D implements Scrollable
 		Random rand = new Random();
 		
 		setAngle(0, 0, rand.nextInt(360));
-		setScale(1 + rand.nextDouble()*3, 1 + rand.nextDouble()*3, 1 + rand.nextDouble()*3);
+		setScale(1 + rand.nextDouble()*6, 1 + rand.nextDouble()*3, 1 + rand.nextDouble()*2);
 	}
 
 }
