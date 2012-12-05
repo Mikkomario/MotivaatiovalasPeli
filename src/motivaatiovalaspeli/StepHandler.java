@@ -62,8 +62,8 @@ public class StepHandler extends ActorHandler
 		{
 			//System.out.println("STEP");
 			
-			// Also checks the activity and liveliness of all subactors
-			isActive();
+			// Also checks the liveliness of all subactors
+			//isActive();
 			isDead();
 			
 			super.act();

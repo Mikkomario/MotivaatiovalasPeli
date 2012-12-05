@@ -29,11 +29,10 @@ public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 	 * @param x The ingame x-coordinate of the new object
 	 * @param y The ingame y-coordinate of the new object
 	 * @param z The ingame z-coordinate of the new object
-	 * @param name The name of the object
 	 */
-	public PhysicObject3D(int x, int y, int z, String name)
+	public PhysicObject3D(int x, int y, int z)
 	{
-		super(x, y, z, name);
+		super(x, y, z);
 		
 		this.hspeed = 0;
 		this.vspeed = 0;

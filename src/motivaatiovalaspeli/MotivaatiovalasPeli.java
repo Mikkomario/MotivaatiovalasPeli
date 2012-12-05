@@ -31,6 +31,8 @@ public class MotivaatiovalasPeli extends PApplet
 	@Override
 	public void setup()
 	{
+		// TODO: Add perspective
+		
 		size(640, 480, P3D);
 		noFill();
 		
@@ -47,7 +49,7 @@ public class MotivaatiovalasPeli extends PApplet
 		
 		// Creates the playable valas and adds it to drawer, stephandler and keyhandler
 		this.player = new Valas(this.width/2, this.height/2, 0, this.width, 
-				this.height, 15, 8, 15, "Testivalas");
+				this.height, 15, 8, 15);
 		this.mainDrawer.addDrawable(this.player);
 		this.stepHandler.addActor(this.player);
 		this.keyhandler.addListener(this.player);
@@ -56,6 +58,11 @@ public class MotivaatiovalasPeli extends PApplet
 		this.playerscroller = new FollowingScroller(this.player);
 		this.stepHandler.addActor(this.playerscroller);
 		this.playerscroller.addScrollable(testcanyon);
+		
+		// Creates a single rock for testing
+		Rock testRock = new Rock(this.width/2, this.height/2, -500, -800, 200);
+		this.mainDrawer.addDrawable(testRock);
+		this.playerscroller.addScrollable(testRock);
 	}
 	
 	@Override
@@ -69,7 +76,8 @@ public class MotivaatiovalasPeli extends PApplet
 		
 		// Updates all objects through the stephandler
 		this.stepHandler.act();
-		// Draws all the objects
+		// Draws all the objects (Also checks if some are dead)
+		this.mainDrawer.wontBeDrawn();
 		this.mainDrawer.drawSelf(this);
 		
 		// TEST DRAWING

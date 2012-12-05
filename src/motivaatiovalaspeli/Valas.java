@@ -37,12 +37,11 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 	 * @param movementInterval How often is the valas moved (steps)
 	 * @param movementForce How much accelration is added to the object at each movement
 	 * @param maxSpeed How fast can the object move
-	 * @param name Object's new nickname
 	 */
 	public Valas(int x, int y, int z, int maxX, int maxY, int movementInterval,
-			double movementForce, double maxSpeed, String name)
+			double movementForce, double maxSpeed)
 	{
-		super(x, y, z, name);
+		super(x, y, z);
 		
 		setRotationFriction(1);
 		setFriction(0.15);
@@ -133,13 +132,13 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 	@Override
 	public int getOriginX()
 	{
-		return -16;
+		return 16;
 	}
 
 	@Override
 	public int getOriginY()
 	{
-		return -16;
+		return 16;
 	}
 
 	@Override

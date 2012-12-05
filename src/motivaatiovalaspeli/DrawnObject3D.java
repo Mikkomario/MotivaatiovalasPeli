@@ -15,7 +15,6 @@ public abstract class DrawnObject3D implements Drawable
 	
 	private double xscale, yscale, zscale, x, y, z, zangle, xangle, yangle;
 	private boolean visible, alive;
-	private String name;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -30,15 +29,13 @@ public abstract class DrawnObject3D implements Drawable
 	 * @param y The new y-coordinate of the object (Game world Pxl)
 	 * @param z The new z-coordinate of the object (Game world Pxl)
 	 * @param sprite The Sprite with which the object will be drawn
-	 * @param name The name of the object, should be informative
 	 */
-	public DrawnObject3D(int x, int y, int z, String name)
+	public DrawnObject3D(int x, int y, int z)
 	{
 		// Initializes the attributes
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.name = name;
 		
 		this.xscale = 1;
 		this.yscale = 1;
@@ -90,7 +87,7 @@ public abstract class DrawnObject3D implements Drawable
 		// Translates the object
 		applet.translate((float) this.x, (float) this.y, (float) this.z);
 		// Translates the origin
-		applet.translate(getOriginX(), getOriginY(), getOriginZ());
+		applet.translate(-getOriginX(), -getOriginY(), -getOriginZ());
 		// Rotates it
 		applet.rotateX((float) Math.toRadians(getXAngle()));
 		applet.rotateY((float) Math.toRadians(getYAngle()));
@@ -141,12 +138,6 @@ public abstract class DrawnObject3D implements Drawable
 	{
 		this.visible = false;
 		return true;
-	}
-	
-	@Override
-	public String toString()
-	{
-		return getName();
 	}
 	
 	
@@ -305,14 +296,6 @@ public abstract class DrawnObject3D implements Drawable
 		this.x += hspeed;
 		this.y += vspeed;
 		this.z += zspeed;
-	}
-	
-	/**
-	 * @return The name of the object
-	 */
-	public String getName()
-	{
-		return this.name;
 	}
 	
 	

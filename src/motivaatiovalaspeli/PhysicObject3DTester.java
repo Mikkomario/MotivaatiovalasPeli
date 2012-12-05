@@ -24,7 +24,7 @@ public class PhysicObject3DTester
 	public static void main(String[] Args)
 	{
 		Random rand = new Random();
-		Valas valas = new Valas(50, 50, 0, 100, 100, 20, 1, 1, "Test");
+		Valas valas = new Valas(50, 50, 0, 100, 100, 20, 1, 1);
 		
 		printInfo(valas);
 		
