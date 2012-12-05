@@ -46,7 +46,8 @@ public class MotivaatiovalasPeli extends PApplet
 		this.stepHandler.addActor(this.keyhandler);
 		
 		// Creates the playable valas and adds it to drawer, stephandler and keyhandler
-		this.player = new Valas(this.width/2, this.height/2, 0, 15, 8, 15, "Testivalas");
+		this.player = new Valas(this.width/2, this.height/2, 0, this.width, 
+				this.height, 15, 8, 15, "Testivalas");
 		this.mainDrawer.addDrawable(this.player);
 		this.stepHandler.addActor(this.player);
 		this.keyhandler.addListener(this.player);

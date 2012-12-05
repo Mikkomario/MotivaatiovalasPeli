@@ -14,24 +14,33 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 	// ATTRIBUTES	------------------------------------------------------
 	
 	// TODO: Add speed / motion
-	private int tillMovement, movementInterval;
+	private int tillMovement, movementInterval, minX, maxX, minY, maxY;
 	private double movementForce, maxSPeed;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
 
 	/**
-	 * Creates a new valas to the given coordinates with the given name
+	 * Creates a new valas to the given coordinates with the given name. 
+	 * Valas also needs some information for its movement. Valas moves in 
+	 * bursts with the given interval and force. Valas also collides with borders 
+	 * of the 'screen' or area of play that is given with maxX and maxY. The border's 
+	 * left top is at (0, 0) at default.
 	 *
 	 * @param x Object's new position's x-coordinate in game world (Pxl)
 	 * @param y Object's new position's y-coordinate in game world (Pxl)
 	 * @param z Object's new position's z-coordinate in game world (Pxl)
+	 * @param maxX How large the position's x-coordinate can become before the valas "collides" 
+	 * with the wall and bounces back (Pxl)
+	 * @param maxY How large the position's x-coordinate can become before the valas "collides" 
+	 * with the wall and bounces back (Pxl)
 	 * @param movementInterval How often is the valas moved (steps)
 	 * @param movementForce How much accelration is added to the object at each movement
 	 * @param maxSpeed How fast can the object move
 	 * @param name Object's new nickname
 	 */
-	public Valas(int x, int y, int z, int movementInterval, double movementForce, double maxSpeed, String name)
+	public Valas(int x, int y, int z, int maxX, int maxY, int movementInterval,
+			double movementForce, double maxSpeed, String name)
 	{
 		super(x, y, z, name);
 		
@@ -39,6 +48,10 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 		setFriction(0.15);
 		this.movementForce = movementForce;
 		this.maxSPeed = maxSpeed;
+		this.maxX = maxX;
+		this.maxY = maxY;
+		this.minX = 0;
+		this.minY = 0;
 		
 		if (movementInterval > 0)
 			this.movementInterval = movementInterval;
@@ -154,6 +167,10 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 				//System.out.println("Slows");
 				setSpeed3D(10, false);
 			}
+			
+			// CHecks if the valas is colliding with the borders
+			checkBorders();
+			
 			//setMotion3D((int) getXAngle(), (int) -getYAngle() - 90, this.movementForce);
 			
 			//System.out.println(getVspeed());
@@ -217,5 +234,19 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 		
 		if (getYAngle() < 310 && getYAngle() > 180)
 			setAngle(getXAngle(), -50, getZAngle());
+	}
+	
+	// Checks if the valas has gone too far on the x or y axis and returns it back
+	private void checkBorders()
+	{
+		if (getX() - 35 < this.minX)
+			setVelocity(Math.abs(getHspeed())*0.75, getVspeed(), getZspeed());
+		else if (getX() + 32 > this.maxX)
+			setVelocity(-Math.abs(getHspeed())*0.75, getVspeed(), getZspeed());
+		
+		if (getY() - 35 < this.minY)
+			setVelocity(getHspeed(), Math.abs(getVspeed())*0.75, getZspeed());
+		if (getY() + 35 > this.maxY)
+			setVelocity(getHspeed(), -Math.abs(getVspeed())*0.75, getZspeed());
 	}
 }
