@@ -126,6 +126,7 @@ public class Rock extends DrawnObject3D implements Scrollable
 		
 		// Negates the transformation
 		Point negatedPoint = negateTransformations2D(x, y);
+		//System.out.println(negatedPoint);
 		
 		if (negatedPoint.x < getX())
 			return false;

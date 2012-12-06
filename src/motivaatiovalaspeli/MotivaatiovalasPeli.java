@@ -38,7 +38,7 @@ public class MotivaatiovalasPeli extends PApplet
 		
 		// Creates the canyon and adds it to the drawables handled
 		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 100, -900, 1100);
-		this.mainDrawer = new DrawableHandler(testcanyon);
+		this.mainDrawer = new DrawableHandler(testcanyon, false);
 		Canyon testcanyon2 = new Canyon(this.width, this.height, 1000, -900, -900, 1100);
 		this.mainDrawer.addDrawable(testcanyon2);
 		
@@ -62,9 +62,15 @@ public class MotivaatiovalasPeli extends PApplet
 		this.playerscroller.addScrollable(testcanyon);
 		this.playerscroller.addScrollable(testcanyon2);
 		
-		// Creates a rockcreator for testing
-		RockCreator rcreator = new RockCreator(2, 12, 10, 100, this.width,
-				this.height, -1000, 300, this.mainDrawer, this.playerscroller);
+		// Creates a rockhandler for drawing the rocks + collision detection
+		RockHandler rhandler = new RockHandler();
+		rhandler.addCollisionListener(this.player);
+		this.stepHandler.addActor(rhandler);
+		this.mainDrawer.addDrawable(rhandler);
+		
+		// Creates a rockcreator
+		RockCreator rcreator = new RockCreator(1, 1, 30, 120, this.width,
+				this.height, -1000, 300, rhandler, this.playerscroller);
 		this.stepHandler.addActor(rcreator);
 		
 		//testcanyon.setInvisible();

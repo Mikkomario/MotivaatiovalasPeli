@@ -31,30 +31,30 @@ public class HelpMath
 	 * 
 	 * Calculates the direction from one point to another around the x-axis (in degrees)
 	 *
-	 * @param y1 the first point's y coordinate
 	 * @param z1 the first point's z coordinate
-	 * @param y2 the second point's y coordinate
+	 * @param y1 the first point's y coordinate
 	 * @param z2 the second point's z coordinate
+	 * @param y2 the second point's y coordinate
 	 * @return the direction from point 1 to point 2 in degrees around the x-axis
 	 * **/
-	public static int pointXDirection(int y1, int z1, int y2, int z2)
+	public static int pointXDirection(int z1, int y1, int z2, int y2)
 	{
-		return HelpMath.pointDirection(y1, z1, y2, z2);
+		return HelpMath.pointDirection(z1, y1, z2, y2);
 	}
 	
 	/**
 	 * 
 	 * Calculates the direction from one point to another around the Y-axis (in degrees)
 	 *
-	 * @param z1 the first point's z coordinate
-	 * @param x1 the first point's x coordinate
-	 * @param z2 the second point's z coordinate
-	 * @param x2 the second point's x coordinate
+	 * @param x1 the first point's z coordinate
+	 * @param z1 the first point's x coordinate
+	 * @param x2 the second point's z coordinate
+	 * @param z2 the second point's x coordinate
 	 * @return the direction from point 1 to point 2 in degrees around the y-axis
 	**/
-	public static int PointYDirection(int z1, int x1, int z2, int x2)
+	public static int PointYDirection(int x1, int z1, int x2, int z2)
 	{
-		return HelpMath.pointDirection(z1, x1, z2, x2);
+		return HelpMath.pointDirection(x1, z1, x2, z2);
 	}
 	
 	/**

@@ -9,7 +9,7 @@ import processing.core.PConstants;
  * @author Gandalf.
  *         Created 2.12.2012.
  */
-public class Valas extends PhysicObject3D implements KeyListener, Scrollable
+public class Valas extends PhysicObject3D implements KeyListener, Scrollable, CollisionListener
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
@@ -143,6 +143,8 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 	@Override
 	public void act()
 	{
+		//System.out.println(getY() - getCollisionY());
+		
 		//System.out.println(HelpMath.checkDirection(HelpMath.pointDirection((int) getX(), (int) getY(), 
 		//		this.maxX/2, this.maxY/2)));
 		//System.out.println(HelpMath.pointDistance((int) getX(), (int) getY(), this.maxX/2, this.maxY/2));
@@ -211,6 +213,50 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 	public void onOutOfRange()
 	{
 		// Does nothing
+	}
+	
+	@Override
+	public int getCollisionX()
+	{
+		return (int) getX() + getOriginX() 
+				+ (int) HelpMath.lendirX(32, (int) getYAngle() + 90);
+	}
+
+
+	@Override
+	public int getCollisionY()
+	{
+		return (int) getY() +  getOriginY() 
+				- (int) HelpMath.lendirY(32, (int) -getXAngle());
+	}
+
+
+	@Override
+	public int getCollisionZ()
+	{
+		return (int) getZ() + getOriginZ() 
+				- (int) HelpMath.lendirX(32, (int) getXAngle());
+	}
+
+
+	@Override
+	public void onCollision(DrawnObject3D collidedObject)
+	{
+		if (!isActive())
+			return;
+		
+			//setSpeed3D(-5, false);
+			//setSpeed3D(-getSpeed(), false);
+		//System.out.println(getSpeed());
+		
+		int ydir = HelpMath.PointYDirection((int) collidedObject.getX(), 
+				(int) collidedObject.getZ(), (int) getX(), (int) getZ());
+		int zdir = HelpMath.PointZDirection((int) collidedObject.getX(), 
+				(int) collidedObject.getY(), (int) getX(), (int) getY());
+		double hspeed = HelpMath.lendirX(4, ydir);
+		double vspeed = HelpMath.lendirY(4, zdir);
+		double zspeed = HelpMath.lendirY(4, ydir);
+		setVelocity(hspeed, vspeed, zspeed);
 	}
 	
 	

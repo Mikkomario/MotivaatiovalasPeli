@@ -72,7 +72,8 @@ public class ActorHandler implements Actor
 	public ActorHandler(Actor initialActor)
 	{
 		this.actors = new ArrayList<Actor>();
-		addActor(initialActor);
+		if (initialActor != null)
+			addActor(initialActor);
 	}
 	
 	

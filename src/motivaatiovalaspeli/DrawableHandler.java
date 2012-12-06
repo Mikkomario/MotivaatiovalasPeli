@@ -14,6 +14,8 @@ public class DrawableHandler implements Drawable
 	// ATTRIBUTES	------------------------------------------------------
 	
 	private ArrayList<Drawable> drawables;
+	private boolean autodeath;
+	private boolean killed;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -25,13 +27,16 @@ public class DrawableHandler implements Drawable
 	 *before its wontBeDrawn method is called. Other drawables can be added later
 	 *
 	 *@param initialDrawables The Drawables added to the handler
+	 *@param autodeath Will the handler die when it runs out of living drawables
 	 */
 	@SuppressWarnings("unchecked")
-	public DrawableHandler(ArrayList<Drawable> initialDrawables)
+	public DrawableHandler(ArrayList<Drawable> initialDrawables, boolean autodeath)
 	{
 		// Initializes the attributes
 		if (initialDrawables != null)
 			this.drawables = (ArrayList<Drawable>) initialDrawables.clone();
+		this.autodeath = autodeath;
+		this.killed = false;
 		
 		// Checks the parameeter(s)
 		if (this.drawables == null)
@@ -45,10 +50,13 @@ public class DrawableHandler implements Drawable
 	 *before its WontBeDrawn method is called. Other drawables can be added later
 	 *
 	 *@param initialDrawables The Drawables added to the handler
+	 *@param autodeath Will the handler die when it runs out of living drawables
 	 */
-	public DrawableHandler(Drawable[] initialDrawables)
+	public DrawableHandler(Drawable[] initialDrawables, boolean autodeath)
 	{
 		this.drawables = new ArrayList<Drawable>();
+		this.autodeath = autodeath;
+		this.killed = false;
 		
 		// Initializes the attributes
 		if (initialDrawables != null)
@@ -67,11 +75,15 @@ public class DrawableHandler implements Drawable
 	 * The DrawableHandler dies when all it's subdrawables are dead.
 	 *
 	 * @param initialDrawable The Drawable the handler will be taking care of
+	 * @param autodeath Will the handler die when it runs out of living drawables
 	 */
-	public DrawableHandler(Drawable initialDrawable)
+	public DrawableHandler(Drawable initialDrawable, boolean autodeath)
 	{
+		this.autodeath = autodeath;
+		this.killed = false;
 		this.drawables = new ArrayList<Drawable>();
-		addDrawable(initialDrawable);
+		if (initialDrawable != null)
+			addDrawable(initialDrawable);
 	}
 	
 	
@@ -107,7 +119,7 @@ public class DrawableHandler implements Drawable
 		// Removes the unnecessary dead actors and returns if alive actors still
 		// exist
 		removeNonDrawnDrawables();
-		return this.drawables.isEmpty();
+		return this.killed || (this.drawables.isEmpty() && this.autodeath);
 	}
 	
 	@Override
@@ -123,9 +135,12 @@ public class DrawableHandler implements Drawable
 				returnValue = false;
 		}
 		
-		// Erases the memory if all the drawables were ended
+		// Erases the memory and kills the handler if all the drawables were ended
 		if (returnValue)
+		{
 			this.drawables.clear();
+			this.killed = true;
+		}
 		
 		return returnValue;
 	}
@@ -185,5 +200,29 @@ public class DrawableHandler implements Drawable
 	{
 		if (d != null && !this.drawables.contains(d))
 			this.drawables.add(d);
+	}
+	
+	/**
+	 * @return How many drawables the handler is currently handling
+	 */
+	protected int getDrawableNumber()
+	{
+		return this.drawables.size();
+	}
+	
+	/**
+	 * 
+	 * Returns a single drawable from handler's current drawables
+	 * This should only be used in possible subclasses for further drawable handling
+	 *
+	 * @param index The index of the drawable in handler's current drawables
+	 * @return A drawable from the given index or null if no such index exists
+	 */
+	protected Drawable getDrawable(int index)
+	{
+		if (index >= 0 && index < getDrawableNumber())
+			return this.drawables.get(index);
+		
+		return null;
 	}
 }
