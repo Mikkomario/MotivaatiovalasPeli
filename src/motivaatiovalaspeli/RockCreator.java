@@ -177,7 +177,7 @@ public class RockCreator implements Actor
 					int otherx = usedpositions.get(posi)[0];
 					int othery = usedpositions.get(posi)[1];
 					
-					if (HelpMath.pointDistance(newx, newy, otherx, othery) < 100)
+					if (HelpMath.pointDistance(newx, newy, otherx, othery) < 150)
 					{
 						fits = false;
 						break;

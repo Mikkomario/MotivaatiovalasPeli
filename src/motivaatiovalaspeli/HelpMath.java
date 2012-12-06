@@ -24,7 +24,7 @@ public class HelpMath
 	{
 		double xdist = x2 - x1;
 		double ydist = y2 - y1;
-		return (int) (-Math.toDegrees(Math.atan2(ydist, xdist)));
+		return (int) (Math.toDegrees(Math.atan2(ydist, xdist)));
 	}
 	
 	/**

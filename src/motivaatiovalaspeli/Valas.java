@@ -86,13 +86,6 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable
 	}
 
 	@Override
-	public boolean objectCollides(DrawnObject3D d)
-	{
-		// TODO Ush... Someday
-		return false;
-	}
-
-	@Override
 	public void onKeyDown(int key, int keyCode, boolean coded)
 	{	
 		// TODO Add controlls

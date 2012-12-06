@@ -1,5 +1,6 @@
 package motivaatiovalaspeli;
 
+import java.awt.Point;
 import java.util.Random;
 
 /**
@@ -119,15 +120,23 @@ public class Rock extends DrawnObject3D implements Scrollable
 	@Override
 	public boolean pointCollides(int x, int y, int z)
 	{
-		// TODO Figure something out here someday
-		return false;
-	}
-
-	@Override
-	public boolean objectCollides(DrawnObject3D d)
-	{
-		// TODO Same here, nothing yet
-		return false;
+		// Checks the z
+		if (z > getZ() + 32*getZscale() || z < getZ() - 32*getZscale())
+			return false;
+		
+		// Negates the transformation
+		Point negatedPoint = negateTransformations2D(x, y);
+		
+		if (negatedPoint.x < getX())
+			return false;
+		else if (negatedPoint.x > getX() + 64)
+			return false;
+		else if (negatedPoint.y < getY())
+			return false;
+		else if (negatedPoint.y > getY() + 64)
+			return false;
+		else
+			return true;
 	}
 	
 	/*

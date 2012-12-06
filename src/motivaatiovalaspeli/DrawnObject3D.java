@@ -1,5 +1,7 @@
 package motivaatiovalaspeli;
 
+import java.awt.Point;
+
 /**
  * This class represents a creature or object in the game world that is drawn
  * to screen with a sprite (image)
@@ -354,15 +356,7 @@ public abstract class DrawnObject3D implements Drawable
 	}
 	*/
 	
-	/**
-	 * 
-	 * Checks wheter this spriteobject collides with another spriteobject. 
-	 * This method is quite heavy so it's not adviced to be used too often.
-	 *
-	 * @param d The spriteobject that might be colliding with this object
-	 * @return Are the objects overlapping each other
-	 */
-	public abstract boolean objectCollides(DrawnObject3D d);
+	//public abstract boolean objectCollides(DrawnObject3D d);
 	/*
 	{
 		// Negates the transformations for both objects
@@ -391,15 +385,24 @@ public abstract class DrawnObject3D implements Drawable
 	
 	// Transforms the point so that the collision can be checked without
 	// transformations
-	/* TODO: Change to 3D
-	private Point negateTransformations(int x, int y)
+	/**
+	 * 
+	 * Transforms the point so that the collision can be checked without
+	// transformations. Only works with 2d transfrmations
+	 * (xscale, yscale, zangle, originx, originy) and 2d points.
+	 *
+	 * @param x The x-coordinate of the point to be negated
+	 * @param y The y-coordinate of the point to be negated
+	 * @return The point where all of the object's transformations are negated
+	 */
+	protected Point negateTransformations2D(int x, int y)
 	{
 		double tempx = x;
 		double tempy = y;
 		
 		// Rotation
 		int prevDir = HelpMath.pointDirection((int) getX(), (int) getY(), x, y);
-		int newDir = prevDir - (int) getAngle();
+		int newDir = prevDir - (int) getZAngle();
 		int dist = HelpMath.pointDistance((int) getX(), (int) getY(), x, y);
 		tempx = getX() + HelpMath.lendirX(dist, newDir);
 		tempy = getY() + HelpMath.lendirY(dist, newDir);
@@ -411,10 +414,9 @@ public abstract class DrawnObject3D implements Drawable
 		tempx -= xdist - newxdist;
 		tempy -= ydist - newydist;
 		// Origin translate
-		tempx += getSprite().getOriginX();
-		tempy += getSprite().getOriginY();
+		tempx += getOriginX();
+		tempy += getOriginY();
 		
 		return new Point((int) tempx, (int) tempy);
 	}
-	*/
 }
