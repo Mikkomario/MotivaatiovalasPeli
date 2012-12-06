@@ -69,9 +69,13 @@ public class MotivaatiovalasPeli extends PApplet
 		this.mainDrawer.addDrawable(rhandler);
 		
 		// Creates a rockcreator
-		RockCreator rcreator = new RockCreator(1, 1, 30, 120, this.width,
+		RockCreator rcreator = new RockCreator(1, 8, 30, 100, this.width,
 				this.height, -1000, 300, rhandler, this.playerscroller);
 		this.stepHandler.addActor(rcreator);
+		
+		// Creates a seaLayerDrawer
+		SealayerDrawer sld = new SealayerDrawer(-900, 0, 15, 0, 10, 100);
+		this.mainDrawer.addDrawable(sld);
 		
 		//testcanyon.setInvisible();
 	}
@@ -82,6 +86,8 @@ public class MotivaatiovalasPeli extends PApplet
 		//System.out.println(this.frameRate);
 		
 		background(0, 10, 100);
+		noStroke();
+		noFill();
 		//camera(this.width/2, this.height/2, 420, this.width/2, this.height/2,
 		//		0, 0, 1, 0 );
 		camera(this.mouseX, this.mouseY, 420, this.width/2, this.height/2,
@@ -95,6 +101,7 @@ public class MotivaatiovalasPeli extends PApplet
 		this.mainDrawer.drawSelf(this);
 		
 		// TEST DRAWING
+		/*
 		stroke(255);
 		rect(this.width/2, this.height/2, 20, 30);
 		
@@ -122,6 +129,7 @@ public class MotivaatiovalasPeli extends PApplet
 		arrow();
 		
 		popMatrix();
+		*/
 	}
 	
 	@Override
@@ -139,9 +147,11 @@ public class MotivaatiovalasPeli extends PApplet
 	
 	// OTHER METHODS	----------------------------------------------------
 	
+	/*
 	private void arrow()
 	{
 		line(0,0, 100,0);
 		triangle(100,0, 80,10, 80,-10);
 	}
+	*/
 }
