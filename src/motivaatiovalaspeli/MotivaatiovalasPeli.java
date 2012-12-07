@@ -24,6 +24,7 @@ public class MotivaatiovalasPeli extends PApplet
 	private KeyListenerHandler keyhandler;
 	private Valas player;
 	private FollowingScroller playerscroller;
+	private SpriteBank sprtbank;
 	
 	
 	// IMPLEMENTED METHODS	-----------------------------------------------
@@ -31,10 +32,11 @@ public class MotivaatiovalasPeli extends PApplet
 	@Override
 	public void setup()
 	{
-		// TODO: Add perspective
-		
 		size(640, 480, P3D);
 		noFill();
+		
+		// Creates the spritebank
+		this.sprtbank = new SpriteBank(this);
 		
 		// Creates the canyon and adds it to the drawables handled
 		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 100, -900, 1100);
@@ -74,8 +76,14 @@ public class MotivaatiovalasPeli extends PApplet
 		this.stepHandler.addActor(rcreator);
 		
 		// Creates a seaLayerDrawer
-		SealayerDrawer sld = new SealayerDrawer(-900, 0, 15, 0, 10, 100);
+		SealayerDrawer sld = new SealayerDrawer(-900, 0, 12, 0, 10, 100);
 		this.mainDrawer.addDrawable(sld);
+		
+		// Creates a seagrass for testing
+		Seagrass grass = new Seagrass(120, this.height, -800, -1000, 300, 
+				this.width/2, this.height/2, 420, this.sprtbank);
+		this.mainDrawer.addDrawable(grass);
+		this.playerscroller.addScrollable(grass);
 		
 		//testcanyon.setInvisible();
 	}
@@ -83,7 +91,7 @@ public class MotivaatiovalasPeli extends PApplet
 	@Override
 	public void draw()
 	{	
-		//System.out.println(this.frameRate);
+		System.out.println(this.frameRate);
 		
 		background(0, 10, 100);
 		noStroke();

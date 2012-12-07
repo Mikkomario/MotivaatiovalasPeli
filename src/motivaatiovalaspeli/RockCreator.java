@@ -79,6 +79,9 @@ public class RockCreator implements Actor
 	@Override
 	public void act()
 	{
+		// TODO: Change to something else than time (distance?) as progressing 
+		// slowly now causes more rocks to be created
+		
 		// Checks if a new wave of rocks should be created
 		this.delay--;
 		
