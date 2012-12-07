@@ -9,18 +9,13 @@ import java.util.Random;
  * @author Gandalf.
  *         Created 5.12.2012.
  */
-public class RockCreator implements Actor
+public class RockCreator extends ObjectCreator
 {
 	// ATTRIBUTES	----------------------------------------------------
 	
 	private static Random rand = new Random();
 	
-	private int maxRocks, minRocks, delay, minDelay, maxDelay, width, height, 
-		creationZ, maxZ;
-	private boolean active, alive;
-	
-	private DrawableHandler rockDrawer;
-	private Scroller rockScroller;
+	private int maxRocks, minRocks;
 	
 	
 	// CONSTRUCTOR	----------------------------------------------------
@@ -44,80 +39,19 @@ public class RockCreator implements Actor
 			int width, int height, int z, int maxZ, DrawableHandler rockDrawer, 
 			Scroller rockScroller)
 	{
+		super(minDelay, maxDelay, width, height, z, maxZ, rockDrawer, rockScroller);
+		
 		// Initializes attributes
 		this.minRocks = minRocks;
 		this.maxRocks = maxRocks;
-		this.minDelay = minDelay;
-		this.maxDelay = maxDelay;
-		this.width = width;
-		this.height = height;
-		this.creationZ = z;
-		this.rockDrawer = rockDrawer;
-		this.maxZ = maxZ;
-		this.rockScroller = rockScroller;
-		
-		this.active = true;
-		this.alive = true;
-		this.delay = 1;
 	}
 	
 	
 	// IMPLEMENTED METHODS	----------------------------------------------
 
 	@Override
-	public boolean isActive()
-	{
-		return this.active;
-	}
-
-	@Override
-	public boolean isDead()
-	{
-		return !this.alive;
-	}
-
-	@Override
-	public void act()
-	{
-		// TODO: Change to something else than time (distance?) as progressing 
-		// slowly now causes more rocks to be created
-		
-		// Checks if a new wave of rocks should be created
-		this.delay--;
-		
-		if (this.delay <= 0)
-		{
-			this.delay = this.minDelay + rand.nextInt(this.maxDelay + 1 - this.minDelay);
-			generateRocks();
-		}
-	}
-
-	@Override
-	public boolean kill()
-	{
-		this.alive = false;
-		return true;
-	}
-
-	@Override
-	public boolean inActivate()
-	{
-		this.active = false;
-		return true;
-	}
-
-	@Override
-	public boolean activate()
-	{
-		this.active = true;
-		return true;
-	}
-	
-	
-	// OTHER METHODS	-------------------------------------------------
-	
-	// Creates a bunch of rocks to the screen
-	private void generateRocks()
+	public void createObject(int fieldWidth, int fieldHeight, int creationZ,
+			int maxZ)
 	{
 		int minX, maxX, minY, maxY;
 		ArrayList<int[]> usedpositions = new ArrayList<int[]>();
@@ -135,23 +69,23 @@ public class RockCreator implements Actor
 				minX = 0;
 				maxX = 32;
 				minY = 0;
-				maxY = this.height;
+				maxY = fieldHeight;
 			}
 			// Case right wall
 			else if (randnumber < 0.66)
 			{
-				minX = this.width - 32;
-				maxX = this.width;
+				minX = fieldWidth - 32;
+				maxX = fieldWidth;
 				minY = 0;
-				maxY = this.height;
+				maxY = fieldHeight;
 			}
 			// Case bottom
 			else
 			{
 				minX = 0;
-				maxX = this.width;
-				minY = this.height -32;
-				maxY = this.height;
+				maxX = fieldWidth;
+				minY = fieldHeight -32;
+				maxY = fieldHeight;
 			}
 			
 			// Gets the new position
@@ -161,9 +95,7 @@ public class RockCreator implements Actor
 			// Calculates the increasement direction (towards wich the rock is moved 
 			// if it doesn't fit)
 			int incdir = (int) HelpMath.checkDirection(HelpMath.pointDirection(
-					newx, newy, this.width/2,  this.height/2)
-					//+ rand.nextInt(45) - 22
-					);
+					newx, newy, fieldWidth/2,  fieldHeight/2) + rand.nextInt(45) - 22);
 			//incdir = 0;
 			
 			// Tests if the position is free
@@ -209,11 +141,11 @@ public class RockCreator implements Actor
 			//	System.out.println(incdir);
 			
 			// Finally creates the rock and places it
-			Rock newrock = new Rock(newx, newy, this.creationZ, this.creationZ, this.maxZ);
+			Rock newrock = new Rock(newx, newy, creationZ, creationZ, maxZ);
 			int[] newpos = {newx, newy};
 			usedpositions.add(newpos);
-			this.rockDrawer.addDrawable(newrock);
-			this.rockScroller.addScrollable(newrock);
+			getDrawableHandler().addDrawable(newrock);
+			getScroller().addScrollable(newrock);
 			/*
 			if (newx < 0)
 			{
