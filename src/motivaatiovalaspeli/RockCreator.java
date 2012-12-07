@@ -36,7 +36,7 @@ public class RockCreator extends ObjectCreator
 	 * @param rockScroller The scrolled in charge of moving / scrolling the created rocks
 	 */
 	public RockCreator(int minRocks, int maxRocks, int minDelay, int maxDelay, 
-			int width, int height, int z, int maxZ, DrawableHandler rockDrawer, 
+			int width, int height, int z, int maxZ, RockHandler rockDrawer, 
 			Scroller rockScroller)
 	{
 		super(minDelay, maxDelay, width, height, z, maxZ, rockDrawer, rockScroller);
