@@ -62,11 +62,11 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 	private void changeAngle(int camx, int camy, int camz)
 	{
 		// Calculates the angles
-		int yangle = HelpMath.PointYDirection((int) getX(), (int) getZ(), camx, camz);
+		int yangle = HelpMath.PointYDirection((int) getX(), (int) getZ(), camx, camz) -90;
 		int xangle = HelpMath.pointXDirection((int) getZ(), (int) getY(), camx, camy);
 		
 		// Changes the angles
-		setAngle(xangle, yangle, getZAngle());
+		setAngle(-xangle, -yangle, getZAngle());
 	}
 	
 	/**

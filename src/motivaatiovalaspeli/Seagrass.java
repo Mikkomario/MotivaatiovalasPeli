@@ -45,18 +45,26 @@ public class Seagrass extends DrawnObject2DProjected implements Scrollable
 	public void drawSelf3D(MotivaatiovalasPeli applet)
 	{
 		applet.image(this.sprite.getSubImage(0), 0, 0);
+		/*
+		applet.fill(255, 0, 0);
+		applet.rect(0, 0, 64, 64);
+		applet.noFill();
+		*/
+		//System.out.println(getZscale());
 	}
 
 	@Override
 	public int getOriginX()
 	{
 		return this.sprite.getOriginX();
+		//return 32;
 	}
 
 	@Override
 	public int getOriginY()
 	{
 		return this.sprite.getOriginY();
+		//return 64;
 	}
 
 	@Override

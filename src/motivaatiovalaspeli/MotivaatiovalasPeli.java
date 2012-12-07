@@ -91,7 +91,7 @@ public class MotivaatiovalasPeli extends PApplet
 	@Override
 	public void draw()
 	{	
-		System.out.println(this.frameRate);
+		//System.out.println(this.frameRate);
 		
 		background(0, 10, 100);
 		noStroke();
