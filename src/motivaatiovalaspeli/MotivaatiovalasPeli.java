@@ -116,6 +116,10 @@ public class MotivaatiovalasPeli extends PApplet
 		camera(this.mouseX, this.mouseY, 420, this.width/2, this.height/2,
 				0, 0, 1, 0 );
 		
+		// Informs the cameralistener of the camera's changes
+		if (this.camerahandler.isActive() && !this.camerahandler.isDead())
+			this.camerahandler.informCameraPosition(this.mouseX, this.mouseY, 420);
+		
 		// Updates all objects through the stephandler
 		this.stepHandler.act();
 		// Draws all the objects (Also checks if some are dead)

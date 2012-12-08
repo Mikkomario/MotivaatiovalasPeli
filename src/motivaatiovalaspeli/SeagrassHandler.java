@@ -8,8 +8,6 @@ package motivaatiovalaspeli;
  */
 public class SeagrassHandler extends DrawableHandler implements CameraListener
 {	
-	// TODO: Finish him!
-	
 	// CONSTRUCTOR	-------------------------------------------------------
 	
 	/**
@@ -29,8 +27,7 @@ public class SeagrassHandler extends DrawableHandler implements CameraListener
 		// Informs all the seagrasses of changes
 		for (int i = 0; i < getHandledNumber(); i++)
 		{
-			if (getHandled(i) instanceof Seagrass)
-				((Seagrass) getHandled(i)).informCameraPosition(posx, posy, posz);
+			getGrass(i).informCameraPosition(posx, posy, posz);
 		}
 	}
 	
@@ -53,21 +50,57 @@ public class SeagrassHandler extends DrawableHandler implements CameraListener
 	@Override
 	public boolean isActive()
 	{
-		// TODO Auto-generated method stub.
-		return false;
-	}
-
-	@Override
-	public boolean inActivate()
-	{
-		// TODO Auto-generated method stub.
+		// Returns false only if all the handleds are inactive
+		for (int i = 0; i < getHandledNumber(); i++)
+		{
+			if (getGrass(i).isActive())
+				return true;
+		}
+		
 		return false;
 	}
 
 	@Override
 	public boolean activate()
 	{
-		// TODO Auto-generated method stub.
-		return false;
+		// tries to activate all the handled objects, returns false if all the
+		// objects could not be activated
+		boolean returnValue = true;
+		
+		for (int i = 0; i < getHandledNumber(); i++)
+		{
+			if (!getGrass(i).activate())
+				returnValue = false;
+		}
+		
+		return returnValue;
+	}
+
+	@Override
+	public boolean inActivate()
+	{
+		// tries to inactivate all the handled objects, returns false if all the objects
+		// could not be inactivated
+		boolean returnValue = true;
+		
+		for (int i = 0; i < getHandledNumber(); i++)
+		{
+			if (!getGrass(i).inActivate())
+				returnValue = false;
+		}
+		
+		return returnValue;
+	}
+	
+	
+	// OTHER METHODS	----------------------------------------------------
+	
+	private Seagrass getGrass(int index)
+	{
+		Handled maybeGrass = getHandled(index);
+		if (maybeGrass instanceof Seagrass)
+			return (Seagrass) maybeGrass;
+		else
+			return null;
 	}
 }
