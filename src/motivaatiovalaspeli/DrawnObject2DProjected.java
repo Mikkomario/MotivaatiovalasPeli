@@ -13,6 +13,7 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 	
 	// TODO: Add cameralistener methods
 	private int camx, camy, camz;
+	private boolean active;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -33,6 +34,7 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 	{
 		super(x, y, z);
 		informCameraPosition(camerax, cameray, cameraz);
+		this.active = true;
 	}
 	
 	
@@ -54,6 +56,26 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 		// its angle
 		super.setPosition(x, y, z);
 		refreshAngle();
+	}
+	
+	@Override
+	public boolean isActive()
+	{
+		return this.active;
+	}
+	
+	@Override
+	public boolean activate()
+	{
+		this.active = true;
+		return true;
+	}
+	
+	@Override
+	public boolean inActivate()
+	{
+		this.active = false;
+		return true;
 	}
 	
 	

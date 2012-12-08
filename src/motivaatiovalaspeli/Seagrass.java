@@ -110,26 +110,4 @@ public class Seagrass extends DrawnObject2DProjected implements Scrollable
 		// When seagrass goes out of range, it is destroyed
 		kill();
 	}
-
-	@Override
-	public boolean isActive()
-	{
-		// TODO Auto-generated method stub.
-		return false;
-	}
-
-	@Override
-	public boolean inActivate()
-	{
-		// TODO Auto-generated method stub.
-		return false;
-	}
-
-	@Override
-	public boolean activate()
-	{
-		// TODO Auto-generated method stub.
-		return false;
-	}
-
 }
