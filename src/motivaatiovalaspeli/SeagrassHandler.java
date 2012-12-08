@@ -8,7 +8,7 @@ package motivaatiovalaspeli;
  */
 public class SeagrassHandler extends DrawableHandler implements CameraListener
 {	
-	// TODO: Add superclass handler
+	// TODO: Finish him!
 	
 	// CONSTRUCTOR	-------------------------------------------------------
 	
@@ -17,7 +17,7 @@ public class SeagrassHandler extends DrawableHandler implements CameraListener
 	 */
 	public SeagrassHandler()
 	{
-		super((Drawable) null, false);
+		super(false);
 	}
 	
 	
@@ -27,10 +27,10 @@ public class SeagrassHandler extends DrawableHandler implements CameraListener
 	public void informCameraPosition(int posx, int posy, int posz)
 	{
 		// Informs all the seagrasses of changes
-		for (int i = 0; i < getDrawableNumber(); i++)
+		for (int i = 0; i < getHandledNumber(); i++)
 		{
-			if (getDrawable(i) instanceof Seagrass)
-				((Seagrass) getDrawable(i)).informCameraPosition(posx, posy, posz);
+			if (getHandled(i) instanceof Seagrass)
+				((Seagrass) getHandled(i)).informCameraPosition(posx, posy, posz);
 		}
 	}
 	
@@ -41,7 +41,14 @@ public class SeagrassHandler extends DrawableHandler implements CameraListener
 		if (d instanceof Seagrass)
 			super.addDrawable(d);
 	}
-
+	
+	@Override
+	protected void addHandled(Handled h)
+	{
+		// Only handles seagrass
+		if (h instanceof Seagrass)
+			super.addHandled(h);
+	}
 
 	@Override
 	public boolean isActive()

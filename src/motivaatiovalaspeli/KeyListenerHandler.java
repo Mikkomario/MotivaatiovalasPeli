@@ -10,7 +10,7 @@ import java.util.HashMap;
  * @author Gandalf.
  *         Created 2.12.2012.
  */
-public class KeyListenerHandler implements Actor
+public class KeyListenerHandler extends LogicalHandler implements Actor
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
@@ -20,18 +20,21 @@ public class KeyListenerHandler implements Actor
 	private ArrayList<Integer> codesPressed;
 	private ArrayList<Integer> keysReleased;
 	private ArrayList<Integer> codesReleased;
-	private ArrayList<KeyListener> listeners;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
 	
 	/**
 	 * 
-	 * Simply creates a new KeyListenerHandler.
+	 * Simply creates a new KeyListenerHandler. Keylistenerhandler does not 
+	 * die automatically so it must be killed with the kill method. Also, 
+	 * listeners must be added manually later.
 	 *
 	 */
 	public KeyListenerHandler()
 	{
+		super(false);
+		
 		// Initializes the attributes
 		this.keysDown = new HashMap<Integer, Boolean>();
 		this.codesDown = new HashMap<Integer, Boolean>();
@@ -39,33 +42,18 @@ public class KeyListenerHandler implements Actor
 		this.keysReleased = new ArrayList<Integer>();
 		this.codesPressed = new ArrayList<Integer>();
 		this.codesReleased = new ArrayList<Integer>();
-		this.listeners = new ArrayList<KeyListener>();
 	}
 	
 	
 	// IMPLEMENTED METHODS	----------------------------------------------
-	
-	@Override
-	public boolean isActive()
-	{
-		// KeyListenerHandler is always active
-		return true;
-	}
-
-	@Override
-	public boolean isDead()
-	{
-		// KeylistenerHandler never dies
-		return false;
-	}
 
 	@Override
 	public void act()
 	{
 		// Informs all listeners of the last changes
-		for (int i = 0; i < this.listeners.size(); i++)
+		for (int i = 0; i < getHandledNumber(); i++)
 		{
-			KeyListener listener = this.listeners.get(i);
+			KeyListener listener = getListener(i);
 			
 			// Informs if a key was pressed
 			for (int ik = 0; ik < this.keysPressed.size(); ik++)
@@ -103,24 +91,11 @@ public class KeyListenerHandler implements Actor
 	}
 
 	@Override
-	public boolean kill()
+	protected void addHandled(Handled h)
 	{
-		// KeyListenerHandler can't be killed
-		return false;
-	}
-
-	@Override
-	public boolean inActivate()
-	{
-		// KeyListenerHandler can't be inactivated
-		return false;
-	}
-
-	@Override
-	public boolean activate()
-	{
-		// KeyListener is always active
-		return true;
+		// Only adds keyListeners
+		if (h instanceof KeyListener)
+			super.addHandled(h);
 	}
 	
 	
@@ -191,19 +166,15 @@ public class KeyListenerHandler implements Actor
 	 */
 	public void addListener(KeyListener k)
 	{
-		if (!this.listeners.contains(k))
-			this.listeners.add(k);
+		super.addHandled(k);
 	}
 	
-	/**
-	 * Removes a keyListener from the informed listeners 
-	 *
-	 * @param k The KeyListener to be removed
-	 */
-	public void removeListener(KeyListener k)
+	private KeyListener getListener(int index)
 	{
-		if (this.listeners.contains(k))
-			this.listeners.remove(k);
+		Handled maybeListener = getHandled(index);
+		if (maybeListener instanceof KeyListener)
+			return (KeyListener) maybeListener;
+		else
+			return null;
 	}
-
 }

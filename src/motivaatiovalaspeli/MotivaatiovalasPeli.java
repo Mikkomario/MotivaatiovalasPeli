@@ -13,7 +13,6 @@ import processing.core.PApplet;
  */
 public class MotivaatiovalasPeli extends PApplet
 {
-	
 	// ATTRIBUTES	-------------------------------------------------------
 	
 	private DrawableHandler mainDrawer;
@@ -38,7 +37,8 @@ public class MotivaatiovalasPeli extends PApplet
 		
 		// Creates the canyon and adds it to the drawables handled
 		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 100, -900, 1100);
-		this.mainDrawer = new DrawableHandler(testcanyon, false);
+		this.mainDrawer = new DrawableHandler(false);
+		this.mainDrawer.addDrawable(testcanyon);
 		Canyon testcanyon2 = new Canyon(this.width, this.height, 1000, -900, -900, 1100);
 		this.mainDrawer.addDrawable(testcanyon2);
 		

@@ -25,7 +25,7 @@ public class RockHandler extends DrawableHandler implements Actor
 	 */
 	public RockHandler()
 	{
-		super((Drawable) null, false);
+		super(false);
 		
 		this.collisionlisteners = new ArrayList<CollisionListener>();
 	}
@@ -46,7 +46,7 @@ public class RockHandler extends DrawableHandler implements Actor
 	{
 		// Handler is active if there is both rocks and listeners and if the 
 		// rocks are drawn
-		return (getDrawableNumber() != 0 && !this.collisionlisteners.isEmpty()
+		return (getHandledNumber() != 0 && !this.collisionlisteners.isEmpty()
 				&& isVisible());
 	}
 
@@ -60,7 +60,7 @@ public class RockHandler extends DrawableHandler implements Actor
 			CollisionListener listener = this.collisionlisteners.get(c);
 			
 			// Checks all rocks
-			for (int r = 0; r < getDrawableNumber(); r++)
+			for (int r = 0; r < getHandledNumber(); r++)
 			{
 				Rock rock = getRock(r);
 				
@@ -93,12 +93,20 @@ public class RockHandler extends DrawableHandler implements Actor
 		return setVisible();
 	}
 	
+	@Override
+	protected void addHandled(Handled h)
+	{
+		// Only handles rocks
+		if (h instanceof Rock)
+			super.addHandled(h);
+	}
+	
 	
 	// OTHER METHODS	---------------------------------------------------
 
 	private Rock getRock(int index)
 	{
-		Drawable maybeRock = getDrawable(index);
+		Handled maybeRock = getHandled(index);
 		
 		if (maybeRock instanceof Rock)
 			return (Rock) maybeRock;
