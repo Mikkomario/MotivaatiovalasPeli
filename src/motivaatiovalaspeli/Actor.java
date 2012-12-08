@@ -13,7 +13,7 @@ package motivaatiovalaspeli;
  * @author Gandalf.
  *         Created 27.11.2012.
  */
-public interface Actor
+public interface Actor extends Handled
 {
 	/**
 	 * @return Does the actor currently want to perform any actions 
@@ -21,23 +21,9 @@ public interface Actor
 	public boolean isActive();
 	
 	/**
-	 * @return Will the actor need to perform any actions in the future
-	 * When this is set to false, the act method of the actor will not be called 
-	 * again
-	 */
-	public boolean isDead();
-	
-	/**
 	 * This is the actors action, which will be called frequently
 	 */
 	public void act();
-	
-	/**
-	 * This method tries to make the actor permanently inactive
-	 * 
-	 * @return Was the actor made permanently inactive
-	 */
-	public boolean kill();
 	
 	/**
 	 * This method tries to make the actor inactive

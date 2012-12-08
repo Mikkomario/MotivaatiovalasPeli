@@ -7,7 +7,7 @@ package motivaatiovalaspeli;
  * @author Gandalf.
  *         Created 28.11.2012.
  */
-public interface KeyListener
+public interface KeyListener extends Handled
 {
 	/**
 	 * This method is called at each step when a key is down
@@ -39,5 +39,5 @@ public interface KeyListener
 	/**
 	 * @return Is the listener curretly interested to receive these events
 	 */
-	public boolean listens();
+	public boolean isActive();
 }

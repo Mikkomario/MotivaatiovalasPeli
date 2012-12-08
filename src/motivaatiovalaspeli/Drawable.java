@@ -6,7 +6,7 @@ package motivaatiovalaspeli;
  * @author Gandalf.
  *         Created 26.11.2012.
  */
-public interface Drawable
+public interface Drawable extends Handled
 {
 	// TODO: Add an superinterface that can be used in any handler!
 	
@@ -21,21 +21,6 @@ public interface Drawable
 	 * @return Should the object be drawn at this time
 	 */
 	public boolean isVisible();
-	
-	/**
-	 * Checks if the object should be drawn in the future
-	 * 
-	 * @return Should the object be drawn anymore in the future
-	 */
-	public boolean isDead();
-	
-	/**
-	 * 
-	 * Tries to permanently stop the objects ability to draw itself
-	 *
-	 * @return Was the drawing stopped
-	 */
-	public boolean kill();
 	
 	/**
 	 * 

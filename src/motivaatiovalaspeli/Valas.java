@@ -116,13 +116,6 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	}
 
 	@Override
-	public boolean listens()
-	{
-		// Valas only listens to keys when its active
-		return isActive();
-	}
-
-	@Override
 	public int getOriginX()
 	{
 		return 16;
