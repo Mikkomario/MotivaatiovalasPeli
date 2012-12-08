@@ -30,13 +30,13 @@ public class StepHandler extends ActorHandler
 	 * when a certain number of milliseconds has passed. Actors can be 
 	 * added using addActor method.
 	 * 
-	 * @param stepDuration How long does a single step last in milliseconds?
+	 * @param stepDuration How long does a single step last in milliseconds.
 	 * In other words, how often are the actors updated.
 	 * @param applet The applet which created the stepHandler
 	 */
 	public StepHandler(int stepDuration, PApplet applet)
 	{
-		super((Actor) null);
+		super(false);
 		this.stepduration = stepDuration;
 		this.applet = applet;
 		
@@ -45,14 +45,6 @@ public class StepHandler extends ActorHandler
 	
 	
 	// IMPLEMENTED METHODS	-----------------------------------------------
-	
-	@Override
-	public boolean isDead()
-	{
-		// A stephandler is never dead
-		super.isDead();
-		return false;
-	}
 	
 	@Override
 	public void act()
