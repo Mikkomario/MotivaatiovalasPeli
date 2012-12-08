@@ -13,6 +13,7 @@ public class CameraListenerHandler implements CameraListener
 	// ATTRIBUTES	------------------------------------------------------
 	
 	private ArrayList<CameraListener> listeners;
+	private boolean autodeath, killed;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -20,11 +21,16 @@ public class CameraListenerHandler implements CameraListener
 	/**
 	 * Creates a new listenerhandler that will inform all sublisteners about
 	 * camera's changes. Listeners must be added manually later.
+	 * 
+	 * @param autodeath Will the handler stop functioning when it runs out of 
+	 * handled listeners
 	 */
-	public CameraListenerHandler()
+	public CameraListenerHandler(boolean autodeath)
 	{
 		// Initializes attributes
 		this.listeners = new ArrayList<CameraListener>();
+		this.autodeath = autodeath;
+		this.killed = false;
 	}
 	
 	
@@ -43,7 +49,12 @@ public class CameraListenerHandler implements CameraListener
 	@Override
 	public boolean isActive()
 	{
-		// TODO Auto-generated method stub.
+		// Returns whether all of the sublisteners are active
+		for (int i = 0; i < this.listeners.size(); i++)
+		{
+			if (this.listeners.get(i).isActive())
+				return true;
+		}
 		return false;
 	}
 
@@ -51,31 +62,93 @@ public class CameraListenerHandler implements CameraListener
 	@Override
 	public boolean isDead()
 	{
-		// TODO Auto-generated method stub.
-		return false;
+		removeDeadListeners();
+		
+		if (this.killed)
+			return true;
+		// If autodeath is on, returns true if all sublisteners are dead
+		return this.autodeath && this.listeners.isEmpty();
 	}
 
-
+	// TODO: Add an abstract superclass to handle autodeath and some methods like this
+	// Currently not DRY
 	@Override
 	public boolean kill()
 	{
-		// TODO Auto-generated method stub.
-		return false;
+		// tries to set all the listeners permanently inactive, returns false
+		// if all the listeners couldn't be made inactive
+		boolean returnValue = true;
+		
+		for (int i = 0; i < this.listeners.size(); i++)
+		{
+			if (!this.listeners.get(i).kill())
+				returnValue = false;
+		}
+		
+		// Erases the memory and kills the handler if all the drawables were ended
+		if (returnValue)
+		{
+			this.listeners.clear();
+			this.killed = true;
+		}
+		
+		return returnValue;
 	}
 
 
 	@Override
 	public boolean inActivate()
 	{
-		// TODO Auto-generated method stub.
-		return false;
+		// tries to inactivate all the listeners, returns false if all the listeners
+		// could not be inactivated
+		boolean returnValue = true;
+		
+		for (int i = 0; i < this.listeners.size(); i++)
+		{
+			if (!this.listeners.get(i).inActivate())
+				returnValue = false;
+		}
+		
+		return returnValue;
 	}
 
 
 	@Override
 	public boolean activate()
 	{
-		// TODO Auto-generated method stub.
-		return false;
+		// tries to activate all the listeners, returns false if all the listeners
+		// could not be activated
+		boolean returnValue = true;
+		
+		for (int i = 0; i < this.listeners.size(); i++)
+		{
+			if (!this.listeners.get(i).activate())
+				returnValue = false;
+		}
+		
+		return returnValue;
+	}
+	
+	
+	// OTHER METHODS	---------------------------------------------------
+	
+	// Removes all the dead actors from the list of actors to save processing
+	// time
+	private void removeDeadListeners()
+	{
+		for (int i = 0; i < this.listeners.size(); i++)
+		{	
+			if (this.listeners.get(i).isDead())
+				this.listeners.remove(i);
+		}
+	}
+	
+	/**
+	 * Adds a new cameralistener to the informed cameralisteners
+	 * @param c The listener to be addded
+	 */
+	public void addListener(CameraListener c)
+	{
+		this.listeners.add(c);
 	}
 }

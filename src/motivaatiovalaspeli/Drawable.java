@@ -8,6 +8,8 @@ package motivaatiovalaspeli;
  */
 public interface Drawable
 {
+	// TODO: Add an superinterface that can be used in any handler!
+	
 	/**
 	 *	Draws the object to the applet
 	 *

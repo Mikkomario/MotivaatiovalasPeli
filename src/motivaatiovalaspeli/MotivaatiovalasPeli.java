@@ -22,6 +22,7 @@ public class MotivaatiovalasPeli extends PApplet
 	private DrawableHandler mainDrawer;
 	private StepHandler stepHandler;
 	private KeyListenerHandler keyhandler;
+	private CameraListenerHandler camerahandler;
 	private Valas player;
 	private FollowingScroller playerscroller;
 	private SpriteBank sprtbank;
@@ -87,11 +88,20 @@ public class MotivaatiovalasPeli extends PApplet
 		this.playerscroller.addScrollable(grass);
 		*/
 		
+		// Creates a cameralistenerhandler
+		this.camerahandler = new CameraListenerHandler(false);
+		
 		// Creates a seagrasshandler
-		//SeagrassHandler grasshandler = new SeagrassHandler();
-		//this.mainDrawer.addDrawable(grasshandler);
+		SeagrassHandler grasshandler = new SeagrassHandler();
+		this.mainDrawer.addDrawable(grasshandler);
+		this.camerahandler.addListener(grasshandler);
 		
 		// Creates a seagrasscreator
+		SeagrassCreator seagrasscreator = new SeagrassCreator(5, 50, this.width, 
+				this.height, -1000, 300, grasshandler, this.playerscroller, 
+				this.width/2, this.height/2, 420, this.sprtbank);
+		this.camerahandler.addListener(seagrasscreator);
+		this.stepHandler.addActor(seagrasscreator);
 		
 		//testcanyon.setInvisible();
 	}
