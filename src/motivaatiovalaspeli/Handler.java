@@ -94,5 +94,27 @@ public abstract class Handler implements Handled
 				this.handleds.remove(i);
 		}
 	}
+	
+	/**
+	 * @return How many objects is the handler currently taking care of
+	 */
+	protected int getHandledNumber()
+	{
+		return this.handleds.size();
+	}
+	
+	/**
+	 * Returns a single handled from the list of handled objects
+	 * 
+	 * @param index The index of the handled object
+	 * @return The object or null if no such index exists
+	 */
+	protected Handled getHandled(int index)
+	{
+		if (index >= 0 && index < getHandledNumber())
+			return this.handleds.get(index);
+		else
+			return null;
+	}
 
 }
