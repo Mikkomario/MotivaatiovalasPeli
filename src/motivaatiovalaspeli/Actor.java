@@ -13,29 +13,10 @@ package motivaatiovalaspeli;
  * @author Gandalf.
  *         Created 27.11.2012.
  */
-public interface Actor extends Handled
-{
-	/**
-	 * @return Does the actor currently want to perform any actions 
-	 */
-	public boolean isActive();
-	
+public interface Actor extends LogicalHandled
+{	
 	/**
 	 * This is the actors action, which will be called frequently
 	 */
 	public void act();
-	
-	/**
-	 * This method tries to make the actor inactive
-	 *
-	 * @return Was the actor made inactive
-	 */
-	public boolean inActivate();
-	
-	/**
-	 * This method tries to reactivate the actor
-	 *
-	 * @return Was the actor reactivated
-	 */
-	public boolean activate();
 }

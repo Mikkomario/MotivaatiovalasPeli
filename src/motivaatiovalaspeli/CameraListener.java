@@ -7,7 +7,7 @@ package motivaatiovalaspeli;
  * @author Gandalf.
  *         Created 7.12.2012.
  */
-public interface CameraListener
+public interface CameraListener extends LogicalHandled
 {	
 	/**
 	 * 
@@ -19,35 +19,4 @@ public interface CameraListener
 	 * @param posz The camera's current z-coordinate
 	 */
 	public void informCameraPosition(int posx, int posy, int posz);
-	
-	/**
-	 * @return Is the object currently interested in changes in camera
-	 */
-	public boolean isActive();
-	
-	/**
-	 * @return Won't the object be interested in listening the camera anymore
-	 */
-	public boolean isDead();
-	
-	/**
-	 * This method tries to make the listener permanently inactive
-	 * 
-	 * @return Was the listener made permanently inactive
-	 */
-	public boolean kill();
-	
-	/**
-	 * This method tries to make the listener inactive
-	 *
-	 * @return Was the listener made inactive
-	 */
-	public boolean inActivate();
-	
-	/**
-	 * This method tries to reactivate the listener
-	 *
-	 * @return Was the listener reactivated
-	 */
-	public boolean activate();
 }

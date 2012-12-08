@@ -7,7 +7,7 @@ package motivaatiovalaspeli;
  * @author Gandalf.
  *         Created 28.11.2012.
  */
-public interface KeyListener extends Handled
+public interface KeyListener extends LogicalHandled
 {
 	/**
 	 * This method is called at each step when a key is down
@@ -35,9 +35,4 @@ public interface KeyListener extends Handled
 	 * @param coded Is the pressed key coded
 	 */
 	public void onKeyReleased(int key, int keyCode, boolean coded);
-	
-	/**
-	 * @return Is the listener curretly interested to receive these events
-	 */
-	public boolean isActive();
 }
