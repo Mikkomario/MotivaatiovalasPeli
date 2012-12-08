@@ -80,10 +80,18 @@ public class MotivaatiovalasPeli extends PApplet
 		this.mainDrawer.addDrawable(sld);
 		
 		// Creates a seagrass for testing
+		/*
 		Seagrass grass = new Seagrass(120, this.height, -800, -1000, 300, 
 				this.width/2, this.height/2, 420, this.sprtbank);
 		this.mainDrawer.addDrawable(grass);
 		this.playerscroller.addScrollable(grass);
+		*/
+		
+		// Creates a seagrasshandler
+		//SeagrassHandler grasshandler = new SeagrassHandler();
+		//this.mainDrawer.addDrawable(grasshandler);
+		
+		// Creates a seagrasscreator
 		
 		//testcanyon.setInvisible();
 	}
@@ -105,7 +113,7 @@ public class MotivaatiovalasPeli extends PApplet
 		this.stepHandler.act();
 		// Draws all the objects (Also checks if some are dead)
 		//this.mainDrawer.isVisible();
-		this.mainDrawer.wontBeDrawn();
+		this.mainDrawer.isDead();
 		this.mainDrawer.drawSelf(this);
 		
 		// TEST DRAWING

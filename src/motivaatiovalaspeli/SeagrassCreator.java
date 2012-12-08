@@ -79,5 +79,4 @@ public class SeagrassCreator extends ObjectCreator implements CameraListener
 		this.camy = posy;
 		this.camz = posz;
 	}
-
 }

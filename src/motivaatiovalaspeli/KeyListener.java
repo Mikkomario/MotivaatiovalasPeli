@@ -37,7 +37,7 @@ public interface KeyListener
 	public void onKeyReleased(int key, int keyCode, boolean coded);
 	
 	/**
-	 * @return Is teh listener curretly interested to receive these events
+	 * @return Is the listener curretly interested to receive these events
 	 */
 	public boolean listens();
 }

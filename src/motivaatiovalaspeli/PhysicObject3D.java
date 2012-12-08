@@ -55,24 +55,11 @@ public abstract class PhysicObject3D extends DrawnObject3D implements Actor
 	}
 	
 	@Override
-	public boolean isDead()
-	{
-		return wontBeDrawn();
-	}
-	
-	@Override
 	public void act()
 	{
 		// Handles the movement of the object
 		move();
 		rotate();
-	}
-	
-	@Override
-	public boolean kill()
-	{
-		// Kills the object and ends its drawing
-		return endDrawing();
 	}
 	
 	@Override

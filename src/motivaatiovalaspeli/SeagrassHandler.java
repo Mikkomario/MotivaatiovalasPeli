@@ -8,6 +8,8 @@ package motivaatiovalaspeli;
  */
 public class SeagrassHandler extends DrawableHandler implements CameraListener
 {	
+	// TODO: Add superclass handler
+	
 	// CONSTRUCTOR	-------------------------------------------------------
 	
 	/**
@@ -38,5 +40,27 @@ public class SeagrassHandler extends DrawableHandler implements CameraListener
 		// Seagrasshandler only handles grasses
 		if (d instanceof Seagrass)
 			super.addDrawable(d);
+	}
+
+
+	@Override
+	public boolean isActive()
+	{
+		// TODO Auto-generated method stub.
+		return false;
+	}
+
+	@Override
+	public boolean inActivate()
+	{
+		// TODO Auto-generated method stub.
+		return false;
+	}
+
+	@Override
+	public boolean activate()
+	{
+		// TODO Auto-generated method stub.
+		return false;
 	}
 }

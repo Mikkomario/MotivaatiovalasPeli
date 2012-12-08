@@ -85,13 +85,13 @@ public class Canyon implements Drawable, Scrollable
 	}
 
 	@Override
-	public boolean wontBeDrawn()
+	public boolean isDead()
 	{
 		return !this.alive;
 	}
 
 	@Override
-	public boolean endDrawing()
+	public boolean kill()
 	{
 		this.alive = false;
 		return true;

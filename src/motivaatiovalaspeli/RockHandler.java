@@ -50,15 +50,6 @@ public class RockHandler extends DrawableHandler implements Actor
 				&& isVisible());
 	}
 
-
-	@Override
-	public boolean isDead()
-	{
-		// Handler is dead if the rocks wont be drawn anymore
-		return wontBeDrawn();
-	}
-
-
 	@Override
 	public void act()
 	{
@@ -85,15 +76,6 @@ public class RockHandler extends DrawableHandler implements Actor
 			}
 		}
 	}
-
-
-	@Override
-	public boolean kill()
-	{
-		// Killing the handler is same as ending all drawing
-		return endDrawing();
-	}
-
 
 	@Override
 	public boolean inActivate()

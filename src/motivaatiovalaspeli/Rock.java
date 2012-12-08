@@ -71,7 +71,7 @@ public class Rock extends DrawnObject3D implements Scrollable
 	public void onOutOfRange()
 	{
 		// The rock is destroyed when it goes out of range
-		endDrawing();
+		kill();
 		//setInvisible();
 	}
 

@@ -114,7 +114,7 @@ public class DrawableHandler implements Drawable
 	}
 
 	@Override
-	public boolean wontBeDrawn()
+	public boolean isDead()
 	{
 		// Removes the unnecessary dead actors and returns if alive actors still
 		// exist
@@ -123,7 +123,7 @@ public class DrawableHandler implements Drawable
 	}
 	
 	@Override
-	public boolean endDrawing()
+	public boolean kill()
 	{
 		// tries to set all the drawables permanently invisible, returns false
 		// if all the drawables couldn't be made invisible
@@ -131,7 +131,7 @@ public class DrawableHandler implements Drawable
 		
 		for (int i = 0; i < this.drawables.size(); i++)
 		{
-			if (!this.drawables.get(i).endDrawing())
+			if (!this.drawables.get(i).kill())
 				returnValue = false;
 		}
 		
@@ -186,7 +186,7 @@ public class DrawableHandler implements Drawable
 	{
 		for (int i = 0; i < this.drawables.size(); i++)
 		{	
-			if (this.drawables.get(i).wontBeDrawn())
+			if (this.drawables.get(i).isDead())
 				this.drawables.remove(i);
 		}
 	}

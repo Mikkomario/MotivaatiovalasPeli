@@ -11,6 +11,7 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 {
 	// ATTRIBUTES	-------------------------------------------------------
 	
+	// TODO: Add cameralistener methods
 	private int camx, camy, camz;
 	
 	

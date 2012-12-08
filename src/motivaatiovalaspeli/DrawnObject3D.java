@@ -112,14 +112,14 @@ public abstract class DrawnObject3D implements Drawable
 
 
 	@Override
-	public boolean wontBeDrawn()
+	public boolean isDead()
 	{
 		return !this.alive;
 	}
 
 
 	@Override
-	public boolean endDrawing()
+	public boolean kill()
 	{
 		// Ends the drawing and also kills the object
 		this.alive = false;

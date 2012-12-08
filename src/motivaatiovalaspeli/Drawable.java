@@ -25,7 +25,7 @@ public interface Drawable
 	 * 
 	 * @return Should the object be drawn anymore in the future
 	 */
-	public boolean wontBeDrawn();
+	public boolean isDead();
 	
 	/**
 	 * 
@@ -33,7 +33,7 @@ public interface Drawable
 	 *
 	 * @return Was the drawing stopped
 	 */
-	public boolean endDrawing();
+	public boolean kill();
 	
 	/**
 	 * 
