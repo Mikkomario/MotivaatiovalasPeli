@@ -53,7 +53,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	{
 		super(x, y, z);
 		
-		this.model = new OBJModel(parent, "valas_final_final.obj", "relative", 
+		this.model = new OBJModel(parent, "valas1.obj", "relative", 
 				PConstants.POLYGON);
 		
 		setRotationFriction(1);
