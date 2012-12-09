@@ -2,5 +2,16 @@
 /.settings/org.eclipse.jdt.core.prefs
 .classpath
 .project
-/bin
+/bin/creators
+/bin/data
+/bin/drawnobjects
+/bin/handleds
+/bin/handlers
+/bin/listeners
+/bin/model
+/bin/motivaatiovalaspeli
+/bin/scrolling
+/bin/sprites
+/bin/testers
+/bin/java.policy.applet
 /.settings
