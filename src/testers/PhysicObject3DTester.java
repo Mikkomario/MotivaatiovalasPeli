@@ -1,10 +1,6 @@
 package testers;
 
-import java.util.Random;
-
 import drawnobjects.PhysicObject3D;
-
-import model.Valas;
 
 /**
  * This class is supposed to test the physicObject3D class
@@ -14,6 +10,7 @@ import model.Valas;
  */
 public class PhysicObject3DTester
 {
+	@SuppressWarnings("unused")
 	private static void printInfo(PhysicObject3D p)
 	{
 		//System.out.println("Position: " + p.getOriginX() + ", " + p.getY() + ", " + p.getZ());
@@ -27,11 +24,12 @@ public class PhysicObject3DTester
 	 */
 	public static void main(String[] Args)
 	{
+		/*
 		Random rand = new Random();
 		Valas valas = new Valas(50, 50, 0, 100, 100, 20, 1, 1);
 		
 		printInfo(valas);
-		
+		*/
 		/*
 		int i = 0;
 		while (i <= 18)
@@ -49,7 +47,7 @@ public class PhysicObject3DTester
 		valas.setMotion3D(0, 270, 1);
 		printInfo(valas);
 		*/
-		
+		/*
 		int i = 0;
 		while(i < 90)
 		{
@@ -58,5 +56,6 @@ public class PhysicObject3DTester
 			//System.out.println(i + ": " + i / valas.getVspeed());
 			System.out.println(i + ": " + valas.getVspeed());
 		}
+		*/
 	}
 }

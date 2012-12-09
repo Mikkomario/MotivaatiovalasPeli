@@ -24,7 +24,6 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	// TODO: Add speed / motion
 	private int tillMovement, movementInterval, minX, maxX, minY, maxY;
 	private double movementForce, maxSPeed;
-	private MotivaatiovalasPeli parent;
 	private OBJModel model;
 	
 	
@@ -47,13 +46,15 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	 * @param movementInterval How often is the valas moved (steps)
 	 * @param movementForce How much accelration is added to the object at each movement
 	 * @param maxSpeed How fast can the object move
+	 * @param parent The applet that will draw the valas
 	 */
 	public Valas(int x, int y, int z, int maxX, int maxY, int movementInterval,
 			double movementForce, double maxSpeed, MotivaatiovalasPeli parent)
 	{
 		super(x, y, z);
 		
-		this.model = new OBJModel(parent, "valas_final_final.obj", "relative", parent.POLYGON);
+		this.model = new OBJModel(parent, "valas_final_final.obj", "relative", 
+				PConstants.POLYGON);
 		
 		setRotationFriction(1);
 		setFriction(0.15);
@@ -77,8 +78,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	@Override
 	public void drawSelf3D(MotivaatiovalasPeli applet)
 	{
-	    //this.model.draw();
-	    
+	    this.model.draw();
 	    
 		// TODO Add cool valas models
 		// Changes origin
@@ -91,7 +91,6 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 		// Resets
 		applet.noFill();
 		applet.noStroke();
-		
 		
 	}
 
