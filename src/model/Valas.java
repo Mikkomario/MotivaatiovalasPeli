@@ -7,6 +7,7 @@ import listeners.KeyListener;
 import motivaatiovalaspeli.HelpMath;
 import motivaatiovalaspeli.MotivaatiovalasPeli;
 import processing.core.PConstants;
+import saito.objloader.OBJModel;
 import scrolling.Scrollable;
 
 /**
@@ -23,6 +24,8 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	// TODO: Add speed / motion
 	private int tillMovement, movementInterval, minX, maxX, minY, maxY;
 	private double movementForce, maxSPeed;
+	private MotivaatiovalasPeli parent;
+	private OBJModel model;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -46,9 +49,11 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	 * @param maxSpeed How fast can the object move
 	 */
 	public Valas(int x, int y, int z, int maxX, int maxY, int movementInterval,
-			double movementForce, double maxSpeed)
+			double movementForce, double maxSpeed, MotivaatiovalasPeli parent)
 	{
 		super(x, y, z);
+		
+		this.model = new OBJModel(parent, "valas_final_final.obj", "relative", parent.POLYGON);
 		
 		setRotationFriction(1);
 		setFriction(0.15);
@@ -72,6 +77,9 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	@Override
 	public void drawSelf3D(MotivaatiovalasPeli applet)
 	{
+	    //this.model.draw();
+	    
+	    
 		// TODO Add cool valas models
 		// Changes origin
 		//applet.translate(-16, -16, 0);
@@ -83,6 +91,8 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 		// Resets
 		applet.noFill();
 		applet.noStroke();
+		
+		
 	}
 
 	@Override
