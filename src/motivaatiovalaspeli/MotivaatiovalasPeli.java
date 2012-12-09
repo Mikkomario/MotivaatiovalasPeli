@@ -1,6 +1,19 @@
 package motivaatiovalaspeli;
 
+import model.Canyon;
+import model.SealayerDrawer;
+import model.Valas;
+import creators.RockCreator;
+import creators.SeagrassCreator;
+import handlers.CameraListenerHandler;
+import handlers.DrawableHandler;
+import handlers.KeyListenerHandler;
+import handlers.RockHandler;
+import handlers.SeagrassHandler;
+import handlers.StepHandler;
 import processing.core.PApplet;
+import scrolling.FollowingScroller;
+import sprites.SpriteBank;
 
 /**
  * 
