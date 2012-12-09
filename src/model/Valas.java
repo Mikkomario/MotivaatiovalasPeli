@@ -70,6 +70,9 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 		else
 			this.movementInterval = 1;
 		this.tillMovement = this.movementInterval;
+		
+		// Valas's model is so small that we need to scale it a bit
+		setScale(8, 8, 8);
 	}
 	
 	
@@ -84,6 +87,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 		// Changes origin
 		//applet.translate(-16, -16, 0);
 		// Changes colour
+	    /*
 		applet.fill(255, 0, 0);
 		applet.stroke(0);
 		// Draws
@@ -91,7 +95,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 		// Resets
 		applet.noFill();
 		applet.noStroke();
-		
+		*/
 	}
 
 	@Override
