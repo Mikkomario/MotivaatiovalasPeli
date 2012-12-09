@@ -9,7 +9,8 @@ import scrolling.Scroller;
 
 
 /**
- * TODO Put here a description of what this class does.
+ * Objectcreator creates objects after a certain amount of time has passed. These
+ * objects are then added to a drawer and a scroller.
  *
  * @author Gandalf.
  *         Created 7.12.2012.
@@ -104,7 +105,7 @@ public abstract class ObjectCreator implements Actor
 		if (this.delay <= 0)
 		{
 			// Creates the object(s)
-			this.delay = this.minDelay + rand.nextInt(this.maxDelay + 1 - this.minDelay);
+			this.delay = getRandomDelay(this.minDelay, this.maxDelay);
 			createObject(this.width, this.height, this.creationZ, this.maxZ);
 		}
 	}
@@ -147,5 +148,35 @@ public abstract class ObjectCreator implements Actor
 	public Scroller getScroller()
 	{
 		return this.objectScroller;
+	}
+	
+	/**
+	 * 
+	 * Changes how long it takes until the next creation
+	 *
+	 * @param delay How many steps until the next creation
+	 */
+	protected void setDelay(int delay)
+	{
+		this.delay = delay;
+	}
+	
+	
+	// OTHER METHODS	--------------------------------------------------
+	
+	/**
+	 * 
+	 * Returns a random delay between the two values
+	 *
+	 * @param minDelay The smallest possible delay
+	 * @param maxDelay The largest possible delay
+	 * @return Delay between the previous two
+	 */
+	protected static int getRandomDelay(int minDelay, int maxDelay)
+	{
+		if (maxDelay + 1 - minDelay > 0)
+			return minDelay + rand.nextInt(maxDelay + 1 - minDelay);
+		else
+			return 0;
 	}
 }

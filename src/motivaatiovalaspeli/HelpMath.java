@@ -1,5 +1,7 @@
 package motivaatiovalaspeli;
 
+import java.awt.Point;
+
 /**
  * This class only handles some mathematical problems
  *
@@ -157,5 +159,21 @@ public class HelpMath
 			tmpdir += 360;
 		
 		return tmpdir;
+	}
+	
+	/**
+	 * 
+	 * Tells whether a point is between the given values
+	 *
+	 * @param point The point tested
+	 * @param minx The smallest possible x
+	 * @param maxx The largest possible x
+	 * @param miny The smallest possible y
+	 * @param maxy The largest possible y
+	 * @return Is the point between the values
+	 */
+	public static boolean pointIsInRange(Point point, int minx, int maxx, int miny, int maxy)
+	{
+		return (point.x > minx && point.y > miny && point.x < maxx && point.y < maxy);
 	}
 }
