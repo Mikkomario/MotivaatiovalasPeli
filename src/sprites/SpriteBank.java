@@ -55,7 +55,7 @@ public class SpriteBank
 	
 	/**
 	 * 
-	 * Returns a sprite from teh spritebank
+	 * Returns a sprite from the spritebank
 	 *
 	 * @param spriteName The name of the sprite looked
 	 * @return The sprite with the given name
