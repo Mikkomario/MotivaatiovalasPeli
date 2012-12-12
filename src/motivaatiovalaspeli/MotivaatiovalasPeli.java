@@ -3,6 +3,7 @@ package motivaatiovalaspeli;
 import model.Canyon;
 import model.SealayerDrawer;
 import model.Valas;
+import creators.KuhaCreator;
 import creators.RockCreator;
 import creators.SeagrassCreator;
 import handlers.CameraListenerHandler;
@@ -93,6 +94,15 @@ public class MotivaatiovalasPeli extends PApplet
 				this.height, -1000, 300, rhandler, this.playerscroller, 
 				this.mainCollisionHandler);
 		this.stepHandler.addActor(rcreator);
+		
+		// Creates kuhahandler for drawing kuhas
+		DrawableHandler khandler = new DrawableHandler(false);
+		this.mainDrawer.addDrawable(khandler);
+		
+		// Creates a Kuhacreator
+		KuhaCreator kcreator = new KuhaCreator(30, 65, this.width, this.height, 
+				-1000, 300, khandler, this.playerscroller, this.mainCollisionHandler);
+		this.stepHandler.addActor(kcreator);
 		
 		// Creates a seaLayerDrawer
 		SealayerDrawer sld = new SealayerDrawer(-900, 0, 10, 0, 10, 100);

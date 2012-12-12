@@ -6,6 +6,7 @@ import java.util.Random;
 import model.Kuha;
 import motivaatiovalaspeli.HelpMath;
 
+import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import scrolling.Scroller;
 
@@ -25,6 +26,8 @@ public class KuhaCreator extends ObjectCreator
 	private int streamlength;
 	private Point lastPoint;
 	
+	private CollisionHandler collisionHandler;
+	
 	
 	// CONSTRCTOR
 	
@@ -39,10 +42,11 @@ public class KuhaCreator extends ObjectCreator
 	 * @param maxZ How close can the created kuhas come before they are destroyed
 	 * @param objectDrawer What handler will draw kuhas
 	 * @param objectScroller What scroller will scroll kuhas
+	 * @param collisionHandler What CollisionHandler takes care of collision detection?
 	 */
 	public KuhaCreator(int minDelay, int maxDelay, int width, int height,
 			int z, int maxZ, DrawableHandler objectDrawer,
-			Scroller objectScroller)
+			Scroller objectScroller, CollisionHandler collisionHandler)
 	{
 		super(minDelay, maxDelay, width, height, z, maxZ, objectDrawer, objectScroller);
 		
@@ -50,6 +54,7 @@ public class KuhaCreator extends ObjectCreator
 		this.lastPoint = new Point(rand.nextInt(width), 
 				rand.nextInt(height));
 		this.streamlength = getRandomStreamlength();
+		this.collisionHandler = collisionHandler;
 	}
 
 	@Override
@@ -58,8 +63,10 @@ public class KuhaCreator extends ObjectCreator
 	{
 		// Creates a new kuha to the calculated position
 		Kuha newKuha = new Kuha(this.lastPoint.x, this.lastPoint.y, creationZ, maxZ);
+		// And adds it to the handlers and scroller
 		getDrawableHandler().addDrawable(newKuha);
 		getScroller().addScrollable(newKuha);
+		this.collisionHandler.addCollidingObject(newKuha);
 		
 		this.streamlength--;
 		
@@ -67,7 +74,7 @@ public class KuhaCreator extends ObjectCreator
 		if (this.streamlength > 0)
 		{
 			this.lastPoint = getNewPoint(this.lastPoint, fieldWidth, fieldHeight);
-			setDelay(getRandomDelay(5, 10));
+			setDelay(getRandomDelay(10, 20));
 		}
 		else
 		{
@@ -100,8 +107,8 @@ public class KuhaCreator extends ObjectCreator
 		
 		do
 		{
-			newPoint = new Point(lastPoint.x + rand.nextInt(200) - 100,
-					lastPoint.y + rand.nextInt(200) - 100);
+			newPoint = new Point(lastPoint.x + rand.nextInt(100) - 50,
+					lastPoint.y + rand.nextInt(100) - 50);
 		}
 		while (!HelpMath.pointIsInRange(newPoint, 0, maxWidth, 0, maxHeight));
 		
