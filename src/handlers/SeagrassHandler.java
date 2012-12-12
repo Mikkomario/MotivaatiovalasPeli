@@ -6,6 +6,8 @@ import listeners.CameraListener;
 import model.Seagrass;
 
 /**
+ * UPDATE: This class was noticed ugly architectually and is no longer used
+ * 
  * Handles the drawing and cameralistening for all subseagrasses
  *
  * @author Gandalf.

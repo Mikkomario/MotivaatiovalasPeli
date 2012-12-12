@@ -6,9 +6,9 @@ import model.Valas;
 import creators.RockCreator;
 import creators.SeagrassCreator;
 import handlers.CameraListenerHandler;
+import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
-import handlers.RockHandler;
 import handlers.SeagrassHandler;
 import handlers.StepHandler;
 import processing.core.PApplet;
@@ -35,6 +35,7 @@ public class MotivaatiovalasPeli extends PApplet
 	private Valas player;
 	private FollowingScroller playerscroller;
 	private SpriteBank sprtbank;
+	private CollisionHandler mainCollisionHandler;
 	
 	
 	// IMPLEMENTED METHODS	-----------------------------------------------
@@ -62,12 +63,18 @@ public class MotivaatiovalasPeli extends PApplet
 		this.keyhandler = new KeyListenerHandler();
 		this.stepHandler.addActor(this.keyhandler);
 		
-		// Creates the playable valas and adds it to drawer, stephandler and keyhandler
+		// Creates a collisionhandler and adds it to the stephandler
+		this.mainCollisionHandler = new CollisionHandler(false);
+		this.stepHandler.addActor(this.mainCollisionHandler);
+		
+		// Creates the playable valas and adds it to drawer, stephandler,
+		// collisionhandler and keyhandler
 		this.player = new Valas(this.width/2, this.height/2, 0, this.width, 
 				this.height, 15, 8, 15, this);
 		this.mainDrawer.addDrawable(this.player);
 		this.stepHandler.addActor(this.player);
 		this.keyhandler.addListener(this.player);
+		this.mainCollisionHandler.addCollisionListener(this.player);
 		
 		// Creates the scroller and adds canyon and valas as its scrollables
 		this.playerscroller = new FollowingScroller(this.player);
@@ -75,19 +82,20 @@ public class MotivaatiovalasPeli extends PApplet
 		this.playerscroller.addScrollable(testcanyon);
 		this.playerscroller.addScrollable(testcanyon2);
 		
-		// Creates a rockhandler for drawing the rocks + collision detection
-		RockHandler rhandler = new RockHandler();
-		rhandler.addCollisionListener(this.player);
-		this.stepHandler.addActor(rhandler);
+		// Creates a rockhandler for drawing the rocks
+		DrawableHandler rhandler = new DrawableHandler(false);
+		//rhandler.addCollisionListener(this.player);
+		//this.stepHandler.addActor(rhandler);
 		this.mainDrawer.addDrawable(rhandler);
 		
 		// Creates a rockcreator
 		RockCreator rcreator = new RockCreator(1, 8, 30, 100, this.width,
-				this.height, -1000, 300, rhandler, this.playerscroller);
+				this.height, -1000, 300, rhandler, this.playerscroller, 
+				this.mainCollisionHandler);
 		this.stepHandler.addActor(rcreator);
 		
 		// Creates a seaLayerDrawer
-		SealayerDrawer sld = new SealayerDrawer(-900, 0, 12, 0, 10, 100);
+		SealayerDrawer sld = new SealayerDrawer(-900, 0, 10, 0, 10, 100);
 		this.mainDrawer.addDrawable(sld);
 		
 		// Creates a seagrass for testing
@@ -109,7 +117,7 @@ public class MotivaatiovalasPeli extends PApplet
 		// Creates a seagrasscreator
 		SeagrassCreator seagrasscreator = new SeagrassCreator(5, 50, this.width, 
 				this.height, -1000, 300, grasshandler, this.playerscroller, 
-				this.width/2, this.height/2, 420, this.sprtbank);
+				this.camerahandler, this.width/2, this.height/2, 420, this.sprtbank);
 		this.camerahandler.addListener(seagrasscreator);
 		this.stepHandler.addActor(seagrasscreator);
 		

@@ -13,7 +13,7 @@ import listeners.CollisionListener;
  * @author Gandalf.
  *         Created 12.12.2012.
  */
-public class CollisionListenerHandler extends LogicalHandler implements Actor
+public class CollisionHandler extends LogicalHandler implements Actor
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
@@ -27,7 +27,7 @@ public class CollisionListenerHandler extends LogicalHandler implements Actor
 	 *
 	 * @param autodeath Will the handler die when it runs out of listeners?
 	 */
-	public CollisionListenerHandler(boolean autodeath)
+	public CollisionHandler(boolean autodeath)
 	{
 		super(autodeath);
 		

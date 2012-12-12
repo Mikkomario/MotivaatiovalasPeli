@@ -1,6 +1,7 @@
 package creators;
 
-import handlers.SeagrassHandler;
+import handlers.CameraListenerHandler;
+import handlers.DrawableHandler;
 
 import java.util.Random;
 
@@ -11,7 +12,8 @@ import listeners.CameraListener;
 import model.Seagrass;
 
 /**
- * This class creates new seagrasses and adds them to a handler and a scroller.
+ * This class creates new seagrasses and adds them to a handler, a scroller and 
+ * a cameralistenerhandler.
  *
  * @author Gandalf.
  *         Created 7.12.2012.
@@ -25,6 +27,7 @@ public class SeagrassCreator extends ObjectCreator implements CameraListener
 	private int camx, camy, camz;
 	
 	private SpriteBank sprtbank;
+	private CameraListenerHandler cameraHandler;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -38,23 +41,27 @@ public class SeagrassCreator extends ObjectCreator implements CameraListener
 	 * @param height Where is the bottom of the area
 	 * @param z What z will the new grass have at start
 	 * @param maxZ How close the grass will come before it is destroyed
-	 * @param grassHandler What drawablehandler will draw the grass.
+	 * @param grassDrawer What drawablehandler will draw the grass.
 	 * @param grassScroller What scroller will scroll the grass
+	 * @param camerahandler The cameralistenerHandler that informs the created 
+	 * seagrasses of camera's changes
 	 * @param camerax The camera's current x-coordinate
 	 * @param cameray The camera's current y-coordinate
 	 * @param cameraz The camera's current z-coordinate
 	 * @param spritebank From which spritebank the grassimage(s) can be found
 	 */
 	public SeagrassCreator(int minDelay, int maxDelay, int width, int height,
-			int z, int maxZ, SeagrassHandler grassHandler,
-			Scroller grassScroller, int camerax, int cameray, int cameraz, SpriteBank spritebank)
+			int z, int maxZ, DrawableHandler grassDrawer,
+			Scroller grassScroller, CameraListenerHandler camerahandler, int camerax, int cameray, int cameraz, 
+			SpriteBank spritebank)
 	{
-		super(minDelay, maxDelay, width, height, z, maxZ, grassHandler, grassScroller);
-		// TODO: Change handler class
+		super(minDelay, maxDelay, width, height, z, maxZ, grassDrawer, grassScroller);
+		// Initializes attributes
 		this.camx = camerax;
 		this.camy = cameray;
 		this.camz = cameraz;
 		this.sprtbank = spritebank;
+		this.cameraHandler = camerahandler;
 	}
 	
 	
@@ -75,9 +82,10 @@ public class SeagrassCreator extends ObjectCreator implements CameraListener
 		Seagrass newgrass = new Seagrass(newx, fieldHeight, creationZ, creationZ, 
 				maxZ, this.camx, this.camy, this.camz, this.sprtbank);
 		
-		// Adds it to the handler + scroller
+		// Adds it to the handlers + scroller
 		getDrawableHandler().addDrawable(newgrass);
 		getScroller().addScrollable(newgrass);
+		this.cameraHandler.addListener(newgrass);
 	}
 
 	@Override

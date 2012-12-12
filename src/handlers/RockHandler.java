@@ -10,6 +10,8 @@ import listeners.CollisionListener;
 import model.Rock;
 
 /**
+ * UPDATE: This class was noticed ugly (architectually) so it is no longer used
+ * 
  * This class draws all the rocks under its care and also checks collisions 
  * between them and other objects. Only rocks can be drawn with the rockhandler.
  *

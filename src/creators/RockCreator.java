@@ -1,6 +1,7 @@
 package creators;
 
-import handlers.RockHandler;
+import handlers.CollisionHandler;
+import handlers.DrawableHandler;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,6 +25,8 @@ public class RockCreator extends ObjectCreator
 	
 	private int maxRocks, minRocks;
 	
+	private CollisionHandler collisionhandler;
+	
 	
 	// CONSTRUCTOR	----------------------------------------------------
 	
@@ -41,16 +44,18 @@ public class RockCreator extends ObjectCreator
 	 * @param maxZ How far can the rocks be scrolled before they disappear
 	 * @param rockDrawer The drawablehandler who takes care of draing the rocks
 	 * @param rockScroller The scrolled in charge of moving / scrolling the created rocks
+	 * @param collisionHandler The Handler that takes care of rocks' collisions
 	 */
 	public RockCreator(int minRocks, int maxRocks, int minDelay, int maxDelay, 
-			int width, int height, int z, int maxZ, RockHandler rockDrawer, 
-			Scroller rockScroller)
+			int width, int height, int z, int maxZ, DrawableHandler rockDrawer, 
+			Scroller rockScroller, CollisionHandler collisionHandler)
 	{
 		super(minDelay, maxDelay, width, height, z, maxZ, rockDrawer, rockScroller);
 		
 		// Initializes attributes
 		this.minRocks = minRocks;
 		this.maxRocks = maxRocks;
+		this.collisionhandler = collisionHandler;
 	}
 	
 	
@@ -153,6 +158,7 @@ public class RockCreator extends ObjectCreator
 			usedpositions.add(newpos);
 			getDrawableHandler().addDrawable(newrock);
 			getScroller().addScrollable(newrock);
+			this.collisionhandler.addCollidingObject(newrock);
 			/*
 			if (newx < 0)
 			{
