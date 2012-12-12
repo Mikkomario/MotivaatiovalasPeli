@@ -1,5 +1,7 @@
 package model;
 
+import handleds.Colliding;
+
 import java.awt.Point;
 import java.util.Random;
 
@@ -15,7 +17,7 @@ import motivaatiovalaspeli.MotivaatiovalasPeli;
  * @author Gandalf.
  *         Created 5.12.2012.
  */
-public class Rock extends DrawnObject3D implements Scrollable
+public class Rock extends DrawnObject3D implements Scrollable, Colliding
 {	
 	// ATTRIBUTES	------------------------------------------------------
 	

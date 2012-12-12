@@ -80,13 +80,6 @@ public class Seagrass extends DrawnObject2DProjected implements Scrollable
 	}
 
 	@Override
-	public boolean pointCollides(int x, int y, int z)
-	{
-		// Add something when necessary
-		return false;
-	}
-
-	@Override
 	public void setZ(double z)
 	{
 		this.setPosition(getX(), getY(), z);

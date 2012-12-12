@@ -1,6 +1,7 @@
 package listeners;
 
-import drawnobjects.DrawnObject3D;
+import handleds.Colliding;
+import handleds.LogicalHandled;
 
 /**
  * CollisionListeners are interested in collisions with other 3D objects and react 
@@ -9,7 +10,7 @@ import drawnobjects.DrawnObject3D;
  * @author Gandalf.
  *         Created 6.12.2012.
  */
-public interface CollisionListener
+public interface CollisionListener extends LogicalHandled
 {
 	/**
 	 * @return The x-coordinate of the position with which collisions are checked
@@ -32,5 +33,5 @@ public interface CollisionListener
 	 *
 	 * @param collidedObject The object with which the listener collided
 	 */
-	public void onCollision(DrawnObject3D collidedObject);
+	public void onCollision(Colliding collidedObject);
 }

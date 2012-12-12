@@ -1,6 +1,6 @@
 package model;
 
-import drawnobjects.DrawnObject3D;
+import handleds.Colliding;
 import drawnobjects.PhysicObject3D;
 import listeners.CollisionListener;
 import listeners.KeyListener;
@@ -96,13 +96,6 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 		applet.noFill();
 		applet.noStroke();
 		*/
-	}
-
-	@Override
-	public boolean pointCollides(int x, int y, int z)
-	{
-		// TODO Think of somehting here...
-		return false;
 	}
 
 	@Override
@@ -253,7 +246,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 
 
 	@Override
-	public void onCollision(DrawnObject3D collidedObject)
+	public void onCollision(Colliding collidedObject)
 	{
 		if (!isActive())
 			return;

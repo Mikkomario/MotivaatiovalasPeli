@@ -1,5 +1,6 @@
 package model;
 
+import handleds.Colliding;
 import scrolling.Scrollable;
 import motivaatiovalaspeli.HelpMath;
 import motivaatiovalaspeli.MotivaatiovalasPeli;
@@ -11,7 +12,7 @@ import drawnobjects.DrawnObject3D;
  * @author Gandalf.
  *         Created 9.12.2012.
  */
-public class Kuha extends DrawnObject3D implements Scrollable
+public class Kuha extends DrawnObject3D implements Scrollable, Colliding
 {
 	// ATTRIBUTES	------------------------------------------------------
 	

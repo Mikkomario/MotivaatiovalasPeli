@@ -332,17 +332,7 @@ public abstract class DrawnObject3D implements Drawable
 		this.zscale *= zscale;
 	}
 	
-	/**
-	 * 
-	 * This method checks whether a certain point would collide with the 
-	 * object
-	 *
-	 * @param x The ingame x-coordinate of the point
-	 * @param y The ingame y-coordinate of the point
-	 * @param z The ingame z-coordinate of the point
-	 * @return Does the point collide with the object
-	 */
-	public abstract boolean pointCollides(int x, int y, int z);
+	//public abstract boolean pointCollides(int x, int y, int z);
 	/*
 	{
 		// Negates the transformation

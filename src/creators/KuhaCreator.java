@@ -10,7 +10,8 @@ import handlers.DrawableHandler;
 import scrolling.Scroller;
 
 /**
- * Creates kuhas to the field creating lines of kuhas
+ * Creates kuhas to the field creating lines of kuhas and adding them to necessary 
+ * handlers and listners
  *
  * @author Gandalf.
  *         Created 9.12.2012.
