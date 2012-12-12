@@ -90,7 +90,7 @@ public class MotivaatiovalasPeli extends PApplet
 		this.mainDrawer.addDrawable(rhandler);
 		
 		// Creates a rockcreator
-		RockCreator rcreator = new RockCreator(1, 8, 30, 100, this.width,
+		RockCreator rcreator = new RockCreator(1, 5, 250, 620, this.width,
 				this.height, -1000, 300, rhandler, this.playerscroller, 
 				this.mainCollisionHandler);
 		this.stepHandler.addActor(rcreator);
@@ -100,7 +100,7 @@ public class MotivaatiovalasPeli extends PApplet
 		this.mainDrawer.addDrawable(khandler);
 		
 		// Creates a Kuhacreator
-		KuhaCreator kcreator = new KuhaCreator(30, 65, this.width, this.height, 
+		KuhaCreator kcreator = new KuhaCreator(100, 250, this.width, this.height, 
 				-1000, 300, khandler, this.playerscroller, this.mainCollisionHandler);
 		this.stepHandler.addActor(kcreator);
 		
@@ -125,7 +125,7 @@ public class MotivaatiovalasPeli extends PApplet
 		this.camerahandler.addListener(grasshandler);
 		
 		// Creates a seagrasscreator
-		SeagrassCreator seagrasscreator = new SeagrassCreator(5, 50, this.width, 
+		SeagrassCreator seagrasscreator = new SeagrassCreator(80, 400, this.width, 
 				this.height, -1000, 300, grasshandler, this.playerscroller, 
 				this.camerahandler, this.width/2, this.height/2, 420, this.sprtbank);
 		this.camerahandler.addListener(seagrasscreator);

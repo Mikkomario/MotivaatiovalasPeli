@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 import scrolling.Scrollable;
 import sprites.Sprite;
 import sprites.SpriteBank;
@@ -45,6 +47,10 @@ public class Seagrass extends DrawnObject2DProjected implements Scrollable
 		this.sprite = spritebank.getSprite("seagrass");
 		this.minZ = minZ;
 		this.maxZ = maxZ;
+		
+		// Randomly scales the object
+		Random rand = new Random();
+		scale(0.75 + rand.nextDouble()*0.5, 1 + rand.nextDouble()*2, 1);
 	}
 
 	@Override

@@ -65,6 +65,8 @@ public class RockCreator extends ObjectCreator
 	public void createObject(int fieldWidth, int fieldHeight, int creationZ,
 			int maxZ)
 	{
+		//System.out.println("Rockwave!");
+		
 		int minX, maxX, minY, maxY;
 		ArrayList<int[]> usedpositions = new ArrayList<int[]>();
 		int rocknumber = this.minRocks + rand.nextInt(this.maxRocks + 1 - this.minRocks);

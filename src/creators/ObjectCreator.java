@@ -21,7 +21,7 @@ public abstract class ObjectCreator implements Actor
 	
 	private static Random rand = new Random();
 	
-	private int delay, minDelay, maxDelay, width, height, creationZ, maxZ;
+	private int distance, minDistance, maxDistance, width, height, creationZ, maxZ;
 	private boolean active, alive;
 	
 	private DrawableHandler objectDrawer;
@@ -34,8 +34,8 @@ public abstract class ObjectCreator implements Actor
 	 * Creates a new object creator with the given information. The creator starts 
 	 * creating objects right away.
 	 *
-	 * @param minDelay How long is the smallest delay possible (steps)
-	 * @param maxDelay How ling is the longest delay possible (steps)
+	 * @param minDistance How long is the smallest distance between the created objects possible (steps)
+	 * @param maxDistance How ling is the longest distance between the created objects possible (steps)
 	 * @param width To how wide an area are the rocks positioned (Pxl)
 	 * @param height To how high an area are the rocks positioned (Pxl)
 	 * @param z What z-coordinate will the new rocks have.
@@ -43,12 +43,12 @@ public abstract class ObjectCreator implements Actor
 	 * @param objectDrawer The drawablehandler who takes care of draing the rocks
 	 * @param objectScroller The scrolled in charge of moving / scrolling the created rocks
 	 */
-	public ObjectCreator(int minDelay, int maxDelay, int width, int height, 
+	public ObjectCreator(int minDistance, int maxDistance, int width, int height, 
 			int z, int maxZ, DrawableHandler objectDrawer, Scroller objectScroller)
 	{
 		// Initializes attributes
-		this.minDelay = minDelay;
-		this.maxDelay = maxDelay;
+		this.minDistance = minDistance;
+		this.maxDistance = maxDistance;
 		this.width = width;
 		this.height = height;
 		this.creationZ = z;
@@ -58,7 +58,7 @@ public abstract class ObjectCreator implements Actor
 		
 		this.active = true;
 		this.alive = true;
-		this.delay = this.minDelay + rand.nextInt(this.maxDelay + 1 - this.minDelay);
+		this.distance = this.minDistance + rand.nextInt(this.maxDistance + 1 - this.minDistance);
 	}
 	
 	
@@ -95,17 +95,14 @@ public abstract class ObjectCreator implements Actor
 
 	@Override
 	public void act()
-	{
-		// TODO: Change to something else than time (distance?) as progressing 
-		// slowly now causes more rocks to be created
+	{	
+		// Checks if a new objects should be created
+		this.distance -= getScroller().getSpeed();
 		
-		// Checks if a new wave of objects should be created
-		this.delay--;
-		
-		if (this.delay <= 0)
+		if (this.distance <= 0)
 		{
 			// Creates the object(s)
-			this.delay = getRandomDelay(this.minDelay, this.maxDelay);
+			this.distance = getRandomDistance(this.minDistance, this.maxDistance);
 			createObject(this.width, this.height, this.creationZ, this.maxZ);
 		}
 	}
@@ -158,7 +155,7 @@ public abstract class ObjectCreator implements Actor
 	 */
 	protected void setDelay(int delay)
 	{
-		this.delay = delay;
+		this.distance = delay;
 	}
 	
 	
@@ -168,15 +165,23 @@ public abstract class ObjectCreator implements Actor
 	 * 
 	 * Returns a random delay between the two values
 	 *
-	 * @param minDelay The smallest possible delay
-	 * @param maxDelay The largest possible delay
+	 * @param minDistance The smallest possible distance
+	 * @param maxDistance The largest possible distance
 	 * @return Delay between the previous two
 	 */
-	protected static int getRandomDelay(int minDelay, int maxDelay)
+	protected static int getRandomDistance(int minDistance, int maxDistance)
 	{
-		if (maxDelay + 1 - minDelay > 0)
-			return minDelay + rand.nextInt(maxDelay + 1 - minDelay);
+		if (maxDistance + 1 - minDistance > 0)
+			return minDistance + rand.nextInt(maxDistance + 1 - minDistance);
 		else
 			return 0;
+	}
+	
+	/**
+	 * @return How much must at least be scrolled before a new object is created
+	 */
+	protected int getMinDistance()
+	{
+		return this.minDistance;
 	}
 }

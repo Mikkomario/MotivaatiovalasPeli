@@ -74,7 +74,7 @@ public class KuhaCreator extends ObjectCreator
 		if (this.streamlength > 0)
 		{
 			this.lastPoint = getNewPoint(this.lastPoint, fieldWidth, fieldHeight);
-			setDelay(getRandomDelay(10, 20));
+			setDelay(getRandomDistance(getMinDistance()/2, getMinDistance()));
 		}
 		else
 		{
@@ -90,15 +90,18 @@ public class KuhaCreator extends ObjectCreator
 	{
 		double randnumber = rand.nextDouble();
 		
-		// 50% chance it's 1
-		if (randnumber < 0.5)
+		// 65% chance it's 1
+		if (randnumber < 0.65)
 			return 1;
-		// 35% chance it's 3-6
-		else if (randnumber < 0.85)
-			return rand.nextInt(4) + 3;
-		// 15% chance it's 9-12
+		// 20% Chance it's 2-3
+		if (randnumber < 0.85)
+			return rand.nextInt(2) + 2;
+		// 10% chance it's 4-6
+		else if (randnumber < 0.95)
+			return rand.nextInt(3) + 4;
+		// 5% chance it's 6-12
 		else
-			return rand.nextInt(4) + 9;
+			return rand.nextInt(7) + 6;
 	}
 	
 	private Point getNewPoint(Point lastPoint, int maxWidth, int maxHeight)

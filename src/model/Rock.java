@@ -164,7 +164,7 @@ public class Rock extends DrawnObject3D implements Scrollable, Colliding
 		Random rand = new Random();
 		
 		setAngle(0, 0, rand.nextInt(360));
-		setScale(1 + rand.nextDouble()*6, 1 + rand.nextDouble()*3, 1 + rand.nextDouble()*2);
+		setScale(1 + rand.nextDouble()*5, 1 + rand.nextDouble()*2, 1 + rand.nextDouble());
 	}
 
 }

@@ -72,7 +72,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 		this.tillMovement = this.movementInterval;
 		
 		// Valas's model is so small that we need to scale it a bit
-		setScale(8, 8, 8);
+		//setScale(8, 8, 8);
 	}
 	
 	
@@ -81,13 +81,19 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	@Override
 	public void drawSelf3D(MotivaatiovalasPeli applet)
 	{
-	    this.model.draw();
-	    
-		// TODO Add cool valas models
+	    //this.model.draw();
+	    applet.fill(0, 0, 255);
+		applet.stroke(0);
+		// Draws
+		applet.rect(0, 0, 5, 100);
+		applet.rect(0, 0, 100, 5);
+		// Resets
+		applet.noFill();
+		applet.noStroke();
 		// Changes origin
 		//applet.translate(-16, -16, 0);
 		// Changes colour
-	    /*
+	    
 		applet.fill(255, 0, 0);
 		applet.stroke(0);
 		// Draws
@@ -95,7 +101,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 		// Resets
 		applet.noFill();
 		applet.noStroke();
-		*/
+		
 	}
 
 	@Override
@@ -131,13 +137,13 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	@Override
 	public int getOriginX()
 	{
-		return 16;
+		return 0;
 	}
 
 	@Override
 	public int getOriginY()
 	{
-		return 16;
+		return 0;
 	}
 
 	@Override

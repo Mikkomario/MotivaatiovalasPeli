@@ -43,7 +43,7 @@ public class SpriteBank
 		try
 		{
 			// TODO: Add some other sprites to the bank
-			Sprite seagrassSprite = new Sprite("testplant.png", 1, 60, 200, 
+			Sprite seagrassSprite = new Sprite("seaweed.png", 1, 25, 100, 
 					"seagrass", this.applet);
 			this.sprites.put(seagrassSprite.getName(), seagrassSprite);
 		}

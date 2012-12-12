@@ -93,15 +93,14 @@ public abstract class DrawnObject3D implements Drawable
 		
 		// Translates the object
 		applet.translate((float) this.x, (float) this.y, (float) this.z);
-		// Translates the origin
-		applet.translate(-getOriginX(), -getOriginY(), -getOriginZ());
 		// Rotates it
 		applet.rotateX((float) Math.toRadians(getXAngle()));
 		applet.rotateY((float) Math.toRadians(getYAngle()));
 		applet.rotateZ((float) Math.toRadians(getZAngle()));
 		// Scales it
 		applet.scale((float) this.xscale, (float) this.yscale, (float) this.zscale);
-		
+		// Translates the origin
+		applet.translate(-getOriginX(), -getOriginY(), -getOriginZ());
 		// Draws it
 		drawSelf3D(applet);
 		
