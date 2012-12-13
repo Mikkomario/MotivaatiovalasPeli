@@ -3,6 +3,7 @@ package motivaatiovalaspeli;
 import model.Canyon;
 import model.SealayerDrawer;
 import model.Valas;
+import creators.CanyonCreator;
 import creators.KuhaCreator;
 import creators.RockCreator;
 import creators.SeagrassCreator;
@@ -13,6 +14,7 @@ import handlers.KeyListenerHandler;
 import handlers.SeagrassHandler;
 import handlers.StepHandler;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import score.ScoreHandler;
 import scrolling.FollowingScroller;
 import sprites.SpriteBank;
@@ -53,11 +55,19 @@ public class MotivaatiovalasPeli extends PApplet
 		this.sprtbank = new SpriteBank(this);
 		
 		// Creates the canyon and adds it to the drawables handled
-		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 100, -900, 1100, this.sprtbank);
+		//Canyon testcanyon = new Canyon(this.width, this.height, 1000, 100, 
+				//-900, 1100, this.sprtbank);
+		/*
+		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 100, 
+				-900, 1100, this.sprtbank);
 		this.mainDrawer = new DrawableHandler(false);
 		this.mainDrawer.addDrawable(testcanyon);
-		Canyon testcanyon2 = new Canyon(this.width, this.height, 1000, -900, -900, 1100, this.sprtbank);
+		//Canyon testcanyon2 = new Canyon(this.width, this.height, 1000, -900, -900, 1100, this.sprtbank);
+		Canyon testcanyon2 = new Canyon(this.width, this.height, 1000, -900, 
+				-900, 1100, this.sprtbank);
 		this.mainDrawer.addDrawable(testcanyon2);
+		*/
+		this.mainDrawer = new DrawableHandler(false);
 		
 		// Also creates the stephandler
 		this.stepHandler = new StepHandler(60, this);
@@ -79,11 +89,17 @@ public class MotivaatiovalasPeli extends PApplet
 		this.keyhandler.addListener(this.player);
 		this.mainCollisionHandler.addCollisionListener(this.player);
 		
-		// Creates the scroller and adds canyon and valas as its scrollables
+		// Creates the scroller and adds valas as its scrollable
 		this.playerscroller = new FollowingScroller(this.player);
 		this.stepHandler.addActor(this.playerscroller);
-		this.playerscroller.addScrollable(testcanyon);
-		this.playerscroller.addScrollable(testcanyon2);
+		//this.playerscroller.addScrollable(testcanyon);
+		//this.playerscroller.addScrollable(testcanyon2);
+		
+		// Creates the canyons
+		DrawableHandler canyonDrawer = new DrawableHandler(true);
+		this.mainDrawer.addDrawable(canyonDrawer);
+		CanyonCreator.createCanyons(this.width, this.height, -1000, 500, 5, 
+				this.playerscroller, canyonDrawer, this.sprtbank);
 		
 		// Creates a rockhandler for drawing the rocks
 		DrawableHandler rhandler = new DrawableHandler(false);
@@ -105,10 +121,6 @@ public class MotivaatiovalasPeli extends PApplet
 		KuhaCreator kcreator = new KuhaCreator(100, 250, this.width, this.height, 
 				-1000, 300, khandler, this.playerscroller, this.mainCollisionHandler);
 		this.stepHandler.addActor(kcreator);
-		
-		// Creates a seaLayerDrawer
-		SealayerDrawer sld = new SealayerDrawer(-900, 0, 10, 0, 10, 100);
-		this.mainDrawer.addDrawable(sld);
 		
 		// Creates a seagrass for testing
 		/*
@@ -133,6 +145,12 @@ public class MotivaatiovalasPeli extends PApplet
 		this.camerahandler.addListener(seagrasscreator);
 		this.stepHandler.addActor(seagrasscreator);
 		
+		// Creates a seaLayerDrawer
+		/*
+		SealayerDrawer sld = new SealayerDrawer(-900, 0, 10, 0, 10, 100);
+		this.mainDrawer.addDrawable(sld);
+		*/
+		
 		// Creates a scorehandler
 		this.scorehandler = new ScoreHandler();
 		this.mainDrawer.addDrawable(this.scorehandler);
@@ -148,7 +166,8 @@ public class MotivaatiovalasPeli extends PApplet
 	@Override
 	public void draw()
 	{	
-		//System.out.println(this.frameRate);
+		System.out.println(this.frameRate);
+		//perspective((float) (PConstants.PI/3.0), (float) (640/480.0), 10, -1000);
 		
 		background(0, 10, 100);
 		noStroke();

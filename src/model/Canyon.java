@@ -1,6 +1,6 @@
 package model;
 
-import processing.core.PImage;
+import processing.core.PConstants;
 import scrolling.Scrollable;
 import sprites.Sprite;
 import sprites.SpriteBank;
@@ -41,6 +41,7 @@ public class Canyon implements Drawable, Scrollable
 	 * @param z How far the nearest point of the canyon is on the z-axis (pxl)
 	 * @param minz How close the piece of canyon can come before it jumps back to maxz?
 	 * @param maxz How far is the piece of canyon dropped when it goes too far?
+	 * @param spritebank The spritebank which includes canyon's textures
 	 */
 	public Canyon(int width, int height, int depth, int z, int minz,
 			int maxz, SpriteBank spritebank)
@@ -66,58 +67,86 @@ public class Canyon implements Drawable, Scrollable
 	@Override
 	public void drawSelf(MotivaatiovalasPeli applet)
 	{
-		applet.noStroke();
+		applet.textureMode(PConstants.NORMAL);
+		
+		/*
+		applet.beginShape();
+		applet.texture(this.bottom.getSubImage(0));
+		*/
+		// "laDefense.jpg" is 100x100 pixels in size so
+		// the values 0 and 100 are used for the
+		// parameters "u" and "v" to map it directly
+		// to the vertex points
+		/*
+		applet.vertex(0, this.height, (int) getZ(), 0, 0);
+		applet.vertex(this.width, this.height, (int) getZ(), 100, 0);
+		applet.vertex(this.width, this.height, (int) getZ() -400, 100, 100);
+		applet.vertex(0, this.height, (int) getZ() -400, 0, 100);
+		applet.endShape();
+		*/
+		//applet.noStroke();
 		
 		// Draws bottom	
-		
+		/*
 		applet.pushMatrix();
 		applet.translate(0, this.height, (float) this.z);
 		applet.rotateX((float) Math.toRadians(-90));
-		
+		*/
 		applet.beginShape();
-		System.out.println(this.bottom);
+		//System.out.println(this.bottom);
 		applet.texture(this.bottom.getSubImage(0));
 		
-		applet.vertex(0, 0, 0, 0);
-		applet.vertex(0, this.width, 0, this.bottom.getWidth());
-		applet.vertex(this.depth, this.width, this.bottom.getHeight(), this.bottom.getWidth());
-		applet.vertex(this.width, 0, this.bottom.getHeight(), 0);		
+		// x, y, z, tx, ty
+		applet.vertex(0, this.height, (int) getZ() - this.depth, 0, 0);
+		applet.vertex(0, this.height, (int) getZ(), 1, 
+				0);
+		applet.vertex(this.width, this.height, (int) getZ(), 
+				1, 1);
+		applet.vertex(this.width, this.height, (int) getZ() - this.depth, 0, 
+				1);		
 		
 		applet.endShape();
-		
 	//	applet.fill(200, 200, 40);
 	//	applet.rect(0, 0, this.width, this.depth);
 		
-		applet.popMatrix();
+		//applet.popMatrix();
 	
 		// Draws left wall
+		/*
 		applet.pushMatrix();
 		applet.translate(0, 0, (float) this.z);
 		applet.rotateX((float) Math.toRadians(-90));
 		applet.rotateY((float) Math.toRadians(-90));
+		*/
 		applet.beginShape();
 		applet.texture(this.canyon.getSubImage(0));
-		applet.vertex(0, 0, 0, 0);
-		applet.vertex(0, this.depth, 0, this.bottom.getWidth());
-		applet.vertex(this.height, this.depth, this.bottom.getHeight(), this.bottom.getWidth());
-		applet.vertex(this.height, 0, this.bottom.getHeight(), 0);
+		applet.vertex(0, 0, (int) getZ(), 0, 0);
+		applet.vertex(0, 0, (int) getZ() - this.depth, 1, 0);
+		applet.vertex(0, this.height, (int) getZ() - this.depth, 
+				1, 1);
+		applet.vertex(0, this.height, (int) getZ(), 0, 1);
 		applet.endShape();
+		
 	/*	applet.fill(50, 20, 20);
 		applet.rect(0, 0, this.height, this.depth);*/
 		
 		// Draws right wall
-		applet.translate(0, 0, -this.width);
+		//applet.translate(0, 0, -this.width);
 		//	applet.rect(0, 0, this.height, this.depth);
 		applet.beginShape();
 		applet.texture(this.canyon.getSubImage(0));
-		applet.vertex(0, 0, 0, 0);
-		applet.vertex(0, this.depth, 0, this.bottom.getWidth());
-		applet.vertex(this.height, this.depth, this.bottom.getHeight(), this.bottom.getWidth());
-		applet.vertex(this.height, 0, this.bottom.getHeight(), 0);
+		applet.vertex(this.width, 0, (int) getZ(), 0, 0);
+		applet.vertex(this.width, 0, (int) getZ() - this.depth, 
+				1, 0);
+		applet.vertex(this.width, this.height, (int) getZ() - this.depth, 
+				1, 1);
+		applet.vertex(this.width, this.height, (int) getZ(), 0, 
+				1);
 		applet.endShape();
-	
+		/*
 		applet.popMatrix();
 		applet.noFill();
+		*/
 	}
 
 	@Override
