@@ -14,8 +14,8 @@ import handlers.SeagrassHandler;
 import handlers.StepHandler;
 import processing.core.PApplet;
 import scrolling.FollowingScroller;
+import scrore.ScoreHandler;
 import sprites.SpriteBank;
-import testers.ValasCollisionTestDrawer;
 
 /**
  * 
@@ -38,6 +38,7 @@ public class MotivaatiovalasPeli extends PApplet
 	private FollowingScroller playerscroller;
 	private SpriteBank sprtbank;
 	private CollisionHandler mainCollisionHandler;
+	private ScoreHandler scorehandler;
 	
 	
 	// IMPLEMENTED METHODS	-----------------------------------------------
@@ -132,9 +133,16 @@ public class MotivaatiovalasPeli extends PApplet
 		this.camerahandler.addListener(seagrasscreator);
 		this.stepHandler.addActor(seagrasscreator);
 		
+		// Creates a scorehandler
+		this.scorehandler = new ScoreHandler();
+		this.mainDrawer.addDrawable(this.scorehandler);
+		this.stepHandler.addActor(this.scorehandler);
+		
 		//testcanyon.setInvisible();
+		/*
 		ValasCollisionTestDrawer test = new ValasCollisionTestDrawer(this.player);
 		this.mainDrawer.addDrawable(test);
+		*/
 	}
 	
 	@Override
@@ -162,6 +170,8 @@ public class MotivaatiovalasPeli extends PApplet
 		this.mainDrawer.drawSelf(this);
 		
 		// TEST DRAWING
+		
+		//text("asdasdasdadasdSAKJKLFJKASJSKLD", 100, 100);
 		/*
 		stroke(255);
 		rect(this.width/2, this.height/2, 20, 30);
