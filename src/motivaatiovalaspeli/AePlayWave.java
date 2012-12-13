@@ -14,6 +14,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 /**
  * An external class that answers for playing the sound effects in this game.
  * 
+ * TODO: Loading the sound files to a database and using them instead of
+ * loading them from file every time a sound is played.
+ * 
  * @author http://www.anyexample.com/programming/java/java_play_wav_sound_file.xml
  *
  */
@@ -43,13 +46,14 @@ public class AePlayWave extends Thread {
     public void run() { 
  
         File soundFile = new File(filename);
+
         /*if (!soundFile.exists()) { 
             System.err.println("Wave file not found: " + filename);
             return;
         } 
     */
         AudioInputStream audioInputStream = null;
-        try { 
+        try {
             audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream(filename));
         } catch (UnsupportedAudioFileException e1) { 
             e1.printStackTrace();
