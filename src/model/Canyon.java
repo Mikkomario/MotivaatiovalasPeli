@@ -1,6 +1,9 @@
 package model;
 
+import processing.core.PImage;
 import scrolling.Scrollable;
+import sprites.Sprite;
+import sprites.SpriteBank;
 import handleds.Drawable;
 import motivaatiovalaspeli.MotivaatiovalasPeli;
 
@@ -21,6 +24,10 @@ public class Canyon implements Drawable, Scrollable
 	private int width, height, depth, maxz, minz;
 	private double z;
 	
+	private Sprite bottom;
+	private Sprite canyon;
+
+	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
 	
@@ -36,7 +43,7 @@ public class Canyon implements Drawable, Scrollable
 	 * @param maxz How far is the piece of canyon dropped when it goes too far?
 	 */
 	public Canyon(int width, int height, int depth, int z, int minz,
-			int maxz)
+			int maxz, SpriteBank spritebank)
 	{
 		// Initializes attributes
 		this.width = width;
@@ -48,6 +55,9 @@ public class Canyon implements Drawable, Scrollable
 		
 		this.visible = true;
 		this.alive = true;
+		
+		this.bottom = spritebank.getSprite("bottom");
+		this.canyon = spritebank.getSprite("canyon");
 	}
 	
 	
@@ -58,26 +68,54 @@ public class Canyon implements Drawable, Scrollable
 	{
 		applet.noStroke();
 		
-		// Draws bottom
+		// Draws bottom	
+		
 		applet.pushMatrix();
 		applet.translate(0, this.height, (float) this.z);
 		applet.rotateX((float) Math.toRadians(-90));
-		applet.fill(200, 200, 40);
-		applet.rect(0, 0, this.width, this.depth);
-		applet.popMatrix();
 		
+		applet.beginShape();
+		System.out.println(this.bottom);
+		applet.texture(this.bottom.getSubImage(0));
+		
+		applet.vertex(0, 0, 0, 0);
+		applet.vertex(0, this.width, 0, this.bottom.getWidth());
+		applet.vertex(this.depth, this.width, this.bottom.getHeight(), this.bottom.getWidth());
+		applet.vertex(this.width, 0, this.bottom.getHeight(), 0);		
+		
+		applet.endShape();
+		
+	//	applet.fill(200, 200, 40);
+	//	applet.rect(0, 0, this.width, this.depth);
+		
+		applet.popMatrix();
+	
 		// Draws left wall
 		applet.pushMatrix();
 		applet.translate(0, 0, (float) this.z);
 		applet.rotateX((float) Math.toRadians(-90));
 		applet.rotateY((float) Math.toRadians(-90));
-		applet.fill(50, 20, 20);
-		applet.rect(0, 0, this.height, this.depth);
+		applet.beginShape();
+		applet.texture(this.canyon.getSubImage(0));
+		applet.vertex(0, 0, 0, 0);
+		applet.vertex(0, this.depth, 0, this.bottom.getWidth());
+		applet.vertex(this.height, this.depth, this.bottom.getHeight(), this.bottom.getWidth());
+		applet.vertex(this.height, 0, this.bottom.getHeight(), 0);
+		applet.endShape();
+	/*	applet.fill(50, 20, 20);
+		applet.rect(0, 0, this.height, this.depth);*/
 		
 		// Draws right wall
 		applet.translate(0, 0, -this.width);
-		applet.rect(0, 0, this.height, this.depth);
-		
+		//	applet.rect(0, 0, this.height, this.depth);
+		applet.beginShape();
+		applet.texture(this.canyon.getSubImage(0));
+		applet.vertex(0, 0, 0, 0);
+		applet.vertex(0, this.depth, 0, this.bottom.getWidth());
+		applet.vertex(this.height, this.depth, this.bottom.getHeight(), this.bottom.getWidth());
+		applet.vertex(this.height, 0, this.bottom.getHeight(), 0);
+		applet.endShape();
+	
 		applet.popMatrix();
 		applet.noFill();
 	}
