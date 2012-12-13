@@ -13,8 +13,8 @@ import handlers.KeyListenerHandler;
 import handlers.SeagrassHandler;
 import handlers.StepHandler;
 import processing.core.PApplet;
+import score.ScoreHandler;
 import scrolling.FollowingScroller;
-import scrore.ScoreHandler;
 import sprites.SpriteBank;
 
 /**

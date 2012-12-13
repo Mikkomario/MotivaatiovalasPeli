@@ -1,4 +1,4 @@
-package scrore;
+package score;
 
 import motivaatiovalaspeli.MotivaatiovalasPeli;
 import handleds.Actor;
