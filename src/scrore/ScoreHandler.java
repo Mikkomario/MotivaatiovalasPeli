@@ -85,7 +85,7 @@ public class ScoreHandler implements Actor, Drawable
 		// Draws the score
 		applet.stroke(255);
 		applet.fill(255);
-		applet.text(this.score + "", 100, 100);
+		applet.text((int) this.score + "", 100, 100);
 		applet.noStroke();
 		applet.noFill();
 	}

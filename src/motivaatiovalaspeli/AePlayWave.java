@@ -1,6 +1,5 @@
 package motivaatiovalaspeli;
 
-import java.io.File; 
 import java.io.IOException; 
 import javax.sound.sampled.AudioFormat; 
 import javax.sound.sampled.AudioInputStream; 
@@ -29,23 +28,26 @@ public class AePlayWave extends Thread {
  
     private final int EXTERNAL_BUFFER_SIZE = 524288; // 128Kb 
  
-    enum Position { 
+    private enum Position { 
         LEFT, RIGHT, NORMAL
-    };
+    }
  
-    public AePlayWave(String wavfile) { 
-        filename = wavfile;
-        curPosition = Position.NORMAL;
+    @SuppressWarnings("javadoc")
+	public AePlayWave(String wavfile) { 
+        this.filename = wavfile;
+        this.curPosition = Position.NORMAL;
     } 
  
-    public AePlayWave(String wavfile, Position p) { 
-        filename = wavfile;
-        curPosition = p;
+    @SuppressWarnings("javadoc")
+	public AePlayWave(String wavfile, Position p) { 
+        this.filename = wavfile;
+        this.curPosition = p;
     } 
  
-    public void run() { 
+    @Override
+	public void run() { 
  
-        File soundFile = new File(filename);
+        //File soundFile = new File(this.filename);
 
         /*if (!soundFile.exists()) { 
             System.err.println("Wave file not found: " + filename);
@@ -54,7 +56,7 @@ public class AePlayWave extends Thread {
     */
         AudioInputStream audioInputStream = null;
         try {
-            audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream(filename));
+            audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream(this.filename));
         } catch (UnsupportedAudioFileException e1) { 
             e1.printStackTrace();
             return;
@@ -81,15 +83,15 @@ public class AePlayWave extends Thread {
         if (auline.isControlSupported(FloatControl.Type.PAN)) { 
             FloatControl pan = (FloatControl) auline
                     .getControl(FloatControl.Type.PAN);
-            if (curPosition == Position.RIGHT) 
+            if (this.curPosition == Position.RIGHT) 
                 pan.setValue(1.0f);
-            else if (curPosition == Position.LEFT) 
+            else if (this.curPosition == Position.LEFT) 
                 pan.setValue(-1.0f);
         } 
  
         auline.start();
         int nBytesRead = 0;
-        byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
+        byte[] abData = new byte[this.EXTERNAL_BUFFER_SIZE];
  
         try { 
             while (nBytesRead != -1) { 

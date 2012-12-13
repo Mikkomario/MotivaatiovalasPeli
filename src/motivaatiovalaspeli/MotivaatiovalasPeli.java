@@ -16,7 +16,6 @@ import processing.core.PApplet;
 import scrolling.FollowingScroller;
 import scrore.ScoreHandler;
 import sprites.SpriteBank;
-import testers.ValasCollisionTestDrawer;
 
 /**
  * 
