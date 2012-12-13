@@ -43,7 +43,7 @@ public class Rock extends DrawnObject3D implements Scrollable, Colliding
 		this.minZ = minZ;
 		this.maxZ = maxZ;
 		
-		//randomTransform();
+		randomTransform();
 	}
 	
 	
@@ -109,21 +109,21 @@ public class Rock extends DrawnObject3D implements Scrollable, Colliding
 	public int getOriginX()
 	{
 		// Rocks origin is at the center (32, 32, 32)
-		return 32;
+		return 0;
 	}
 
 	@Override
 	public int getOriginY()
 	{
 		// Rocks origin is at the center (32, 32, 32)
-		return 32;
+		return 0;
 	}
 
 	@Override
 	public int getOriginZ()
 	{
 		// Rocks origin is at the center (32, 32, 32)
-		return 32;
+		return 0;
 	}
 
 	@Override
@@ -139,13 +139,13 @@ public class Rock extends DrawnObject3D implements Scrollable, Colliding
 		Point negatedPoint = negateTransformations2D(x, y);
 		//System.out.println(negatedPoint);
 		
-		if (negatedPoint.x < getX())
+		if (negatedPoint.x < getX() - 32)
 			return false;
-		else if (negatedPoint.x > getX() + 64)
+		else if (negatedPoint.x > getX() + 32)
 			return false;
-		else if (negatedPoint.y < getY())
+		else if (negatedPoint.y < getY() -32)
 			return false;
-		else if (negatedPoint.y > getY() + 64)
+		else if (negatedPoint.y > getY() + 32)
 			return false;
 		else
 			return true;
@@ -169,5 +169,16 @@ public class Rock extends DrawnObject3D implements Scrollable, Colliding
 		setAngle(0, 0, rand.nextInt(360));
 		setScale(1 + rand.nextDouble()*5, 1 + rand.nextDouble()*2, 1 + rand.nextDouble());
 	}
+	
+	/*
+	private int getWidth()
+	{
+		return (int) (64*getXscale());
+	}
 
+	private int getHeight()
+	{
+		return (int) (64*getYscale());
+	}
+	*/
 }

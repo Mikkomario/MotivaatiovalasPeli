@@ -81,7 +81,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	@Override
 	public void drawSelf3D(MotivaatiovalasPeli applet)
 	{
-	    this.model.draw();
+	    //this.model.draw();
 	    applet.fill(0, 0, 255);
 		applet.stroke(0);
 		// Draws
@@ -93,7 +93,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 		// Changes origin
 		//applet.translate(-16, -16, 0);
 		// Changes colour
-	    /*
+	    
 		applet.fill(255, 0, 0);
 		applet.stroke(0);
 		// Draws
@@ -101,7 +101,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 		// Resets
 		applet.noFill();
 		applet.noStroke();
-		*/
+		
 	}
 
 	@Override
