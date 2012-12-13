@@ -66,21 +66,21 @@ public class Seagrass extends DrawnObject2DProjected implements Scrollable
 	}
 
 	@Override
-	public int getOriginX()
+	public double getOriginX()
 	{
 		return this.sprite.getOriginX();
 		//return 32;
 	}
 
 	@Override
-	public int getOriginY()
+	public double getOriginY()
 	{
 		return this.sprite.getOriginY();
 		//return 64;
 	}
 
 	@Override
-	public int getOriginZ()
+	public double getOriginZ()
 	{
 		return 0;
 	}

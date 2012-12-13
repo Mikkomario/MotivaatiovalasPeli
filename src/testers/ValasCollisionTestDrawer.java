@@ -36,14 +36,25 @@ public class ValasCollisionTestDrawer implements Drawable
 	@Override
 	public void drawSelf(MotivaatiovalasPeli applet)
 	{
+		applet.pushMatrix();
 		applet.translate(valas.getCollisionX(), valas.getCollisionY(), 
 				valas.getCollisionZ());
 		applet.stroke(0);
 		applet.fill(255, 0, 0);
 		applet.rect(-25, 0, 50, 5);
 		applet.rect(0, -25, 5, 50);
+		applet.stroke(0);
+		applet.popMatrix();
+		
+		applet.pushMatrix();
+		applet.translate((float) valas.getX(), (float) valas.getY(), 
+				(float) valas.getZ());
+		applet.fill(0, 0, 255);
+		applet.rect(-25, 0, 50, 5);
+		applet.rect(0, -25, 5, 50);
 		applet.noStroke();
 		applet.noFill();
+		applet.popMatrix();
 	}
 
 	@Override

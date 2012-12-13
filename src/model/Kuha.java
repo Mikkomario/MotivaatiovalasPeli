@@ -55,19 +55,19 @@ public class Kuha extends DrawnObject3D implements Scrollable, Colliding
 	}
 
 	@Override
-	public int getOriginX()
+	public double getOriginX()
 	{
-		return 16;
+		return 0;
 	}
 
 	@Override
-	public int getOriginY()
+	public double getOriginY()
 	{
-		return 16;
+		return 0;
 	}
 
 	@Override
-	public int getOriginZ()
+	public double getOriginZ()
 	{
 		return 0;
 	}

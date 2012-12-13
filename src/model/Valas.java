@@ -72,7 +72,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 		this.tillMovement = this.movementInterval;
 		
 		// Valas's model is so small that we need to scale it a bit
-		//setScale(8, 8, 8);
+		setScale(12, 12, 12);
 	}
 	
 	
@@ -81,7 +81,8 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	@Override
 	public void drawSelf3D(MotivaatiovalasPeli applet)
 	{
-	    //this.model.draw();
+	    this.model.draw();
+	    /*
 	    applet.fill(0, 0, 255);
 		applet.stroke(0);
 		// Draws
@@ -90,10 +91,11 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 		// Resets
 		applet.noFill();
 		applet.noStroke();
+		*/
 		// Changes origin
 		//applet.translate(-16, -16, 0);
 		// Changes colour
-	    
+	    /*
 		applet.fill(255, 0, 0);
 		applet.stroke(0);
 		// Draws
@@ -101,7 +103,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 		// Resets
 		applet.noFill();
 		applet.noStroke();
-		
+		*/
 	}
 
 	@Override
@@ -140,21 +142,22 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	}
 
 	@Override
-	public int getOriginX()
+	public double getOriginX()
 	{
-		return 0;
+		// 2, 16, 2
+		return 2;
 	}
 
 	@Override
-	public int getOriginY()
+	public double getOriginY()
 	{
-		return 0;
+		return -2;
 	}
 
 	@Override
-	public int getOriginZ()
+	public double getOriginZ()
 	{
-		return 0;
+		return 2;
 	}
 	
 	@Override
@@ -235,24 +238,24 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 	@Override
 	public int getCollisionX()
 	{
-		return (int) getX() + getOriginX() 
-				+ (int) HelpMath.lendirX(32, (int) getYAngle() + 90);
+		return (int) (getX() + getOriginX() 
+				+ HelpMath.lendirX(20, (int) getYAngle() + 90));
 	}
 
 
 	@Override
 	public int getCollisionY()
 	{
-		return (int) getY() +  getOriginY() 
-				- (int) HelpMath.lendirY(32, (int) -getXAngle());
+		return (int) (getY() +  getOriginY() 
+				- HelpMath.lendirY(20, (int) -getXAngle()));
 	}
 
 
 	@Override
 	public int getCollisionZ()
 	{
-		return (int) getZ() + getOriginZ() 
-				- (int) HelpMath.lendirX(32, (int) getXAngle());
+		return (int) (getZ() + getOriginZ() 
+				- HelpMath.lendirX(20, (int) getXAngle()));
 	}
 
 

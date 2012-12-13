@@ -106,21 +106,21 @@ public class Rock extends DrawnObject3D implements Scrollable, Colliding
 	}
 
 	@Override
-	public int getOriginX()
+	public double getOriginX()
 	{
 		// Rocks origin is at the center (32, 32, 32)
 		return 0;
 	}
 
 	@Override
-	public int getOriginY()
+	public double getOriginY()
 	{
 		// Rocks origin is at the center (32, 32, 32)
 		return 0;
 	}
 
 	@Override
-	public int getOriginZ()
+	public double getOriginZ()
 	{
 		// Rocks origin is at the center (32, 32, 32)
 		return 0;
