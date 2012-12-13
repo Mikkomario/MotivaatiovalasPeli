@@ -53,10 +53,10 @@ public class MotivaatiovalasPeli extends PApplet
 		this.sprtbank = new SpriteBank(this);
 		
 		// Creates the canyon and adds it to the drawables handled
-		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 100, -900, 1100);
+		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 100, -900, 1100, this.sprtbank);
 		this.mainDrawer = new DrawableHandler(false);
 		this.mainDrawer.addDrawable(testcanyon);
-		Canyon testcanyon2 = new Canyon(this.width, this.height, 1000, -900, -900, 1100);
+		Canyon testcanyon2 = new Canyon(this.width, this.height, 1000, -900, -900, 1100, this.sprtbank);
 		this.mainDrawer.addDrawable(testcanyon2);
 		
 		// Also creates the stephandler
