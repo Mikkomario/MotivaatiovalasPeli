@@ -69,17 +69,17 @@ public abstract class DrawnObject3D implements Drawable
 	/**
 	 * @return The Object's origin's x-translation from the left
 	 */
-	public abstract int getOriginX();
+	public abstract double getOriginX();
 	
 	/**
 	 * @return The Object's origin's y-translation from the top
 	 */
-	public abstract int getOriginY();
+	public abstract double getOriginY();
 	
 	/**
 	 * @return The Object's origin's z-translation from the center
 	 */
-	public abstract int getOriginZ();
+	public abstract double getOriginZ();
 	
 	
 	// IMPLEMENTED METHODS	-----------------------------------------------
@@ -100,7 +100,7 @@ public abstract class DrawnObject3D implements Drawable
 		// Scales it
 		applet.scale((float) this.xscale, (float) this.yscale, (float) this.zscale);
 		// Translates the origin
-		applet.translate(-getOriginX(), -getOriginY(), -getOriginZ());
+		applet.translate((float) -getOriginX(), (float) -getOriginY(), (float) -getOriginZ());
 		// Draws it
 		drawSelf3D(applet);
 		
