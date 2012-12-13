@@ -43,7 +43,7 @@ public class Rock extends DrawnObject3D implements Scrollable, Colliding
 		this.minZ = minZ;
 		this.maxZ = maxZ;
 		
-		randomTransform();
+		//randomTransform();
 	}
 	
 	
@@ -86,6 +86,7 @@ public class Rock extends DrawnObject3D implements Scrollable, Colliding
 	@Override
 	public void drawSelf3D(MotivaatiovalasPeli applet)
 	{
+		//addAngle(0, 0, 1);
 		// Sets opacity lower if between camera and player
 		int alpha = 255;
 		
@@ -131,6 +132,8 @@ public class Rock extends DrawnObject3D implements Scrollable, Colliding
 		// Checks the z
 		if (z > getZ() + 32*getZscale() || z < getZ() - 32*getZscale())
 			return false;
+		
+		//System.out.println("Zsame");
 		
 		// Negates the transformation
 		Point negatedPoint = negateTransformations2D(x, y);

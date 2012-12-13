@@ -15,6 +15,7 @@ import handlers.StepHandler;
 import processing.core.PApplet;
 import scrolling.FollowingScroller;
 import sprites.SpriteBank;
+import testers.ValasCollisionTestDrawer;
 
 /**
  * 
@@ -132,12 +133,14 @@ public class MotivaatiovalasPeli extends PApplet
 		this.stepHandler.addActor(seagrasscreator);
 		
 		//testcanyon.setInvisible();
+		ValasCollisionTestDrawer test = new ValasCollisionTestDrawer(this.player);
+		this.mainDrawer.addDrawable(test);
 	}
 	
 	@Override
 	public void draw()
 	{	
-		System.out.println(this.frameRate);
+		//System.out.println(this.frameRate);
 		
 		background(0, 10, 100);
 		noStroke();
