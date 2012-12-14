@@ -4,7 +4,7 @@ import handleds.Colliding;
 import drawnobjects.PhysicObject3D;
 import listeners.CollisionListener;
 import listeners.KeyListener;
-import motivaatiovalaspeli.AePlayWave;
+import sounds.AePlayWave;
 import motivaatiovalaspeli.HelpMath;
 import motivaatiovalaspeli.MotivaatiovalasPeli;
 import processing.core.PConstants;
@@ -289,8 +289,8 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 
         if (collidedObject instanceof Rock){
 
-            AePlayWave sound = new AePlayWave("/data/Antaa.wav");
-            sound.start();
+            //AePlayWave sound = new AePlayWave("/data/Antaa.wav");
+            //sound.start();
             
             int ydir = HelpMath.PointYDirection((int) collidedObject.getX(), 
                     (int) collidedObject.getZ(), (int) getX(), (int) getZ());

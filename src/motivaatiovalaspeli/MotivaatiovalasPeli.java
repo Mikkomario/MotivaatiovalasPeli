@@ -38,11 +38,7 @@ public class MotivaatiovalasPeli extends PApplet
 	private ScoreHandler scorehandler;
 	
 	
-	// IMPLEMENTED METHODS	-----------------------------------------------
-	
-	@Override
-	public void setup()
-	{
+	public void beginGame(){
 		size(640, 480, P3D);
 		noFill();
 		
@@ -123,7 +119,8 @@ public class MotivaatiovalasPeli extends PApplet
 		
 		// Creates a Kuhacreator
 		KuhaCreator kcreator = new KuhaCreator(100, 250, this.width, this.height, 
-				-1000, 300, khandler, this.playerscroller, this.mainCollisionHandler);
+				-1000, 300, khandler, this.playerscroller, 
+				this.mainCollisionHandler, this);
 		this.stepHandler.addActor(kcreator);
 		
 		// Creates a seagrass for testing
@@ -161,6 +158,16 @@ public class MotivaatiovalasPeli extends PApplet
 		ValasCollisionTestDrawer test = new ValasCollisionTestDrawer(this.player);
 		this.mainDrawer.addDrawable(test);
 		*/
+	}
+	
+	// IMPLEMENTED METHODS	-----------------------------------------------
+	
+	@Override
+	public void setup()
+	{
+		this.showStatus("Motivaatiovalas-Peli");
+		
+		this.beginGame();
 	}
 	
 	@Override
