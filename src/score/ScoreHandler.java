@@ -71,7 +71,7 @@ public class ScoreHandler extends DrawableHandler implements Actor
 	public void act()
 	{
 		// Reduces the current points
-		increaseHealth(-0.95);
+		increaseHealth(-0.09);
 		
 	}
 

@@ -26,12 +26,17 @@ public class SoundPlayer {
         "/data/Turha.wav"
     };
     
-    
+    /**
+     * Creates a new soundplayer
+     */
     public SoundPlayer() {
         // playing the sound should work first time whe using the method
         this.whenLastPlayedSound = System.currentTimeMillis() + 1501;
     }
     
+    /**
+     * Plays a random valas sound
+     */
     public void playRandomValasSound() {
         if (System.currentTimeMillis() > this.whenLastPlayedSound + 1500){
             this.whenLastPlayedSound = System.currentTimeMillis();
@@ -41,6 +46,9 @@ public class SoundPlayer {
         }
     }
 
+    /**
+     * Plays a random kuha sound
+     */
     public void playRandomKuhaSound() {
         if (System.currentTimeMillis() > this.whenLastPlayedSound + 1500){
             this.whenLastPlayedSound = System.currentTimeMillis();

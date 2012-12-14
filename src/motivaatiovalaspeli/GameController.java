@@ -155,10 +155,6 @@ public class GameController implements listeners.KeyListener
 				this.pausedscreen.setVisible();
 			}
 		}
-		else if (!coded && key == 'g')
-			loseTheGame();
-		else if (!coded && key == 'v')
-			winTheGame();
 	}
 
 

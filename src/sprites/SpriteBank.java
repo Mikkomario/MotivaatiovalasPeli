@@ -63,7 +63,7 @@ public class SpriteBank
             		"victory", this.applet);
             this.sprites.put(winningSprite.getName(), winningSprite);
             
-            Sprite losingSprite = new Sprite("havio.png", 1, 320, 240, 
+            Sprite losingSprite = new Sprite("havioAlt.png", 1, 320, 240, 
             		"loss", this.applet);
             this.sprites.put(losingSprite.getName(), losingSprite);
             
@@ -71,11 +71,11 @@ public class SpriteBank
             		"kss", this.applet);
             this.sprites.put(kssSprite.getName(), kssSprite);
             
-            Sprite beginningSprite = new Sprite("aloitus.png", 1, 320, 240, 
+            Sprite beginningSprite = new Sprite("aloitusAlt.png", 1, 320, 240, 
             		"beginning", this.applet);
             this.sprites.put(beginningSprite.getName(), beginningSprite);
             
-            Sprite pauseSprite = new Sprite("pause.png", 1, 320, 240,
+            Sprite pauseSprite = new Sprite("pauseAlt.png", 1, 320, 240,
             		"pause", this.applet);
             this.sprites.put(pauseSprite.getName(), pauseSprite);
         }

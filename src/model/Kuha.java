@@ -35,6 +35,7 @@ public class Kuha extends DrawnObject3D implements Scrollable, Colliding
      * @param y The y-coordinate of kuha's position
      * @param z The z-coordinate of kuha's position
      * @param maxZ  How close the kuha can come before it is destroyed
+     * @param parent The applet that draws the kuha
      */
     public Kuha(int x, int y, int z, int maxZ, MotivaatiovalasPeli parent)
     {

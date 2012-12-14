@@ -2,12 +2,20 @@ package sounds;
 
 import handleds.Actor;
 
+/**
+ * Backgroundmusicplayer plays the background music
+ *
+ * @author Gandalf.
+ *         Created 14.12.2012.
+ */
 public class BackgroundMusicPlayer implements Actor {
     private AePlayWave backgroundMusicThread;
     private boolean alive;
     private boolean active;
     
-    
+    /**
+     * Creates a new backgroundmusicplayer. Starts playing the track right away
+     */
     public BackgroundMusicPlayer(){
         this.alive = true;
         this.active = true;

@@ -242,10 +242,13 @@ public class MotivaatiovalasPeli extends PApplet
 	public void pause()
 	{
 		// sets game inactive for a while
-		this.gamelogic.inActivate();
-		this.gamedrawer.setInvisible();
-		this.logicalCameraHandler.inActivate();
-		this.logicalListenerHandler.inActivate();
+		if (this.controller.getPhase() != GamePhase.BEGIN)
+		{
+			this.gamelogic.inActivate();
+			this.gamedrawer.setInvisible();
+			this.logicalCameraHandler.inActivate();
+			this.logicalListenerHandler.inActivate();
+		}
 	}
 	
 	/**
@@ -254,10 +257,13 @@ public class MotivaatiovalasPeli extends PApplet
 	public void unPause()
 	{
 		// Reactivates the game logic
-		this.gamelogic.activate();
-		this.gamedrawer.setVisible();
-		this.logicalCameraHandler.activate();
-		this.logicalListenerHandler.activate();
+		if (this.controller.getPhase() != GamePhase.BEGIN)
+		{
+			this.gamelogic.activate();
+			this.gamedrawer.setVisible();
+			this.logicalCameraHandler.activate();
+			this.logicalListenerHandler.activate();
+		}
 	}
 	
 	/**
