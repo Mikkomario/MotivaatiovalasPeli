@@ -61,13 +61,6 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 	{
 		return this.healthsprite.getOriginY();
 	}
-
-
-	@Override
-	public double getOriginZ()
-	{
-		return 0;
-	}
 	
 	@Override
 	public void drawSelf3D(MotivaatiovalasPeli applet)

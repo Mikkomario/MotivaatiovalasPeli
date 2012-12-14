@@ -82,12 +82,6 @@ public class Seagrass extends DrawnObject2DProjected implements Scrollable
 	}
 
 	@Override
-	public double getOriginZ()
-	{
-		return 0;
-	}
-
-	@Override
 	public void setZ(double z)
 	{
 		this.setPosition(getX(), getY(), z);

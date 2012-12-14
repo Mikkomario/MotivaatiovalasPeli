@@ -15,6 +15,7 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 	// ATTRIBUTES	-------------------------------------------------------
 	
 	private int camx, camy, camz;
+	private int camxangle, camyangle;
 	private boolean active;
 	
 	
@@ -39,6 +40,8 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 		super(x, y, z);
 		informCameraPosition(camerax, cameray, cameraz, cameraxangle, camerayangle);
 		this.active = true;
+		this.camxangle = cameraxangle;
+		this.camyangle = camerayangle;
 	}
 	
 	
@@ -50,6 +53,8 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 		this.camx = posx;
 		this.camy = posy;
 		this.camz = posz;
+		this.camxangle = xangle;
+		this.camyangle = yangle;
 		changeAngle(posx, posy, posz);
 	}
 	
@@ -80,6 +85,55 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 	{
 		this.active = false;
 		return true;
+	}
+	
+	@Override
+	public double getOriginZ()
+	{
+		return 0;
+	}
+	
+	
+	// GETTERS & SETTERS	----------------------------------------------
+	
+	/**
+	 * @return The camera's current position on the x-axis
+	 */
+	protected int getCamX()
+	{
+		return this.camx;
+	}
+	
+	/**
+	 * @return The camera's current position on the y-axis
+	 */
+	protected int getCamY()
+	{
+		return this.camy;
+	}
+	
+	/**
+	 * @return The camera's current position on the z-axis
+	 */
+	protected int getCamZ()
+	{
+		return this.camz;
+	}
+	
+	/**
+	 * @return The camera's current view angle around the x-axis
+	 */
+	protected int getCamXAngle()
+	{
+		return this.camxangle;
+	}
+	
+	/**
+	 * @return The camera's current view angle around the y-axis
+	 */
+	protected int getCamYAngle()
+	{
+		return this.camyangle;
 	}
 	
 	
