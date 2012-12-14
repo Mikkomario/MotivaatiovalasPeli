@@ -5,6 +5,7 @@ import creators.CanyonCreator;
 import creators.KuhaCreator;
 import creators.RockCreator;
 import creators.SeagrassCreator;
+import handlers.ActorHandler;
 import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
@@ -38,7 +39,72 @@ public class MotivaatiovalasPeli extends PApplet
 	private SpriteBank sprtbank;
 	private CollisionHandler mainCollisionHandler;
 	private ScoreHandler scorehandler;
+	private ActorHandler gameLogic;
+	private DrawableHandler gameDrawer;
+	private GameController controller;
+	
 	private static final long serialVersionUID = 1L;
+	
+	
+	// IMPLEMENTED METHODS	-----------------------------------------------
+	
+	@Override
+	public void setup()
+	{
+		this.showStatus("Motivaatiovalas-Peli");
+		
+		this.beginGame();
+	}
+	
+	@Override
+	public void draw()
+	{	
+		//System.out.println(this.frameRate);
+		//perspective((float) (PConstants.PI/3.0), (float) (640/480.0), 10, -1000);
+		
+		background(6, 158, 188);
+		noStroke();
+		noFill();
+		
+		// Changes the camera
+		this.camerahandler.changeCamera(this);
+		//camera(this.width/2, this.height/2, 420, this.width/2, this.height/2,
+		//		0, 0, 1, 0 );
+		/*
+		camera(this.mouseX, this.mouseY, 420, this.width/2, this.height/2,
+				0, 0, 1, 0 );
+		*/
+		
+		// Updates all objects through the stephandler
+		this.stepHandler.act();
+		// Draws all the objects (Also checks if some are dead)
+		//this.mainDrawer.isVisible();
+		this.mainDrawer.isDead();
+		this.mainDrawer.drawSelf(this);
+	}
+	
+	@Override
+	public void keyPressed()
+	{
+		this.keyhandler.onKeyPressed(this.key, this.keyCode, (this.key == CODED));
+	}
+	
+	@Override
+	public void keyReleased()
+	{
+		this.keyhandler.onKeyReleased(this.key, this.keyCode, (this.key == CODED));
+	}
+	
+	
+	// OTHER METHODS	----------------------------------------------------
+	
+	/*
+	private void arrow()
+	{
+		line(0,0, 100,0);
+		triangle(100,0, 80,10, 80,-10);
+	}
+	*/
 	
 	/**
 	 *Starts the game
@@ -168,96 +234,27 @@ public class MotivaatiovalasPeli extends PApplet
 		*/
 	}
 	
-	// IMPLEMENTED METHODS	-----------------------------------------------
-	
-	@Override
-	public void setup()
+	/**
+	 *Pauses the game
+	 */
+	public void pause()
 	{
-		this.showStatus("Motivaatiovalas-Peli");
-		
-		this.beginGame();
+		// TODO: Finish
 	}
 	
-	@Override
-	public void draw()
-	{	
-		//System.out.println(this.frameRate);
-		//perspective((float) (PConstants.PI/3.0), (float) (640/480.0), 10, -1000);
-		
-		background(6, 158, 188);
-		noStroke();
-		noFill();
-		
-		// Changes the camera
-		this.camerahandler.changeCamera(this);
-		//camera(this.width/2, this.height/2, 420, this.width/2, this.height/2,
-		//		0, 0, 1, 0 );
-		/*
-		camera(this.mouseX, this.mouseY, 420, this.width/2, this.height/2,
-				0, 0, 1, 0 );
-		*/
-		
-		// Updates all objects through the stephandler
-		this.stepHandler.act();
-		// Draws all the objects (Also checks if some are dead)
-		//this.mainDrawer.isVisible();
-		this.mainDrawer.isDead();
-		this.mainDrawer.drawSelf(this);
-		
-		// TEST DRAWING
-		
-		//text("asdasdasdadasdSAKJKLFJKASJSKLD", 100, 100);
-		/*
-		stroke(255);
-		rect(this.width/2, this.height/2, 20, 30);
-		
-		// Draws the "room" boundaries
-		rect(0, 0, this.width, this.height);
-		
-		stroke(255,0,0);
-		
-		pushMatrix();
-		
-		//rotateX((float) (this.mouseX/this.width * 2*Math.PI));
-		
-		translate(this.width/2 - 20, this.height/2 -20);
-		
-		//rotateZ((float) Math.toRadians(90));
-		
-		arrow(); // red x-axis
-		rotateZ (radians(90));
-		stroke(0,255,0);
-		arrow(); // green y-axis
-		
-		// Yellow z-axis
-		rotateY(radians(-90));
-		stroke(255, 255, 0);
-		arrow();
-		
-		popMatrix();
-		*/
-	}
-	
-	@Override
-	public void keyPressed()
+	/**
+	 * Unpauses the game
+	 */
+	public void unPause()
 	{
-		this.keyhandler.onKeyPressed(this.key, this.keyCode, (this.key == CODED));
+		// TODO: Finish
 	}
 	
-	@Override
-	public void keyReleased()
+	/**
+	 * Stops running the main game
+	 */
+	public void endGame()
 	{
-		this.keyhandler.onKeyReleased(this.key, this.keyCode, (this.key == CODED));
+		// TODO: Finish
 	}
-	
-	
-	// OTHER METHODS	----------------------------------------------------
-	
-	/*
-	private void arrow()
-	{
-		line(0,0, 100,0);
-		triangle(100,0, 80,10, 80,-10);
-	}
-	*/
 }
