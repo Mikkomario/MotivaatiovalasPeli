@@ -5,6 +5,7 @@ import java.util.Random;
 
 import model.Kuha;
 import motivaatiovalaspeli.HelpMath;
+import motivaatiovalaspeli.MotivaatiovalasPeli;
 
 import handlers.CollisionHandler;
 import handlers.DrawableHandler;
@@ -27,6 +28,7 @@ public class KuhaCreator extends ObjectCreator
 	private Point lastPoint;
 	
 	private CollisionHandler collisionHandler;
+	private MotivaatiovalasPeli parent;
 	
 	
 	// CONSTRCTOR
@@ -46,7 +48,8 @@ public class KuhaCreator extends ObjectCreator
 	 */
 	public KuhaCreator(int minDelay, int maxDelay, int width, int height,
 			int z, int maxZ, DrawableHandler objectDrawer,
-			Scroller objectScroller, CollisionHandler collisionHandler)
+			Scroller objectScroller, CollisionHandler collisionHandler,
+			MotivaatiovalasPeli parent)
 	{
 		super(minDelay, maxDelay, width, height, z, maxZ, objectDrawer, objectScroller);
 		
@@ -55,6 +58,7 @@ public class KuhaCreator extends ObjectCreator
 				rand.nextInt(height));
 		this.streamlength = getRandomStreamlength();
 		this.collisionHandler = collisionHandler;
+		this.parent = parent;
 	}
 
 	@Override
@@ -62,7 +66,7 @@ public class KuhaCreator extends ObjectCreator
 			int maxZ)
 	{
 		// Creates a new kuha to the calculated position
-		Kuha newKuha = new Kuha(this.lastPoint.x, this.lastPoint.y, creationZ, maxZ);
+		Kuha newKuha = new Kuha(this.lastPoint.x, this.lastPoint.y, creationZ, maxZ, parent);
 		// And adds it to the handlers and scroller
 		getDrawableHandler().addDrawable(newKuha);
 		getScroller().addScrollable(newKuha);

@@ -119,7 +119,8 @@ public class MotivaatiovalasPeli extends PApplet
 		
 		// Creates a Kuhacreator
 		KuhaCreator kcreator = new KuhaCreator(100, 250, this.width, this.height, 
-				-1000, 300, khandler, this.playerscroller, this.mainCollisionHandler);
+				-1000, 300, khandler, this.playerscroller, 
+				this.mainCollisionHandler, this);
 		this.stepHandler.addActor(kcreator);
 		
 		// Creates a seagrass for testing
