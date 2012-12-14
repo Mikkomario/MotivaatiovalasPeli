@@ -117,7 +117,7 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 	 */
 	protected int getCamZ()
 	{
-		return this.camz;
+		return (int) HelpMath.checkDirection(this.camz);
 	}
 	
 	/**
@@ -125,7 +125,7 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 	 */
 	protected int getCamXAngle()
 	{
-		return this.camxangle;
+		return (int) HelpMath.checkDirection(this.camxangle);
 	}
 	
 	/**
@@ -133,7 +133,7 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 	 */
 	protected int getCamYAngle()
 	{
-		return this.camyangle;
+		return (int) HelpMath.checkDirection(this.camyangle);
 	}
 	
 	

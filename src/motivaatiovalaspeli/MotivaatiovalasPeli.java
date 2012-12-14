@@ -37,7 +37,9 @@ public class MotivaatiovalasPeli extends PApplet
 	private CollisionHandler mainCollisionHandler;
 	private ScoreHandler scorehandler;
 	
-	
+	/**
+	 *Starts the game
+	 */
 	public void beginGame(){
 		size(640, 480, P3D);
 		noFill();
@@ -173,7 +175,7 @@ public class MotivaatiovalasPeli extends PApplet
 	@Override
 	public void draw()
 	{	
-		System.out.println(this.frameRate);
+		//System.out.println(this.frameRate);
 		//perspective((float) (PConstants.PI/3.0), (float) (640/480.0), 10, -1000);
 		
 		background(6, 158, 188);
