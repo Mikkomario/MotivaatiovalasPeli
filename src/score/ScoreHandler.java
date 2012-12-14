@@ -1,5 +1,6 @@
 package score;
 
+import motivaatiovalaspeli.GameController;
 import sprites.SpriteBank;
 import handleds.Actor;
 import handlers.CameraListenerHandler;
@@ -24,9 +25,11 @@ public class ScoreHandler extends DrawableHandler implements Actor
 	private double distance;
 	private boolean active;
 	private int kuhas;
+	private int maxKuhas;
 	
 	private HealthMeter hpmeter;
 	private KuhaRemainderDrawer kuhadraw;
+	private GameController controller;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -36,17 +39,21 @@ public class ScoreHandler extends DrawableHandler implements Actor
 	 * 
 	 * @param camerahandler The object which informs the healthmeter and 
 	 * kuharemainderdrawer of camera's position
+	 * @param controller The contoller that can end the game
 	 * @param spritebank The spritebank that contains the healthbar sprite
 	 */
-	public ScoreHandler(CameraListenerHandler camerahandler, SpriteBank spritebank)
+	public ScoreHandler(CameraListenerHandler camerahandler, GameController 
+			controller, SpriteBank spritebank)
 	{
 		super(false);
 		
 		// Initializes attributes
 		this.health = 50;
+		this.maxKuhas = 50;
 		this.kuhas = 0;
 		this.distance = 0;
 		this.active = true;
+		this.controller = controller;
 		
 		this.hpmeter = new HealthMeter(this, spritebank);
 		addDrawable(this.hpmeter);
@@ -64,7 +71,7 @@ public class ScoreHandler extends DrawableHandler implements Actor
 	public void act()
 	{
 		// Reduces the current points
-		increaseHealth(-0.075);
+		increaseHealth(-0.95);
 		
 	}
 
@@ -109,6 +116,14 @@ public class ScoreHandler extends DrawableHandler implements Actor
 		return this.kuhas;
 	}
 	
+	/**
+	 * @return How many kuhas must be eaten
+	 */
+	public int getMaxKuhas()
+	{
+		return this.maxKuhas;
+	}
+	
 	
 	// OTHER METHODS	---------------------------------------------------
 	
@@ -121,10 +136,11 @@ public class ScoreHandler extends DrawableHandler implements Actor
 	{
 		this.health += increasement;
 		
-		if (this.health < 0){
+		if (this.health < 0)
+		{
 			this.health = 0;
-			
-		//here the game is lost
+			System.out.println("Pelipaattyy");
+			this.controller.loseTheGame();
 		}
 		else if (this.health > 100){
 			this.health = 100;
@@ -154,5 +170,9 @@ public class ScoreHandler extends DrawableHandler implements Actor
 	public void eatKuha()
 	{
 		this.kuhas ++;
+		
+		// If one has eaten enough kuhas, the game is beaten
+		if (this.kuhas >= this.maxKuhas)
+			this.controller.winTheGame();
 	}
 }

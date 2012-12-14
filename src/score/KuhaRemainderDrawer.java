@@ -39,7 +39,8 @@ public class KuhaRemainderDrawer extends DrawnObject2DProjected
 		applet.fill(0);
 		applet.textSize(18);
 		
-		String text = "Kuhia: " + this.scorehandler.getKuhas() + " / 100";
+		String text = "Kuhia: " + this.scorehandler.getKuhas() + " / " + 
+		this.scorehandler.getMaxKuhas();
 		applet.text(text, 0, 0);
 		
 		applet.noStroke();

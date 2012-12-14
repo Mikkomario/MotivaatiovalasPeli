@@ -45,6 +45,7 @@ public class KuhaCreator extends ObjectCreator
 	 * @param objectDrawer What handler will draw kuhas
 	 * @param objectScroller What scroller will scroll kuhas
 	 * @param collisionHandler What CollisionHandler takes care of collision detection?
+	 * @param parent The applet which draws the kuhas
 	 */
 	public KuhaCreator(int minDelay, int maxDelay, int width, int height,
 			int z, int maxZ, DrawableHandler objectDrawer,
@@ -66,7 +67,8 @@ public class KuhaCreator extends ObjectCreator
 			int maxZ)
 	{
 		// Creates a new kuha to the calculated position
-		Kuha newKuha = new Kuha(this.lastPoint.x, this.lastPoint.y, creationZ, maxZ, parent);
+		Kuha newKuha = new Kuha(this.lastPoint.x, this.lastPoint.y, creationZ, 
+				maxZ, this.parent);
 		// And adds it to the handlers and scroller
 		getDrawableHandler().addDrawable(newKuha);
 		getScroller().addScrollable(newKuha);
