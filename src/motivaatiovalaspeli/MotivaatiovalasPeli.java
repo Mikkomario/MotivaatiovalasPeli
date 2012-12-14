@@ -13,6 +13,7 @@ import handlers.StepHandler;
 import processing.core.PApplet;
 import score.ScoreHandler;
 import scrolling.FollowingScroller;
+import sounds.BackgroundMusicPlayer;
 import sounds.SoundPlayer;
 import sprites.SpriteBank;
 import testers.ValasCollisionTestDrawer;
@@ -42,6 +43,7 @@ public class MotivaatiovalasPeli extends PApplet
 	private ActorHandler gameLogic;
 	private DrawableHandler gameDrawer;
 	private GameController controller;
+    private BackgroundMusicPlayer backgroundMusicPlayer;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -217,9 +219,8 @@ public class MotivaatiovalasPeli extends PApplet
 		this.mainDrawer.addDrawable(this.scorehandler);
 		this.stepHandler.addActor(this.scorehandler);
 		
-		SoundPlayer player = new SoundPlayer();
-		player.playBackgroundMusic();
-		
+		this.backgroundMusicPlayer = new BackgroundMusicPlayer();
+		this.stepHandler.addActor(this.backgroundMusicPlayer);
 		// Creates a seaLayerDrawer
 		/*
 		SealayerDrawer sld = new SealayerDrawer(-900, 0, 10, 0, 10, 100);

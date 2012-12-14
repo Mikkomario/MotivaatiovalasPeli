@@ -3,42 +3,51 @@ package sounds;
 import handleds.Actor;
 
 public class BackgroundMusicPlayer implements Actor {
+    private AePlayWave backgroundMusicThread;
+    private boolean alive;
     
+    
+    public BackgroundMusicPlayer(){
+        this.alive = true;
+        this.backgroundMusicThread = new AePlayWave("/data/taustamusiikki.wav");
+        this.backgroundMusicThread.start();
+    }
     
 
     @Override
     public boolean isActive() {
-        // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     @Override
     public boolean activate() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean inActivate() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean isDead() {
-        // TODO Auto-generated method stub
-        return false;
+        return !this.alive;
     }
 
     @Override
     public boolean kill() {
-        // TODO Auto-generated method stub
-        return false;
+        if (this.alive){
+            this.alive = false;
+            return true;
+        } else return false;
     }
 
     @Override
     public void act() {
-        
+        if (!this.backgroundMusicThread.isAlive()){
+            this.backgroundMusicThread = new AePlayWave("/data/KSS.wav");
+            this.backgroundMusicThread.start();
+        }
     }
 
 }
