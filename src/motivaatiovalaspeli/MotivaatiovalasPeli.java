@@ -13,6 +13,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import score.ScoreHandler;
 import scrolling.FollowingScroller;
+import sounds.SoundPlayer;
 import sprites.SpriteBank;
 
 /**
