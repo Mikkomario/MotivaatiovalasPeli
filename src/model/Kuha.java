@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 import processing.core.PConstants;
 import handleds.Colliding;
 import saito.objloader.OBJModel;
@@ -21,6 +23,7 @@ public class Kuha extends DrawnObject3D implements Scrollable, Colliding
     private int creationZ;
     private int maxZ;
     private static OBJModel model;
+    private static final Random rand = new Random();
 
 
     // CONSTRUCTOR	------------------------------------------------------
@@ -39,6 +42,9 @@ public class Kuha extends DrawnObject3D implements Scrollable, Colliding
         // Initializes attributes
         this.creationZ = z;
         this.maxZ = maxZ;
+        
+        if (rand.nextBoolean())
+            this.setAngle(0, 180, 0);
 
         if (Kuha.model == null) {
             Kuha.model = new OBJModel(parent, "kuha1.obj", "relative", 

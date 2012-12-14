@@ -10,10 +10,8 @@ import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
 import handlers.StepHandler;
 import processing.core.PApplet;
-import processing.core.PImage;
 import score.ScoreHandler;
 import scrolling.FollowingScroller;
-import sounds.SoundPlayer;
 import sprites.SpriteBank;
 
 /**
@@ -27,7 +25,7 @@ import sprites.SpriteBank;
  */
 public class MotivaatiovalasPeli extends PApplet
 {
-	// ATTRIBUTES	-------------------------------------------------------
+    // ATTRIBUTES	-------------------------------------------------------
 	
 	private DrawableHandler mainDrawer;
 	private StepHandler stepHandler;
@@ -38,6 +36,7 @@ public class MotivaatiovalasPeli extends PApplet
 	private SpriteBank sprtbank;
 	private CollisionHandler mainCollisionHandler;
 	private ScoreHandler scorehandler;
+	private static final long serialVersionUID = 1L;
 	
 	
 	public void beginGame(){

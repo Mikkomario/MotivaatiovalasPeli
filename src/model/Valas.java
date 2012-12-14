@@ -4,7 +4,6 @@ import handleds.Colliding;
 import drawnobjects.PhysicObject3D;
 import listeners.CollisionListener;
 import listeners.KeyListener;
-import sounds.AePlayWave;
 import sounds.SoundPlayer;
 import motivaatiovalaspeli.HelpMath;
 import motivaatiovalaspeli.MotivaatiovalasPeli;
