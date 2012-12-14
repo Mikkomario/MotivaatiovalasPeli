@@ -165,6 +165,8 @@ public class MotivaatiovalasPeli extends PApplet
 	@Override
 	public void setup()
 	{
+		this.showStatus("Motivaatiovalas-Peli");
+		
 		this.beginGame();
 	}
 	
