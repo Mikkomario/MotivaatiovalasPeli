@@ -44,6 +44,7 @@ public class Kuha extends DrawnObject3D implements Scrollable, Colliding
             Kuha.model = new OBJModel(parent, "kuha1.obj", "relative", 
                     PConstants.POLYGON);
         }
+        this.setScale(2, 2, 2);
     }
 
 
@@ -52,7 +53,7 @@ public class Kuha extends DrawnObject3D implements Scrollable, Colliding
     @Override
     public void drawSelf3D(MotivaatiovalasPeli applet)
     {
-        this.model.draw();
+        Kuha.model.draw();
 
         /*
 		// TODO Add cool models
