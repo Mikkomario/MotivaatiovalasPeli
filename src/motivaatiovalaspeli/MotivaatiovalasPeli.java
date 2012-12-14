@@ -16,6 +16,7 @@ import handlers.StepHandler;
 import processing.core.PApplet;
 import score.ScoreHandler;
 import scrolling.FollowingScroller;
+import sounds.BackgroundMusicPlayer;
 import sounds.SoundPlayer;
 import sprites.SpriteBank;
 import testers.ValasCollisionTestDrawer;
@@ -50,6 +51,7 @@ public class MotivaatiovalasPeli extends PApplet
 	private DrawableHandler controllerDrawer;
 	private KeyListenerHandler logicalListenerHandler;
 	private CameraListenerHandler logicalCameraHandler;
+    private BackgroundMusicPlayer backgroundMusicPlayer;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -86,6 +88,9 @@ public class MotivaatiovalasPeli extends PApplet
 		this.controller = new GameController(this, this.controllerDrawer, this.sprtbank);
 		this.primarydrawer.addDrawable(this.controllerDrawer);
 		this.mainkeyhandler.addListener(this.controller);
+		
+		this.backgroundMusicPlayer = new BackgroundMusicPlayer();
+		this.stepHandler.addActor(this.backgroundMusicPlayer);
 		
 		//this.beginGame();
 	}

@@ -32,7 +32,6 @@ public class SoundPlayer {
         this.whenLastPlayedSound = System.currentTimeMillis() + 1501;
     }
     
-    
     public void playRandomValasSound() {
         if (System.currentTimeMillis() > this.whenLastPlayedSound + 1500){
             this.whenLastPlayedSound = System.currentTimeMillis();
@@ -51,14 +50,9 @@ public class SoundPlayer {
         }
     }
     
-    public void playBackgroundMusic() {
-        AePlayWave music = new AePlayWave("/data/taustamusiikki.wav");
-        music.start();
-    }
-    
-    
-    
+    /*
     public static void main(String[] args) {
         new SoundPlayer().playRandomValasSound();
     }
+    */
 }
