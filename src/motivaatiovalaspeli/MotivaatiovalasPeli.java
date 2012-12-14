@@ -170,7 +170,7 @@ public class MotivaatiovalasPeli extends PApplet
 		System.out.println(this.frameRate);
 		//perspective((float) (PConstants.PI/3.0), (float) (640/480.0), 10, -1000);
 		
-		background(0, 10, 100);
+		background(6, 195, 233);
 		noStroke();
 		noFill();
 		
