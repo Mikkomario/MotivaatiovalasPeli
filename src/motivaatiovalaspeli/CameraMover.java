@@ -79,28 +79,34 @@ public class CameraMover extends CameraListenerHandler implements Actor
 	 */
 	public void changeCamera(PApplet applet)
 	{
-		// Calculates the position
-		int x = (int) (this.defcamx + Math.sin(this.xmovephase)*this.maxmovementx*0.5);
-		int y = (int) (this.defcamy + Math.sin(this.ymovephase)*this.maxmovementy*0.5);
-		
-		//System.out.println(this.xmovephase);
-		
-		// Changes camera's position and informs listeners
-		applet.camera(x, y, this.camz, this.objx, this.objy, this.objz, 0, 1, 0 );
-		
-		// If the position was changed, informs the listeners
-		if (this.poschanged)
+		if (isActive() && !isDead())
 		{
-			int camxangle = HelpMath.pointXDirection(this.camz, y, this.objz, this.objy);
-			int camyangle = HelpMath.PointYDirection(x, this.camz, this.objx, this.objz);
-			//System.out.println(camyangle);
+			// Calculates the position
+			int x = (int) (this.defcamx + Math.sin(this.xmovephase)*this.maxmovementx*0.5);
+			int y = (int) (this.defcamy + Math.sin(this.ymovephase)*this.maxmovementy*0.5);
 			
-			if (isActive() && !isDead())
-				informCameraPosition(x, y, this.camz, camxangle, camyangle);
-				this.poschanged = false;
-		
-			//System.out.println(camyangle + ", " + camxangle);
+			//System.out.println(this.xmovephase);
+			
+			// Changes camera's position and informs listeners
+			applet.camera(x, y, this.camz, this.objx, this.objy, this.objz, 0, 1, 0 );
+			
+			// If the position was changed, informs the listeners
+			if (this.poschanged)
+			{
+				int camxangle = HelpMath.pointXDirection(this.camz, y, this.objz, this.objy);
+				int camyangle = HelpMath.PointYDirection(x, this.camz, this.objx, this.objz);
+				//System.out.println(camyangle);
+				
+				if (isActive() && !isDead())
+					informCameraPosition(x, y, this.camz, camxangle, camyangle);
+					this.poschanged = false;
+			
+				//System.out.println(camyangle + ", " + camxangle);
+			}
 		}
+		else
+			applet.camera(this.defcamx, this.defcamy, this.camz, this.objx, 
+					this.objy, this.objz, 0, 1, 0 );
 	}
 	
 }

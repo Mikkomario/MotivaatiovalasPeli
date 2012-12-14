@@ -1,14 +1,17 @@
 package motivaatiovalaspeli;
 
+import listeners.KeyListener;
 import model.Valas;
 import creators.CanyonCreator;
 import creators.KuhaCreator;
 import creators.RockCreator;
 import creators.SeagrassCreator;
 import handlers.ActorHandler;
+import handlers.CameraListenerHandler;
 import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
+import handlers.MainKeyListenerHandler;
 import handlers.StepHandler;
 import processing.core.PApplet;
 import score.ScoreHandler;
@@ -32,16 +35,21 @@ public class MotivaatiovalasPeli extends PApplet
 	
 	private DrawableHandler mainDrawer;
 	private StepHandler stepHandler;
-	private KeyListenerHandler keyhandler;
+	private MainKeyListenerHandler mainkeyhandler;
 	private CameraMover camerahandler;
 	private Valas player;
 	private FollowingScroller playerscroller;
 	private SpriteBank sprtbank;
 	private CollisionHandler mainCollisionHandler;
 	private ScoreHandler scorehandler;
-	private ActorHandler gameLogic;
-	private DrawableHandler gameDrawer;
+	private ActorHandler gamelogic;
+	private DrawableHandler gamedrawer;
 	private GameController controller;
+	private DrawableHandler primarydrawer;
+	private DrawableHandler secondarydrawer;
+	private DrawableHandler controllerDrawer;
+	private KeyListenerHandler logicalListenerHandler;
+	private CameraListenerHandler logicalCameraHandler;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -52,8 +60,34 @@ public class MotivaatiovalasPeli extends PApplet
 	public void setup()
 	{
 		this.showStatus("Motivaatiovalas-Peli");
+		size(640, 480, P3D);
+		noFill();
 		
-		this.beginGame();
+		// Initializes the most basic attributes
+		
+		this.sprtbank = new SpriteBank(this);
+		this.mainDrawer = new DrawableHandler(false);
+		this.stepHandler = new StepHandler(60, this);
+		this.primarydrawer = new DrawableHandler(false);
+		this.secondarydrawer = new DrawableHandler(false);
+		// This is needed for the rigth drawing order
+		this.mainDrawer.addDrawable(this.secondarydrawer);
+		this.mainDrawer.addDrawable(this.primarydrawer);
+		// Creates the listenerhandler and adds it to stephandler
+		this.mainkeyhandler = new MainKeyListenerHandler();
+		this.stepHandler.addActor(this.mainkeyhandler);
+		// Creates a cameralistenerhandler
+		this.camerahandler = new CameraMover(this.width/2, this.height/2, 420, 
+				this.width/3, this.height/3, this.width/2, this.height/2, 0);
+		this.stepHandler.addActor(this.camerahandler);
+		
+		// And the attributes of the controller
+		this.controllerDrawer = new DrawableHandler(true);
+		this.controller = new GameController(this, this.controllerDrawer, this.sprtbank);
+		this.primarydrawer.addDrawable(this.controllerDrawer);
+		this.mainkeyhandler.addListener(this.controller);
+		
+		//this.beginGame();
 	}
 	
 	@Override
@@ -86,13 +120,13 @@ public class MotivaatiovalasPeli extends PApplet
 	@Override
 	public void keyPressed()
 	{
-		this.keyhandler.onKeyPressed(this.key, this.keyCode, (this.key == CODED));
+		this.mainkeyhandler.onKeyPressed(this.key, this.keyCode, (this.key == CODED));
 	}
 	
 	@Override
 	public void keyReleased()
 	{
-		this.keyhandler.onKeyReleased(this.key, this.keyCode, (this.key == CODED));
+		this.mainkeyhandler.onKeyReleased(this.key, this.keyCode, (this.key == CODED));
 	}
 	
 	
@@ -110,65 +144,41 @@ public class MotivaatiovalasPeli extends PApplet
 	 *Starts the game
 	 */
 	public void beginGame(){
-		size(640, 480, P3D);
-		noFill();
 		
-		// Creates the spritebank
-		this.sprtbank = new SpriteBank(this);
-		
-		// Creates the canyon and adds it to the drawables handled
-		//Canyon testcanyon = new Canyon(this.width, this.height, 1000, 100, 
-				//-900, 1100, this.sprtbank);
-		/*
-		Canyon testcanyon = new Canyon(this.width, this.height, 1000, 100, 
-				-900, 1100, this.sprtbank);
-		this.mainDrawer = new DrawableHandler(false);
-		this.mainDrawer.addDrawable(testcanyon);
-		//Canyon testcanyon2 = new Canyon(this.width, this.height, 1000, -900, -900, 1100, this.sprtbank);
-		Canyon testcanyon2 = new Canyon(this.width, this.height, 1000, -900, 
-				-900, 1100, this.sprtbank);
-		this.mainDrawer.addDrawable(testcanyon2);
-		*/
-		this.mainDrawer = new DrawableHandler(false);
-		
-		// Also creates the stephandler
-		this.stepHandler = new StepHandler(60, this);
-		
-		// Creates the listenerhandler and adds it to stephandler
-		this.keyhandler = new KeyListenerHandler();
-		this.stepHandler.addActor(this.keyhandler);
+		// Initializes the most basic handlers concerning the game logic
+		this.gamedrawer = new DrawableHandler(false);
+		this.gamelogic = new ActorHandler(false);
+		this.logicalListenerHandler = new KeyListenerHandler(false);
+		this.secondarydrawer.addDrawable(this.gamedrawer);
+		this.stepHandler.addActor(this.gamelogic);
+		this.mainkeyhandler.addListener(this.logicalListenerHandler);
+		this.logicalCameraHandler = new CameraListenerHandler(false);
+		this.camerahandler.addListener(this.logicalCameraHandler);
 		
 		// Creates a collisionhandler and adds it to the stephandler
 		this.mainCollisionHandler = new CollisionHandler(false);
-		this.stepHandler.addActor(this.mainCollisionHandler);
-		
-		// Creates a cameralistenerhandler
-		this.camerahandler = new CameraMover(this.width/2, this.height/2, 420, 
-				this.width/3, this.height/3, this.width/2, this.height/2, 0);
-		this.stepHandler.addActor(this.camerahandler);
+		this.gamelogic.addActor(this.mainCollisionHandler);
 		
 		// Creates a scorehandler
 		this.scorehandler = new ScoreHandler(this.sprtbank);
-		this.camerahandler.addListener(this.scorehandler);
+		this.logicalCameraHandler.addListener(this.scorehandler);
 		
 		// Creates the playable valas and adds it to drawer, stephandler,
 		// collisionhandler and keyhandler
 		this.player = new Valas(this.width/2, this.height/2, 0, this.width, 
 				this.height, 15, 8, 15, this, this.scorehandler);
-		this.mainDrawer.addDrawable(this.player);
-		this.stepHandler.addActor(this.player);
-		this.keyhandler.addListener(this.player);
+		this.gamedrawer.addDrawable(this.player);
+		this.gamelogic.addActor(this.player);
+		this.logicalListenerHandler.addKeyListener(this.player);
 		this.mainCollisionHandler.addCollisionListener(this.player);
 		
 		// Creates the scroller and adds valas as its scrollable
 		this.playerscroller = new FollowingScroller(this.player);
-		this.stepHandler.addActor(this.playerscroller);
-		//this.playerscroller.addScrollable(testcanyon);
-		//this.playerscroller.addScrollable(testcanyon2);
+		this.gamelogic.addActor(this.playerscroller);
 		
 		// Creates the canyons
 		DrawableHandler canyonDrawer = new DrawableHandler(true);
-		this.mainDrawer.addDrawable(canyonDrawer);
+		this.gamedrawer.addDrawable(canyonDrawer);
 		CanyonCreator.createCanyons(this.width, this.height, -1000, 500, 5, 
 				this.playerscroller, canyonDrawer, this.sprtbank);
 		
@@ -176,49 +186,39 @@ public class MotivaatiovalasPeli extends PApplet
 		DrawableHandler rhandler = new DrawableHandler(false);
 		//rhandler.addCollisionListener(this.player);
 		//this.stepHandler.addActor(rhandler);
-		this.mainDrawer.addDrawable(rhandler);
+		this.gamedrawer.addDrawable(rhandler);
 		
 		// Creates a rockcreator
 		RockCreator rcreator = new RockCreator(1, 5, 250, 620, this.width,
 				this.height, -1000, 300, rhandler, this.playerscroller, 
 				this.mainCollisionHandler);
-		this.stepHandler.addActor(rcreator);
+		this.gamelogic.addActor(rcreator);
 		
 		// Creates kuhahandler for drawing kuhas
 		DrawableHandler khandler = new DrawableHandler(false);
-		this.mainDrawer.addDrawable(khandler);
+		this.gamedrawer.addDrawable(khandler);
 		
 		// Creates a Kuhacreator
 		KuhaCreator kcreator = new KuhaCreator(100, 250, this.width, this.height, 
 				-1000, 300, khandler, this.playerscroller, 
 				this.mainCollisionHandler, this);
-		this.stepHandler.addActor(kcreator);
-		
-		// Creates a seagrass for testing
-		/*
-		Seagrass grass = new Seagrass(120, this.height, -800, -1000, 300, 
-				this.width/2, this.height/2, 420, this.sprtbank);
-		this.mainDrawer.addDrawable(grass);
-		this.playerscroller.addScrollable(grass);
-		*/
+		this.gamelogic.addActor(kcreator);
 		
 		// Creates a seagrasshandler
 		DrawableHandler grasshandler = new DrawableHandler(false);
-		this.mainDrawer.addDrawable(grasshandler);
+		this.gamedrawer.addDrawable(grasshandler);
 		
 		// Creates a seagrasscreator
 		SeagrassCreator seagrasscreator = new SeagrassCreator(80, 400, this.width, 
 				this.height, -1000, 300, grasshandler, this.playerscroller, 
-				this.camerahandler, this.width/2, this.height/2, 420, 0, 90, this.sprtbank);
-		this.camerahandler.addListener(seagrasscreator);
-		this.stepHandler.addActor(seagrasscreator);
+				this.logicalCameraHandler, this.width/2, this.height/2, 420, 0, 
+				90, this.sprtbank);
+		this.logicalCameraHandler.addListener(seagrasscreator);
+		this.gamelogic.addActor(seagrasscreator);
 		
 		// Adds the scorehandler to the drawn objects (must be done here for the drawing order)
-		this.mainDrawer.addDrawable(this.scorehandler);
-		this.stepHandler.addActor(this.scorehandler);
-		
-		SoundPlayer player = new SoundPlayer();
-		player.playBackgroundMusic();
+		this.gamedrawer.addDrawable(this.scorehandler);
+		this.gamelogic.addActor(this.scorehandler);
 		
 		// Creates a seaLayerDrawer
 		/*

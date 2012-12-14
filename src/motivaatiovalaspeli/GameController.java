@@ -21,7 +21,6 @@ public class GameController implements listeners.KeyListener
 	
 	private MotivaatiovalasPeli mvp;
 	private GamePhase phase;
-	private DrawableHandler drawer;
 	private PhaseScreen beginscreen;
 	private PhaseScreen pausedscreen;
 	private PhaseScreen victoryscreen;
@@ -44,12 +43,16 @@ public class GameController implements listeners.KeyListener
 		// Initializes attributes
 		this.mvp = peli;
 		this.phase = GamePhase.BEGIN;
-		this.drawer = phasedrawer;
 		this.beginscreen = new PhaseScreen(GamePhase.BEGIN, spritebank);
 		this.pausedscreen = new PhaseScreen(GamePhase.PAUSED, spritebank);
 		this.victoryscreen = new PhaseScreen(GamePhase.VICTORY, spritebank);
 		this.overscreen = new PhaseScreen(GamePhase.OVER, spritebank);
 		this.kssscreen = new PhaseScreen(GamePhase.KSS, spritebank);
+		phasedrawer.addDrawable(this.beginscreen);
+		phasedrawer.addDrawable(this.pausedscreen);
+		phasedrawer.addDrawable(this.victoryscreen);
+		phasedrawer.addDrawable(this.overscreen);
+		phasedrawer.addDrawable(this.kssscreen);
 		
 		// Sets the beginscreen visible
 		this.beginscreen.setVisible();
