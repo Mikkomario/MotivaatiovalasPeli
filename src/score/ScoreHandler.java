@@ -21,6 +21,8 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 	
 	private Sprite healthsprite;
 	
+	private MotivaatiovalasPeli applet;
+	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
 	
@@ -34,9 +36,11 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 		super(100, 100, 100, 0, 0, 0, 0, 90);
 		
 		// Initializes attributes
-		this.score = 50;
+		this.score = 5;
 		
 		this.healthsprite = spritebank.getSprite("health");
+		
+		this.applet = applet;
 	}
 	
 	
@@ -88,9 +92,14 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 	{
 		this.score += increasement;
 		
-		if (this.score < 0)
+		if (this.score < 0){
 			this.score = 0;
-		else if (this.score > 100)
+		//here the game is lost
+		}
+		else if (this.score > 100){
 			this.score = 100;
+		//here the game is won	
+		}
+	
 	}
 }

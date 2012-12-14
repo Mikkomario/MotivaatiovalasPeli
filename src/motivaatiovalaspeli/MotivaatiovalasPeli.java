@@ -10,6 +10,7 @@ import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
 import handlers.StepHandler;
 import processing.core.PApplet;
+import processing.core.PImage;
 import score.ScoreHandler;
 import scrolling.FollowingScroller;
 import sprites.SpriteBank;
