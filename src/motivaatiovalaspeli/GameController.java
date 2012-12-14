@@ -1,12 +1,7 @@
 package motivaatiovalaspeli;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import sprites.SpriteBank;
-
 import model.PhaseScreen;
-
 import handlers.DrawableHandler;
 
 /**
@@ -132,6 +127,7 @@ public class GameController implements listeners.KeyListener
 				// On game-over goes to kss screen
 				case OVER:
 				{
+					//System.out.println("Overspce");
 					this.mvp.endGame();
 					this.overscreen.setInvisible();
 					this.phase = GamePhase.KSS;
@@ -159,6 +155,10 @@ public class GameController implements listeners.KeyListener
 				this.pausedscreen.setVisible();
 			}
 		}
+		else if (!coded && key == 'g')
+			loseTheGame();
+		else if (!coded && key == 'v')
+			winTheGame();
 	}
 
 
@@ -196,7 +196,7 @@ public class GameController implements listeners.KeyListener
 	public void loseTheGame()
 	{
 		setScreensInvisible();
-		this.phase = GamePhase.VICTORY;
+		this.phase = GamePhase.OVER;
 		this.mvp.endGame();
 		this.overscreen.setVisible();
 	}

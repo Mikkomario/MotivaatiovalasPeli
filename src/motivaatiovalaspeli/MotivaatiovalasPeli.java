@@ -1,6 +1,5 @@
 package motivaatiovalaspeli;
 
-import listeners.KeyListener;
 import model.Valas;
 import creators.CanyonCreator;
 import creators.KuhaCreator;
@@ -17,9 +16,7 @@ import processing.core.PApplet;
 import score.ScoreHandler;
 import scrolling.FollowingScroller;
 import sounds.BackgroundMusicPlayer;
-import sounds.SoundPlayer;
 import sprites.SpriteBank;
-import testers.ValasCollisionTestDrawer;
 
 /**
  * 
@@ -244,7 +241,11 @@ public class MotivaatiovalasPeli extends PApplet
 	 */
 	public void pause()
 	{
-		// TODO: Finish
+		// sets game inactive for a while
+		this.gamelogic.inActivate();
+		this.gamedrawer.setInvisible();
+		this.logicalCameraHandler.inActivate();
+		this.logicalListenerHandler.inActivate();
 	}
 	
 	/**
@@ -252,7 +253,11 @@ public class MotivaatiovalasPeli extends PApplet
 	 */
 	public void unPause()
 	{
-		// TODO: Finish
+		// Reactivates the game logic
+		this.gamelogic.activate();
+		this.gamedrawer.setVisible();
+		this.logicalCameraHandler.activate();
+		this.logicalListenerHandler.activate();
 	}
 	
 	/**
@@ -260,6 +265,10 @@ public class MotivaatiovalasPeli extends PApplet
 	 */
 	public void endGame()
 	{
-		// TODO: Finish
+		// Kills all elements that are connected to the game logic and game drawing
+		this.gamelogic.kill();
+		this.gamedrawer.kill();
+		this.logicalCameraHandler.kill();
+		this.logicalListenerHandler.kill();
 	}
 }
