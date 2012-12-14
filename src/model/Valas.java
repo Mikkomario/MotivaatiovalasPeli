@@ -25,6 +25,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 
     private int tillMovement, movementInterval, minX, maxX, minY, maxY, tillBoost;
     private double movementForce, maxSPeed, currentMaxSpeed;
+    private double normalScale, currentScale, scalePhase;
     private OBJModel model;
     private ScoreHandler score;
 
@@ -80,7 +81,10 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
         this.tillMovement = this.movementInterval;
 
         // Valas's model is so small that we need to scale it a bit
-        setScale(12, 12, 12);
+        this.normalScale = 12;
+        this.currentScale = 12;
+        this.scalePhase = 0;
+        setScale(this.normalScale, this.normalScale, this.normalScale);
     }
 
 
@@ -147,7 +151,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
       		 	this.currentMaxSpeed = this.maxSPeed*1.5;
                boost(this.maxSPeed*2);
                this.tillBoost = this.movementInterval;
-               System.out.println(getSpeed());
+               //System.out.println(getSpeed());
       	 }
     }
 
@@ -208,6 +212,9 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
         }
         // CHecks if the valas is colliding with the borders
         checkBorders();
+        
+        // Scales the valas a bit for a funny effect
+        adjustScaling();
         
         super.act();
     }
@@ -346,5 +353,14 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
             //System.out.println("Slows");
             setSpeed3D(this.currentMaxSpeed, false);
         }
+    }
+    
+    private void adjustScaling()
+    {
+    	this.scalePhase += 0.1;
+    	this.scalePhase %= Math.PI * 2;
+    	this.currentScale = this.normalScale * (1.2 + Math.sin(this.scalePhase)*0.2);
+    	setScale(this.currentScale, this.currentScale, this.currentScale);
+    	//System.out.println(getXscale());
     }
 }
