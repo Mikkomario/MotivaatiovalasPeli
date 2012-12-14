@@ -63,13 +63,29 @@ public class KeyListenerHandler extends LogicalHandler implements Actor
 			// Informs if a key was pressed
 			for (int ik = 0; ik < this.keysPressed.size(); ik++)
 			{
-				listener.onKeyPressed(this.keysPressed.get(i), 0, false);
+				listener.onKeyPressed(this.keysPressed.get(ik), 0, false);
+				//System.out.println("Pressed!");
 			}
 			
 			// Informs if a coded key was pressed
 			for (int ik = 0; ik < this.codesPressed.size(); ik++)
 			{
-				listener.onKeyPressed(0, this.codesPressed.get(i), true);
+				listener.onKeyPressed(0, this.codesPressed.get(ik), true);
+				//System.out.println("CodePressed!");
+			}
+			
+			// Informs if a key was released
+			for (int ik = 0; ik < this.keysReleased.size(); ik++)
+			{
+				listener.onKeyReleased(this.keysReleased.get(ik), 0, false);
+				//System.out.println("Released!");
+			}
+			
+			// Informs if a coded key was released
+			for (int ik = 0; ik < this.codesReleased.size(); ik++)
+			{
+				listener.onKeyReleased(0, this.codesReleased.get(ik), true);
+				//System.out.println("CodeReleased!");
 			}
 			
 			// Informs if a key is down
@@ -129,7 +145,7 @@ public class KeyListenerHandler extends LogicalHandler implements Actor
 		}
 		else
 		{
-			if (!this.keysDown.containsKey(key) || this.keysDown.get(key))
+			if (!this.keysDown.containsKey(key) || !this.keysDown.get(key))
 				if (!this.keysPressed.contains(key))
 					this.keysPressed.add(key);
 			this.keysDown.put(key, true);

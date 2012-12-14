@@ -73,6 +73,19 @@ public class CollisionHandler extends LogicalHandler implements Actor
 			super.addHandled(h);
 	}
 	
+	@Override
+	public boolean isDead()
+	{
+		// Also checks if all collidedobjects are dead (and removes unnecessary ones)
+		for (int i = 0; i < this.collidings.size(); i++)
+		{
+			if (this.collidings.get(i).isDead())
+				this.collidings.remove(i);
+		}
+		
+		return super.isDead() && this.collidings.isEmpty();
+	}
+	
 	
 	// OTHER METHODS	---------------------------------------------------
 	

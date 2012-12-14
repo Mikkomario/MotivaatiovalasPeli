@@ -29,7 +29,7 @@ public class ScoreHandler implements Actor, Drawable
 	public ScoreHandler()
 	{
 		// Initializes attributes
-		this.score = 0;
+		this.score = 20;
 		this.active = true;
 		this.alive = true;
 		this.visible = true;
@@ -111,6 +111,19 @@ public class ScoreHandler implements Actor, Drawable
 	{
 		this.visible = false;
 		return true;
+	}
+	
+	
+	// OTHER METHODS	---------------------------------------------------
+	
+	/**
+	 * Increases the current score by the given amount
+	 * 
+	 * @param increasement How much the score is increased
+	 */
+	public void increaseScore(double increasement)
+	{
+		this.score += increasement;
 	}
 
 }

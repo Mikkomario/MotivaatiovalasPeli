@@ -66,7 +66,7 @@ public class Canyon implements Drawable, Scrollable
 
 	@Override
 	public void drawSelf(MotivaatiovalasPeli applet)
-	{
+	{	
 		applet.textureMode(PConstants.NORMAL);
 		
 		/*

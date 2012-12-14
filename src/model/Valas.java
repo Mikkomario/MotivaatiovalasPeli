@@ -9,6 +9,7 @@ import motivaatiovalaspeli.HelpMath;
 import motivaatiovalaspeli.MotivaatiovalasPeli;
 import processing.core.PConstants;
 import saito.objloader.OBJModel;
+import score.ScoreHandler;
 import scrolling.Scrollable;
 
 /**
@@ -22,10 +23,10 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
 {
     // ATTRIBUTES	------------------------------------------------------
 
-    // TODO: Add speed / motion
-    private int tillMovement, movementInterval, minX, maxX, minY, maxY;
-    private double movementForce, maxSPeed;
+    private int tillMovement, movementInterval, minX, maxX, minY, maxY, tillBoost;
+    private double movementForce, maxSPeed, currentMaxSpeed;
     private OBJModel model;
+    private ScoreHandler score;
 
 
     // CONSTRUCTOR	------------------------------------------------------
@@ -48,9 +49,11 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
      * @param movementForce How much accelration is added to the object at each movement
      * @param maxSpeed How fast can the object move
      * @param parent The applet that will draw the valas
+     * @param scorehandler The scoreobject that handles valas' score
      */
     public Valas(int x, int y, int z, int maxX, int maxY, int movementInterval,
-            double movementForce, double maxSpeed, MotivaatiovalasPeli parent)
+            double movementForce, double maxSpeed, MotivaatiovalasPeli parent, 
+            ScoreHandler scorehandler)
     {
         super(x, y, z);
 
@@ -58,13 +61,17 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
                 PConstants.POLYGON);
 
         setRotationFriction(1);
-        setFriction(0.15);
+        setFriction(0.2);
         this.movementForce = movementForce;
         this.maxSPeed = maxSpeed;
         this.maxX = maxX;
         this.maxY = maxY;
         this.minX = 0;
         this.minY = 0;
+        this.score = scorehandler;
+        
+        this.tillBoost = 0;
+        this.currentMaxSpeed = this.maxSPeed;
 
         if (movementInterval > 0)
             this.movementInterval = movementInterval;
@@ -110,7 +117,6 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
     @Override
     public void onKeyDown(int key, int keyCode, boolean coded)
     {	
-        // TODO Add controlls
         // Case up
         if (coded && keyCode == PConstants.UP)
             setRotation(-5, getYRotation(), getZRotation());
@@ -123,17 +129,26 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
         // Case Right
         else if (coded && keyCode == PConstants.RIGHT)
             setRotation(getXRotation(), -5, getZRotation());
+        /*
         else if (!coded && key == "b".codePointAt(0))
         {
             //System.out.println("ASDASD");
             scale(2, 2, 2);
         }
+        */
     }
 
     @Override
     public void onKeyPressed(int key, int keyCode, boolean coded)
     {
-        // Does nothing yet
+    	// When space is pressed, boosts forward
+      	 if (!coded && key == ' ' && this.tillBoost <= 0)
+      	 {
+      		 	this.currentMaxSpeed = this.maxSPeed*1.5;
+               boost(this.maxSPeed*2);
+               this.tillBoost = this.movementInterval;
+               System.out.println(getSpeed());
+      	 }
     }
 
     @Override
@@ -174,21 +189,14 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
         checkAngle(50);
 
         this.tillMovement --;
+        this.tillBoost --;
+        if (this.currentMaxSpeed > this.maxSPeed)
+        	this.currentMaxSpeed -= getFriction();
+        
         if (this.tillMovement == 0)
         {
             this.tillMovement = this.movementInterval;
-            addMotion3D((int) getXAngle(), -(int) getYAngle() -90, this.movementForce);
-
-            //System.out.println(getZDirection());
-
-            if (getSpeed() > this.maxSPeed)
-            {
-                //System.out.println("Slows");
-                setSpeed3D(10, false);
-            }
-
-            // CHecks if the valas is colliding with the borders
-            checkBorders();
+            boost(this.movementForce);
 
             //setMotion3D((int) getXAngle(), (int) -getYAngle() - 90, this.movementForce);
 
@@ -198,7 +206,9 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
             //System.out.println("Speed: " + getHspeed() + ", " + getVspeed() + ", " + getZspeed());
             //System.out.println("Direction " + getXAngle() + ", " + getYAngle() + ", " + getZAngle());
         }
-
+        // CHecks if the valas is colliding with the borders
+        checkBorders();
+        
         super.act();
     }
 
@@ -284,6 +294,12 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
             double zspeed = HelpMath.lendirY(4, ydir);
             setVelocity(hspeed, vspeed, zspeed);
         }
+        else if (collidedObject instanceof Kuha)
+        {
+        	// Valas eats kuhas and gets points from it
+        	collidedObject.kill();
+        	this.score.increaseScore(5);
+        }
     }
 
 
@@ -317,5 +333,18 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
             setVelocity(getHspeed(), Math.abs(getVspeed())*0.75, getZspeed());
         if (getY() + 35 > this.maxY)
             setVelocity(getHspeed(), -Math.abs(getVspeed())*0.75, getZspeed());
+    }
+    
+    private void boost(double speed)
+    {
+    	addMotion3D((int) getXAngle(), -(int) getYAngle() -90, speed);
+
+        //System.out.println(getZDirection());
+
+        if (getSpeed() > this.currentMaxSpeed)
+        {
+            //System.out.println("Slows");
+            setSpeed3D(this.currentMaxSpeed, false);
+        }
     }
 }

@@ -1,7 +1,5 @@
 package motivaatiovalaspeli;
 
-import model.Canyon;
-import model.SealayerDrawer;
 import model.Valas;
 import creators.CanyonCreator;
 import creators.KuhaCreator;
@@ -14,7 +12,6 @@ import handlers.KeyListenerHandler;
 import handlers.SeagrassHandler;
 import handlers.StepHandler;
 import processing.core.PApplet;
-import processing.core.PConstants;
 import score.ScoreHandler;
 import scrolling.FollowingScroller;
 import sprites.SpriteBank;
@@ -80,10 +77,13 @@ public class MotivaatiovalasPeli extends PApplet
 		this.mainCollisionHandler = new CollisionHandler(false);
 		this.stepHandler.addActor(this.mainCollisionHandler);
 		
+		// Creates a scorehandler
+		this.scorehandler = new ScoreHandler();
+		
 		// Creates the playable valas and adds it to drawer, stephandler,
 		// collisionhandler and keyhandler
 		this.player = new Valas(this.width/2, this.height/2, 0, this.width, 
-				this.height, 15, 8, 15, this);
+				this.height, 15, 8, 15, this, this.scorehandler);
 		this.mainDrawer.addDrawable(this.player);
 		this.stepHandler.addActor(this.player);
 		this.keyhandler.addListener(this.player);
@@ -145,16 +145,16 @@ public class MotivaatiovalasPeli extends PApplet
 		this.camerahandler.addListener(seagrasscreator);
 		this.stepHandler.addActor(seagrasscreator);
 		
+		// Adds the scorehandler to the drawn objects (must be done here for the drawing order)
+		this.mainDrawer.addDrawable(this.scorehandler);
+		this.stepHandler.addActor(this.scorehandler);
+		
+		
 		// Creates a seaLayerDrawer
 		/*
 		SealayerDrawer sld = new SealayerDrawer(-900, 0, 10, 0, 10, 100);
 		this.mainDrawer.addDrawable(sld);
 		*/
-		
-		// Creates a scorehandler
-		this.scorehandler = new ScoreHandler();
-		this.mainDrawer.addDrawable(this.scorehandler);
-		this.stepHandler.addActor(this.scorehandler);
 		
 		//testcanyon.setInvisible();
 		/*
@@ -166,7 +166,7 @@ public class MotivaatiovalasPeli extends PApplet
 	@Override
 	public void draw()
 	{	
-		System.out.println(this.frameRate);
+		//System.out.println(this.frameRate);
 		//perspective((float) (PConstants.PI/3.0), (float) (640/480.0), 10, -1000);
 		
 		background(0, 10, 100);
