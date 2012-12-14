@@ -24,7 +24,7 @@ public class SeagrassCreator extends ObjectCreator implements CameraListener
 	
 	private static Random rand = new Random();
 	
-	private int camx, camy, camz;
+	private int camx, camy, camz, camxangle, camyangle;
 	
 	private SpriteBank sprtbank;
 	private CameraListenerHandler cameraHandler;
@@ -48,11 +48,14 @@ public class SeagrassCreator extends ObjectCreator implements CameraListener
 	 * @param camerax The camera's current x-coordinate
 	 * @param cameray The camera's current y-coordinate
 	 * @param cameraz The camera's current z-coordinate
+	 * @param cameraxangle The camera's current view angle around the x-axis
+	 * @param camerayangle The camera's current view angle around the y-axis
 	 * @param spritebank From which spritebank the grassimage(s) can be found
 	 */
 	public SeagrassCreator(int minDelay, int maxDelay, int width, int height,
 			int z, int maxZ, DrawableHandler grassDrawer,
-			Scroller grassScroller, CameraListenerHandler camerahandler, int camerax, int cameray, int cameraz, 
+			Scroller grassScroller, CameraListenerHandler camerahandler, 
+			int camerax, int cameray, int cameraz, int cameraxangle, int camerayangle,
 			SpriteBank spritebank)
 	{
 		super(minDelay, maxDelay, width, height, z, maxZ, grassDrawer, grassScroller);
@@ -60,6 +63,8 @@ public class SeagrassCreator extends ObjectCreator implements CameraListener
 		this.camx = camerax;
 		this.camy = cameray;
 		this.camz = cameraz;
+		this.camxangle = cameraxangle;
+		this.camyangle = camerayangle;
 		this.sprtbank = spritebank;
 		this.cameraHandler = camerahandler;
 	}
@@ -80,7 +85,8 @@ public class SeagrassCreator extends ObjectCreator implements CameraListener
 		
 		// Creates the grass
 		Seagrass newgrass = new Seagrass(newx, fieldHeight, creationZ, creationZ, 
-				maxZ, this.camx, this.camy, this.camz, this.sprtbank);
+				maxZ, this.camx, this.camy, this.camz, this.camxangle, 
+				this.camyangle, this.sprtbank);
 		
 		// Adds it to the handlers + scroller
 		getDrawableHandler().addDrawable(newgrass);
@@ -89,10 +95,13 @@ public class SeagrassCreator extends ObjectCreator implements CameraListener
 	}
 
 	@Override
-	public void informCameraPosition(int posx, int posy, int posz)
+	public void informCameraPosition(int posx, int posy, int posz, int xangle, 
+			int yangle)
 	{
 		this.camx = posx;
 		this.camy = posy;
 		this.camz = posz;
+		this.camxangle = xangle;
+		this.camyangle = yangle;
 	}
 }

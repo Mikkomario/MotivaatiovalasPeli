@@ -31,7 +31,7 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 	 */
 	public ScoreHandler(SpriteBank spritebank)
 	{
-		super(100, 100, 100, 0, 0, 0);
+		super(100, 100, 100, 0, 0, 0, 0, 90);
 		
 		// Initializes attributes
 		this.score = 50;

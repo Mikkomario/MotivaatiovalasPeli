@@ -14,7 +14,6 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 {
 	// ATTRIBUTES	-------------------------------------------------------
 	
-	// TODO: Add cameralistener methods
 	private int camx, camy, camz;
 	private boolean active;
 	
@@ -31,12 +30,14 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 	 * @param camerax The camera's position's x-coordinate
 	 * @param cameray The camera's position's y-coordinate
 	 * @param cameraz The camera's position's z-coordinate
+	 * @param cameraxangle The camera's current view-angle around the x-axis
+	 * @param camerayangle The camera's current view-angle around the y-axis
 	 */
 	public DrawnObject2DProjected(int x, int y, int z, int camerax, 
-			int cameray, int cameraz)
+			int cameray, int cameraz, int cameraxangle, int camerayangle)
 	{
 		super(x, y, z);
-		informCameraPosition(camerax, cameray, cameraz);
+		informCameraPosition(camerax, cameray, cameraz, cameraxangle, camerayangle);
 		this.active = true;
 	}
 	
@@ -44,7 +45,7 @@ public abstract class DrawnObject2DProjected extends DrawnObject3D implements Ca
 	// IMPLEMENTED METHODS	----------------------------------------------
 
 	@Override
-	public void informCameraPosition(int posx, int posy, int posz)
+	public void informCameraPosition(int posx, int posy, int posz, int xangle, int yangle)
 	{
 		this.camx = posx;
 		this.camy = posy;

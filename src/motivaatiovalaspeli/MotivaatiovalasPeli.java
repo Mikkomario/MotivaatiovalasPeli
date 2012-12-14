@@ -141,7 +141,7 @@ public class MotivaatiovalasPeli extends PApplet
 		// Creates a seagrasscreator
 		SeagrassCreator seagrasscreator = new SeagrassCreator(80, 400, this.width, 
 				this.height, -1000, 300, grasshandler, this.playerscroller, 
-				this.camerahandler, this.width/2, this.height/2, 420, this.sprtbank);
+				this.camerahandler, this.width/2, this.height/2, 420, 0, 90, this.sprtbank);
 		this.camerahandler.addListener(seagrasscreator);
 		this.stepHandler.addActor(seagrasscreator);
 		

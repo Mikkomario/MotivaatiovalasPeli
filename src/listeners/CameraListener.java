@@ -19,6 +19,8 @@ public interface CameraListener extends LogicalHandled
 	 * @param posx The camera's current x-coordinate
 	 * @param posy The camera's current y-coordinate
 	 * @param posz The camera's current z-coordinate
+	 * @param xangle The new xangle of the camera
+	 * @param yangle The new yangle of the camera
 	 */
-	public void informCameraPosition(int posx, int posy, int posz);
+	public void informCameraPosition(int posx, int posy, int posz, int xangle, int yangle);
 }

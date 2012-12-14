@@ -29,12 +29,12 @@ public class CameraListenerHandler extends LogicalHandler implements CameraListe
 	// IMPLEMENTED METHODS	----------------------------------------------
 
 	@Override
-	public void informCameraPosition(int posx, int posy, int posz)
+	public void informCameraPosition(int posx, int posy, int posz, int xangle, int yangle)
 	{
 		// Informs all sublisteners about the change
 		for (int i = 0; i < getHandledNumber(); i++)
 		{
-			getListener(i).informCameraPosition(posx, posy, posz);
+			getListener(i).informCameraPosition(posx, posy, posz, xangle, yangle);
 		}	
 	}
 	

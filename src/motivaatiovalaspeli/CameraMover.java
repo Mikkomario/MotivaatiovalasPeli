@@ -91,8 +91,11 @@ public class CameraMover extends CameraListenerHandler implements Actor
 		// If the position was changed, informs the listeners
 		if (this.poschanged)
 		{
+			int camxangle = HelpMath.pointXDirection(this.camz, y, this.objz, this.objy);
+			int camyangle = HelpMath.PointYDirection(x, this.camz, this.objx, this.objz);
+			
 			if (isActive() && !isDead())
-				informCameraPosition(x, y, this.camz);
+				informCameraPosition(x, y, this.camz, camxangle, camyangle);
 				this.poschanged = false;
 		}
 	}

@@ -38,12 +38,14 @@ public class Seagrass extends DrawnObject2DProjected implements Scrollable
 	 * @param camerax The camera's position's x-coordinate
 	 * @param cameray The camera's position's y-coordinate
 	 * @param cameraz The camera's position's z-coordinate
+	 * @param camxangle 
+	 * @param camyangle 
 	 * @param spritebank The bank from which the seagrass sprite can be found
 	 */
 	public Seagrass(int x, int y, int z, int minZ, int maxZ, int camerax,
-			int cameray, int cameraz, SpriteBank spritebank)
+			int cameray, int cameraz, int camxangle, int camyangle, SpriteBank spritebank)
 	{
-		super(x, y, z, camerax, cameray, cameraz);
+		super(x, y, z, camerax, cameray, cameraz, camxangle, camyangle);
 		this.sprite = spritebank.getSprite("seagrass");
 		this.minZ = minZ;
 		this.maxZ = maxZ;
