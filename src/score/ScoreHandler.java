@@ -26,6 +26,7 @@ public class ScoreHandler extends DrawableHandler implements Actor
 	private int kuhas;
 	
 	private HealthMeter hpmeter;
+	private KuhaRemainderDrawer kuhadraw;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -50,6 +51,10 @@ public class ScoreHandler extends DrawableHandler implements Actor
 		this.hpmeter = new HealthMeter(this, spritebank);
 		addDrawable(this.hpmeter);
 		camerahandler.addListener(this.hpmeter);
+		
+		this.kuhadraw = new KuhaRemainderDrawer(this);
+		addDrawable(this.kuhadraw);
+		camerahandler.addListener(this.kuhadraw);
 	}
 	
 	
@@ -96,6 +101,14 @@ public class ScoreHandler extends DrawableHandler implements Actor
 		return (int) this.health;
 	}
 	
+	/**
+	 * @return How many kuhas have been eaten
+	 */
+	public int getKuhas()
+	{
+		return this.kuhas;
+	}
+	
 	
 	// OTHER METHODS	---------------------------------------------------
 	
@@ -107,7 +120,6 @@ public class ScoreHandler extends DrawableHandler implements Actor
 	public void increaseHealth(double increasement)
 	{
 		this.health += increasement;
-		this.kuhas ++;
 		
 		if (this.health < 0){
 			this.health = 0;
@@ -134,5 +146,13 @@ public class ScoreHandler extends DrawableHandler implements Actor
 			//here the game is won
 			// NOTICE: The game is won by eating kuhas instead
 		}
+	}
+	
+	/**
+	 * Eats a kuha, adding it ot the counter
+	 */
+	public void eatKuha()
+	{
+		this.kuhas ++;
 	}
 }

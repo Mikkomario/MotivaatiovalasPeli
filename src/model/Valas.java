@@ -313,6 +313,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
         	// Valas eats kuhas and gets points from it
         	collidedObject.kill();
         	this.score.increaseHealth(5);
+        	this.score.eatKuha();
         }
     }
 
