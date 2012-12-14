@@ -25,13 +25,18 @@ public class SoundPlayer {
         "/data/EtOSaa.wav",
         "/data/Turha.wav"
     };
+    private static AePlayWave backgroundMusicThread;
     
     
     public SoundPlayer() {
         // playing the sound should work first time whe using the method
         this.whenLastPlayedSound = System.currentTimeMillis() + 1501;
+        SoundPlayer.backgroundMusicThread = new AePlayWave("/data/taustamusiikki.wav");
     }
     
+    public AePlayWave getBackgroundMusicThread() {
+        return SoundPlayer.backgroundMusicThread;
+    }
     
     public void playRandomValasSound() {
         if (System.currentTimeMillis() > this.whenLastPlayedSound + 1500){
