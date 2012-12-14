@@ -5,6 +5,7 @@ import handleds.Actor;
 public class BackgroundMusicPlayer implements Actor {
     private AePlayWave backgroundMusicThread;
     private boolean alive;
+    private boolean active;
     
     
     public BackgroundMusicPlayer(){
@@ -16,17 +17,30 @@ public class BackgroundMusicPlayer implements Actor {
 
     @Override
     public boolean isActive() {
-        return true;
+        return this.active;
     }
 
     @Override
     public boolean activate() {
-        return false;
+        if (this.active) 
+            return false;
+        else {
+            this.active = true;
+            this.backgroundMusicThread = new AePlayWave("/data/KSS.wav");
+            this.backgroundMusicThread.start();
+            return true;
+        }
     }
 
     @Override
     public boolean inActivate() {
-        return false;
+        if (!this.active) 
+            return false;
+        else {
+            this.active = true;
+            this.backgroundMusicThread.interrupt();
+            return true;
+        }
     }
 
     @Override
@@ -37,6 +51,7 @@ public class BackgroundMusicPlayer implements Actor {
     @Override
     public boolean kill() {
         if (this.alive){
+            this.backgroundMusicThread.interrupt();
             this.alive = false;
             return true;
         } else return false;
