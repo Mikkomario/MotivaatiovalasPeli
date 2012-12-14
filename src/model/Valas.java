@@ -216,6 +216,9 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
         // Scales the valas a bit for a funny effect
         adjustScaling();
         
+        //Adds the distance the valas has proceeded
+        this.score.increaseDistance(-this.getZspeed());
+        
         super.act();
     }
 

@@ -21,7 +21,7 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 	
 	private Sprite healthsprite;
 	
-	private MotivaatiovalasPeli applet;
+	private double distance;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -36,11 +36,11 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 		super(100, 100, 100, 0, 0, 0, 0, 90);
 		
 		// Initializes attributes
-		this.score = 5;
+		this.score = 50;
 		
 		this.healthsprite = spritebank.getSprite("health");
 		
-		this.applet = applet;
+		this.distance = 0;
 	}
 	
 	
@@ -51,6 +51,7 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 	{
 		// Reduces the current points
 		increaseScore(-0.05);
+		
 	}
 	
 	@Override
@@ -98,8 +99,23 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 		}
 		else if (this.score > 100){
 			this.score = 100;
-		//here the game is won	
 		}
 	
+	}
+	
+	/**
+	 * Increases the current distance by the given amount. If distance gets high
+	 * enough, the method calls for a method that makes the game won.
+	 * 
+	 * @param increasement How much the distance is increased
+	 */
+	
+	public void increaseDistance(double increasement){
+		
+		this.distance += increasement;
+		
+		if(this.distance > 20000){
+			//here the game is won
+		}
 	}
 }
