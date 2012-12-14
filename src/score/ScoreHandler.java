@@ -1,6 +1,7 @@
 package score;
 
 import drawnobjects.DrawnObject2DProjected;
+import drawnobjects.DrawnObject2DProjectedonScreen;
 import sprites.Sprite;
 import sprites.SpriteBank;
 import motivaatiovalaspeli.MotivaatiovalasPeli;

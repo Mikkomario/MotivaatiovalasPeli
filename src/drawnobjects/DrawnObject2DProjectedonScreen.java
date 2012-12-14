@@ -58,19 +58,55 @@ public abstract class DrawnObject2DProjectedonScreen extends DrawnObject2DProjec
 	{
 		this.scrxangle = xangle;
 		this.scryangle = yangle;
-		
-		int x = getCamX() + (int) HelpMath.lendirX(length, this.scryangle + getCamYAngle());
-		int z = getCamZ() + (int) HelpMath.lendirY(length, this.scryangle + getCamYAngle());
-		int y = getCamY() + (int) HelpMath.lendirY(length, this.scrxangle + getCamXAngle());
-		
-		setPosition(x, y, z);
+		checkPosition();
 	}
 	
 	@Override
 	public void informCameraPosition(int posx, int posy, int posz, int xangle, int yangle)
 	{
 		// Changes the object's position
-		
 		super.informCameraPosition(posx, posy, posz, xangle, yangle);
+		// TODO: Might be in the wrong place
+		checkPosition();
+	}
+	
+	
+	// OTHER METHODS	----------------------------------------------------
+	
+	private void checkPosition()
+	{
+		//System.out.println(this.scryangle);
+		//System.out.println(HelpMath.lendirX(this.length, this.scryangle));
+		//System.out.println(getCamYAngle());
+		//System.out.println(HelpMath.lendirX(100, getCamYAngle()) + HelpMath.lendirX(100, this.scryangle));
+		//System.out.println(HelpMath.lendirX(this.length, 
+		//		this.scryangle + getCamYAngle()));
+		//System.out.println(HelpMath.lendirX(this.length, 
+		//		this.scryangle));
+		//System.out.println();
+		//System.out.println(getCamYAngle() + this.scryangle);
+		//System.out.println(HelpMath.lendirX(100, getCamYAngle() + this.scryangle));
+		//System.out.println(getCamX() + HelpMath.lendirX(100, getCamYAngle() + this.scryangle));
+		
+		int x = getCamX() + (int) HelpMath.lendirX(this.length, 
+				this.scryangle + getCamYAngle());
+		int z = getCamZ() + (int) HelpMath.lendirY(this.length, this.scryangle 
+				+ getCamYAngle());
+		int y = getCamY() + (int) HelpMath.lendirY(this.length, this.scrxangle 
+				+ getCamXAngle());
+		/*
+		int x = getCamX() + (int) HelpMath.lendirX(this.length, 
+				this.scryangle) +  (int) HelpMath.lendirX(this.length, 
+				getCamYAngle());
+		int z = getCamZ() + (int) HelpMath.lendirY(this.length, this.scryangle)+
+				(int) HelpMath.lendirY(this.length, getCamYAngle());
+		int y = getCamY() + (int) HelpMath.lendirY(this.length, this.scrxangle)+
+				(int) HelpMath.lendirY(this.length, getCamXAngle());
+		*/
+		
+		setPosition((double) x, (double) y, (double) z);
+		
+		//System.out.println(getCamYAngle() + ", " + getCamXAngle());
+		//System.out.println(getX() + ", " + getY() + ", " + getZ());
 	}
 }

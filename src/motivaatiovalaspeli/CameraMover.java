@@ -93,10 +93,13 @@ public class CameraMover extends CameraListenerHandler implements Actor
 		{
 			int camxangle = HelpMath.pointXDirection(this.camz, y, this.objz, this.objy);
 			int camyangle = HelpMath.PointYDirection(x, this.camz, this.objx, this.objz);
+			//System.out.println(camyangle);
 			
 			if (isActive() && !isDead())
 				informCameraPosition(x, y, this.camz, camxangle, camyangle);
 				this.poschanged = false;
+		
+			//System.out.println(camyangle + ", " + camxangle);
 		}
 	}
 	
