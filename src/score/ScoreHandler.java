@@ -96,6 +96,7 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 		
 		if (this.score < 0){
 			this.score = 0;
+			
 		//here the game is lost
 		}
 		else if (this.score > 100){
@@ -114,7 +115,6 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 	public void increaseDistance(double increasement){
 		
 		this.distance += increasement;
-		
 		if(this.distance > 20000){
 			//here the game is won
 		}
