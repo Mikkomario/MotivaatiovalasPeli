@@ -183,6 +183,8 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
         return 2;
     }
 
+    
+    
     @Override
     public void act()
     {

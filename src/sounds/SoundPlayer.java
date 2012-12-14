@@ -26,6 +26,7 @@ public class SoundPlayer {
         "/data/Turha.wav"
     };
     
+    
     public SoundPlayer() {
         // playing the sound should work first time whe using the method
         this.whenLastPlayedSound = System.currentTimeMillis() + 1501;
@@ -49,6 +50,12 @@ public class SoundPlayer {
             sound.start();
         }
     }
+    
+    public void playBackgroundMusic() {
+        AePlayWave music = new AePlayWave("/data/taustamusiikki.wav");
+        music.start();
+    }
+    
     
     
     public static void main(String[] args) {

@@ -13,7 +13,9 @@ import handlers.StepHandler;
 import processing.core.PApplet;
 import score.ScoreHandler;
 import scrolling.FollowingScroller;
+import sounds.SoundPlayer;
 import sprites.SpriteBank;
+import testers.ValasCollisionTestDrawer;
 
 /**
  * 
@@ -215,6 +217,8 @@ public class MotivaatiovalasPeli extends PApplet
 		this.mainDrawer.addDrawable(this.scorehandler);
 		this.stepHandler.addActor(this.scorehandler);
 		
+		SoundPlayer player = new SoundPlayer();
+		player.playBackgroundMusic();
 		
 		// Creates a seaLayerDrawer
 		/*
@@ -223,6 +227,7 @@ public class MotivaatiovalasPeli extends PApplet
 		*/
 		
 		//testcanyon.setInvisible();
+		
 		/*
 		ValasCollisionTestDrawer test = new ValasCollisionTestDrawer(this.player);
 		this.mainDrawer.addDrawable(test);

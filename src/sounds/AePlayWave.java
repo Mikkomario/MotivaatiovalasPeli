@@ -13,12 +13,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 /**
  * An external class that answers for playing the sound effects in this game.
  * 
- * TODO: Loading the sound files to a database and using them instead of
- * loading them from file every time a sound is played.
- * 
- * TODO: Delay in playing multiple sound files (shouldn't be able to play 
- * many sounds at the same time)
- * 
  * @author http://www.anyexample.com/programming/java/java_play_wav_sound_file.xml
  *
  */
