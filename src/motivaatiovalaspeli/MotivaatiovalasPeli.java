@@ -38,11 +38,7 @@ public class MotivaatiovalasPeli extends PApplet
 	private ScoreHandler scorehandler;
 	
 	
-	// IMPLEMENTED METHODS	-----------------------------------------------
-	
-	@Override
-	public void setup()
-	{
+	public void beginGame(){
 		size(640, 480, P3D);
 		noFill();
 		
@@ -161,6 +157,14 @@ public class MotivaatiovalasPeli extends PApplet
 		ValasCollisionTestDrawer test = new ValasCollisionTestDrawer(this.player);
 		this.mainDrawer.addDrawable(test);
 		*/
+	}
+	
+	// IMPLEMENTED METHODS	-----------------------------------------------
+	
+	@Override
+	public void setup()
+	{
+		this.beginGame();
 	}
 	
 	@Override
