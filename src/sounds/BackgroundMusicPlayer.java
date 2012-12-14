@@ -10,6 +10,7 @@ public class BackgroundMusicPlayer implements Actor {
     
     public BackgroundMusicPlayer(){
         this.alive = true;
+        this.active = true;
         this.backgroundMusicThread = new AePlayWave("/data/taustamusiikki.wav");
         this.backgroundMusicThread.start();
     }
@@ -23,10 +24,11 @@ public class BackgroundMusicPlayer implements Actor {
     @Override
     public boolean activate() {
         if (this.active) 
-            return false;
+            return true;
         else {
             this.active = true;
-            this.backgroundMusicThread = new AePlayWave("/data/KSS.wav");
+            //this.backgroundMusicThread.interrupt();
+            this.backgroundMusicThread = new AePlayWave("/data/taustamusiikki.wav");
             this.backgroundMusicThread.start();
             return true;
         }
@@ -35,9 +37,10 @@ public class BackgroundMusicPlayer implements Actor {
     @Override
     public boolean inActivate() {
         if (!this.active) 
-            return false;
-        else {
-            this.active = true;
+            return true;
+        else
+        {
+            this.active = false;
             this.backgroundMusicThread.interrupt();
             return true;
         }
@@ -50,17 +53,20 @@ public class BackgroundMusicPlayer implements Actor {
 
     @Override
     public boolean kill() {
-        if (this.alive){
+        if (this.alive)
+        {
             this.backgroundMusicThread.interrupt();
             this.alive = false;
             return true;
-        } else return false;
+        }
+        else
+        	return true;
     }
 
     @Override
     public void act() {
         if (!this.backgroundMusicThread.isAlive()){
-            this.backgroundMusicThread = new AePlayWave("/data/KSS.wav");
+            this.backgroundMusicThread = new AePlayWave("/data/taustamusiikki.wav");
             this.backgroundMusicThread.start();
         }
     }

@@ -86,9 +86,6 @@ public class MotivaatiovalasPeli extends PApplet
 		this.primarydrawer.addDrawable(this.controllerDrawer);
 		this.mainkeyhandler.addListener(this.controller);
 		
-		this.backgroundMusicPlayer = new BackgroundMusicPlayer();
-		this.stepHandler.addActor(this.backgroundMusicPlayer);
-		
 		//this.beginGame();
 	}
 	
@@ -220,6 +217,9 @@ public class MotivaatiovalasPeli extends PApplet
 		// Adds the scorehandler to the drawn objects (must be done here for the drawing order)
 		this.gamedrawer.addDrawable(this.scorehandler);
 		this.gamelogic.addActor(this.scorehandler);
+		
+		this.backgroundMusicPlayer = new BackgroundMusicPlayer();
+		this.gamelogic.addActor(this.backgroundMusicPlayer);
 		
 		// Creates a seaLayerDrawer
 		/*

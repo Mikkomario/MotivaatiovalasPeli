@@ -23,6 +23,7 @@ public class ScoreHandler extends DrawableHandler implements Actor
 	private double health;
 	private double distance;
 	private boolean active;
+	private int kuhas;
 	
 	private HealthMeter hpmeter;
 	
@@ -42,6 +43,7 @@ public class ScoreHandler extends DrawableHandler implements Actor
 		
 		// Initializes attributes
 		this.health = 50;
+		this.kuhas = 0;
 		this.distance = 0;
 		this.active = true;
 		
@@ -105,6 +107,7 @@ public class ScoreHandler extends DrawableHandler implements Actor
 	public void increaseHealth(double increasement)
 	{
 		this.health += increasement;
+		this.kuhas ++;
 		
 		if (this.health < 0){
 			this.health = 0;
@@ -129,6 +132,7 @@ public class ScoreHandler extends DrawableHandler implements Actor
 		this.distance += increasement;
 		if(this.distance > 20000){
 			//here the game is won
+			// NOTICE: The game is won by eating kuhas instead
 		}
 	}
 }
