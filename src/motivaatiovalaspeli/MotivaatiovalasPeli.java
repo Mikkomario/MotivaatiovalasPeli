@@ -162,8 +162,7 @@ public class MotivaatiovalasPeli extends PApplet
 		this.gamelogic.addActor(this.mainCollisionHandler);
 		
 		// Creates a scorehandler
-		this.scorehandler = new ScoreHandler(this.sprtbank);
-		this.logicalCameraHandler.addListener(this.scorehandler);
+		this.scorehandler = new ScoreHandler(this.logicalCameraHandler, this.sprtbank);
 		
 		// Creates the playable valas and adds it to drawer, stephandler,
 		// collisionhandler and keyhandler

@@ -312,7 +312,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
             this.soundPlayer.playRandomValasSound();
         	// Valas eats kuhas and gets points from it
         	collidedObject.kill();
-        	this.score.increaseScore(5);
+        	this.score.increaseHealth(5);
         }
     }
 

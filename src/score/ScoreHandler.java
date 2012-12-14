@@ -1,28 +1,30 @@
 package score;
 
-import drawnobjects.DrawnObject2DProjected;
-import drawnobjects.DrawnObject2DProjectedonScreen;
-import sprites.Sprite;
 import sprites.SpriteBank;
-import motivaatiovalaspeli.MotivaatiovalasPeli;
 import handleds.Actor;
+import handlers.CameraListenerHandler;
+import handlers.DrawableHandler;
 
 /**
  * This class calculates points and listens to certain objects that want to 
- * increase / decrease the points. Points are also reduced at each step
+ * increase / decrease the points. Points are also reduced at each step.
+ * 
+ * Also draws the current health and remaining kuhas
  *
  * @author Gandalf.
  *         Created 13.12.2012.
  */
-public class ScoreHandler extends DrawnObject2DProjected implements Actor
+public class ScoreHandler extends DrawableHandler implements Actor
 {
+	// TODO: Draw how man kuha's are left
+	
 	// ATTRIBUTES	-------------------------------------------------------
 	
-	private double score;
-	
-	private Sprite healthsprite;
-	
+	private double health;
 	private double distance;
+	private boolean active;
+	
+	private HealthMeter hpmeter;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -30,18 +32,22 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 	/**
 	 *Creates a new scorehandler that starts to calculate points right away
 	 * 
+	 * @param camerahandler The object which informs the healthmeter and 
+	 * kuharemainderdrawer of camera's position
 	 * @param spritebank The spritebank that contains the healthbar sprite
 	 */
-	public ScoreHandler(SpriteBank spritebank)
+	public ScoreHandler(CameraListenerHandler camerahandler, SpriteBank spritebank)
 	{
-		super(100, 100, 100, 0, 0, 0, 0, 90);
+		super(false);
 		
 		// Initializes attributes
-		this.score = 50;
-		
-		this.healthsprite = spritebank.getSprite("health");
-		
+		this.health = 50;
 		this.distance = 0;
+		this.active = true;
+		
+		this.hpmeter = new HealthMeter(this, spritebank);
+		addDrawable(this.hpmeter);
+		camerahandler.addListener(this.hpmeter);
 	}
 	
 	
@@ -51,35 +57,41 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 	public void act()
 	{
 		// Reduces the current points
-		increaseScore(-0.05);
+		increaseHealth(-0.075);
 		
 	}
-	
+
 	@Override
-	public double getOriginX()
+	public boolean isActive()
 	{
-		return this.healthsprite.getOriginX();
+		return this.active;
 	}
 
 
 	@Override
-	public double getOriginY()
+	public boolean activate()
 	{
-		return this.healthsprite.getOriginY();
+		this.active = true;
+		return true;
+	}
+
+
+	@Override
+	public boolean inActivate()
+	{
+		this.active = false;
+		return true;
 	}
 	
-	@Override
-	public void drawSelf3D(MotivaatiovalasPeli applet)
+	
+	// GETTERS & SETTERS	-----------------------------------------------
+	
+	/**
+	 * @return Current health
+	 */
+	public int getHealth()
 	{
-		// Draws the healthsprite
-		int imgIndex = (int) ((1 -  this.score / 100)*this.healthsprite.getImageNumber());
-		
-		if (imgIndex < 0)
-			imgIndex = 0;
-		else if (imgIndex >= this.healthsprite.getImageNumber())
-			imgIndex = this.healthsprite.getImageNumber() - 1;
-		
-		applet.image(this.healthsprite.getSubImage(imgIndex), 0, 0);
+		return (int) this.health;
 	}
 	
 	
@@ -90,17 +102,17 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 	 * 
 	 * @param increasement How much the score is increased
 	 */
-	public void increaseScore(double increasement)
+	public void increaseHealth(double increasement)
 	{
-		this.score += increasement;
+		this.health += increasement;
 		
-		if (this.score < 0){
-			this.score = 0;
+		if (this.health < 0){
+			this.health = 0;
 			
 		//here the game is lost
 		}
-		else if (this.score > 100){
-			this.score = 100;
+		else if (this.health > 100){
+			this.health = 100;
 		}
 	
 	}
