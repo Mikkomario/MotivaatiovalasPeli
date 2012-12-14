@@ -5,7 +5,6 @@ import creators.CanyonCreator;
 import creators.KuhaCreator;
 import creators.RockCreator;
 import creators.SeagrassCreator;
-import handlers.CameraListenerHandler;
 import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
@@ -32,7 +31,7 @@ public class MotivaatiovalasPeli extends PApplet
 	private DrawableHandler mainDrawer;
 	private StepHandler stepHandler;
 	private KeyListenerHandler keyhandler;
-	private CameraListenerHandler camerahandler;
+	private CameraMover camerahandler;
 	private Valas player;
 	private FollowingScroller playerscroller;
 	private SpriteBank sprtbank;
@@ -131,7 +130,9 @@ public class MotivaatiovalasPeli extends PApplet
 		*/
 		
 		// Creates a cameralistenerhandler
-		this.camerahandler = new CameraListenerHandler(false);
+		this.camerahandler = new CameraMover(this.width/2, this.height/2, 420, 
+				this.width/3, this.height/3, this.width/2, this.height/2, 0);
+		this.stepHandler.addActor(this.camerahandler);
 		
 		// Creates a seagrasshandler
 		SeagrassHandler grasshandler = new SeagrassHandler();
@@ -166,20 +167,21 @@ public class MotivaatiovalasPeli extends PApplet
 	@Override
 	public void draw()
 	{	
-		//System.out.println(this.frameRate);
+		System.out.println(this.frameRate);
 		//perspective((float) (PConstants.PI/3.0), (float) (640/480.0), 10, -1000);
 		
 		background(0, 10, 100);
 		noStroke();
 		noFill();
+		
+		// Changes the camera
+		this.camerahandler.changeCamera(this);
 		//camera(this.width/2, this.height/2, 420, this.width/2, this.height/2,
 		//		0, 0, 1, 0 );
+		/*
 		camera(this.mouseX, this.mouseY, 420, this.width/2, this.height/2,
 				0, 0, 1, 0 );
-		
-		// Informs the cameralistener of the camera's changes
-		if (this.camerahandler.isActive() && !this.camerahandler.isDead())
-			this.camerahandler.informCameraPosition(this.mouseX, this.mouseY, 420);
+		*/
 		
 		// Updates all objects through the stephandler
 		this.stepHandler.act();
