@@ -13,6 +13,7 @@ import processing.core.PApplet;
 import score.ScoreHandler;
 import scrolling.FollowingScroller;
 import sprites.SpriteBank;
+import testers.ValasCollisionTestDrawer;
 
 /**
  * 
@@ -157,6 +158,7 @@ public class MotivaatiovalasPeli extends PApplet
 		*/
 		
 		//testcanyon.setInvisible();
+		
 		/*
 		ValasCollisionTestDrawer test = new ValasCollisionTestDrawer(this.player);
 		this.mainDrawer.addDrawable(test);
