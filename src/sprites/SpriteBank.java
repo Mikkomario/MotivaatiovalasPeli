@@ -74,6 +74,10 @@ public class SpriteBank
             Sprite beginningSprite = new Sprite("aloitus.png", 1, 320, 240, 
             		"beginning", this.applet);
             this.sprites.put(beginningSprite.getName(), beginningSprite);
+            
+            Sprite pauseSprite = new Sprite("pause.png", 1, 320, 240,
+            		"pause", this.applet);
+            this.sprites.put(pauseSprite.getName(), pauseSprite);
         }
         catch(FileNotFoundException fnfe)
         {
