@@ -8,7 +8,6 @@ import creators.SeagrassCreator;
 import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
-import handlers.SeagrassHandler;
 import handlers.StepHandler;
 import processing.core.PApplet;
 import score.ScoreHandler;
@@ -76,8 +75,14 @@ public class MotivaatiovalasPeli extends PApplet
 		this.mainCollisionHandler = new CollisionHandler(false);
 		this.stepHandler.addActor(this.mainCollisionHandler);
 		
+		// Creates a cameralistenerhandler
+		this.camerahandler = new CameraMover(this.width/2, this.height/2, 420, 
+				this.width/3, this.height/3, this.width/2, this.height/2, 0);
+		this.stepHandler.addActor(this.camerahandler);
+		
 		// Creates a scorehandler
-		this.scorehandler = new ScoreHandler();
+		this.scorehandler = new ScoreHandler(this.sprtbank);
+		this.camerahandler.addListener(this.scorehandler);
 		
 		// Creates the playable valas and adds it to drawer, stephandler,
 		// collisionhandler and keyhandler
@@ -129,15 +134,9 @@ public class MotivaatiovalasPeli extends PApplet
 		this.playerscroller.addScrollable(grass);
 		*/
 		
-		// Creates a cameralistenerhandler
-		this.camerahandler = new CameraMover(this.width/2, this.height/2, 420, 
-				this.width/3, this.height/3, this.width/2, this.height/2, 0);
-		this.stepHandler.addActor(this.camerahandler);
-		
 		// Creates a seagrasshandler
-		SeagrassHandler grasshandler = new SeagrassHandler();
+		DrawableHandler grasshandler = new DrawableHandler(false);
 		this.mainDrawer.addDrawable(grasshandler);
-		this.camerahandler.addListener(grasshandler);
 		
 		// Creates a seagrasscreator
 		SeagrassCreator seagrasscreator = new SeagrassCreator(80, 400, this.width, 

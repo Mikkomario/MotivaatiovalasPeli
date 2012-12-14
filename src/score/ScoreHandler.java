@@ -1,8 +1,10 @@
 package score;
 
+import drawnobjects.DrawnObject2DProjected;
+import sprites.Sprite;
+import sprites.SpriteBank;
 import motivaatiovalaspeli.MotivaatiovalasPeli;
 import handleds.Actor;
-import handleds.Drawable;
 
 /**
  * This class calculates points and listens to certain objects that want to 
@@ -11,106 +13,74 @@ import handleds.Drawable;
  * @author Gandalf.
  *         Created 13.12.2012.
  */
-public class ScoreHandler implements Actor, Drawable
+public class ScoreHandler extends DrawnObject2DProjected implements Actor
 {
 	// ATTRIBUTES	-------------------------------------------------------
 	
 	private double score;
-	private boolean active;
-	private boolean alive;
-	private boolean visible;
+	
+	private Sprite healthsprite;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
 	
 	/**
 	 *Creates a new scorehandler that starts to calculate points right away
+	 * 
+	 * @param spritebank The spritebank that contains the healthbar sprite
 	 */
-	public ScoreHandler()
+	public ScoreHandler(SpriteBank spritebank)
 	{
+		super(100, 100, 100, 0, 0, 0);
+		
 		// Initializes attributes
-		this.score = 20;
-		this.active = true;
-		this.alive = true;
-		this.visible = true;
+		this.score = 50;
+		
+		this.healthsprite = spritebank.getSprite("health");
 	}
 	
 	
 	// IMPLEMENTED METHODS	------------------------------------------------
 
 	@Override
-	public boolean isActive()
-	{
-		return this.active;
-	}
-
-	@Override
-	public boolean activate()
-	{
-		this.active = true;
-		return true;
-	}
-
-	@Override
-	public boolean inActivate()
-	{
-		this.active = false;
-		return true;
-	}
-
-	@Override
-	public boolean isDead()
-	{
-		return !this.alive;
-	}
-
-	@Override
-	public boolean kill()
-	{
-		this.alive = false;
-		return true;
-	}
-
-	@Override
 	public void act()
 	{
 		// Reduces the current points
-		this.score -= 0.1;
+		increaseScore(-0.05);
+	}
+	
+	@Override
+	public double getOriginX()
+	{
+		return this.healthsprite.getOriginX();
 	}
 
 
 	@Override
-	public void drawSelf(MotivaatiovalasPeli applet)
+	public double getOriginY()
 	{
-		// Draws the score
-		applet.stroke(255);
-		applet.fill(255);
-		applet.text((int) this.score + "", 100, 100);
-		applet.noStroke();
-		applet.noFill();
+		return this.healthsprite.getOriginY();
 	}
 
 
 	@Override
-	public boolean isVisible()
+	public double getOriginZ()
 	{
-		return this.visible;
+		return 0;
 	}
-
-
+	
 	@Override
-	public boolean setVisible()
+	public void drawSelf3D(MotivaatiovalasPeli applet)
 	{
-		this.visible = true;
-		return true;
-	}
-
-
-	@Override
-	public boolean setInvisible()
-	{
-		this.visible = false;
-		return true;
+		// Draws the healthsprite
+		int imgIndex = (int) ((1 -  this.score / 100)*this.healthsprite.getImageNumber());
+		
+		if (imgIndex < 0)
+			imgIndex = 0;
+		else if (imgIndex >= this.healthsprite.getImageNumber())
+			imgIndex = this.healthsprite.getImageNumber() - 1;
+		
+		applet.image(this.healthsprite.getSubImage(imgIndex), 0, 0);
 	}
 	
 	
@@ -124,6 +94,10 @@ public class ScoreHandler implements Actor, Drawable
 	public void increaseScore(double increasement)
 	{
 		this.score += increasement;
+		
+		if (this.score < 0)
+			this.score = 0;
+		else if (this.score > 100)
+			this.score = 100;
 	}
-
 }

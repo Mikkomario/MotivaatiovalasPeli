@@ -54,6 +54,10 @@ public class SpriteBank
             Sprite canyonSprite = new Sprite("canyonwall.png", 1, 0, 0,
                     "canyon", this.applet);
             this.sprites.put(canyonSprite.getName(), canyonSprite);
+            
+            Sprite healthSprite = new Sprite("health_strip6.png", 6, 25, 25,
+                    "health", this.applet);
+            this.sprites.put(healthSprite.getName(), healthSprite);
         }
         catch(FileNotFoundException fnfe)
         {
@@ -73,6 +77,9 @@ public class SpriteBank
         if (this.sprites.containsKey(spriteName))
             return this.sprites.get(spriteName);
         else
+        {
+        	System.out.println("Tried to get a sprite that is not in the bank");
             return null;
+        }
     }
 }
