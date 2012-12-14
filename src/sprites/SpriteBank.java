@@ -58,6 +58,22 @@ public class SpriteBank
             Sprite healthSprite = new Sprite("health_strip6.png", 6, 25, 25,
                     "health", this.applet);
             this.sprites.put(healthSprite.getName(), healthSprite);
+            
+            Sprite winningSprite = new Sprite("voitto.png", 1, 320, 240, 
+            		"victory", this.applet);
+            this.sprites.put(winningSprite.getName(), winningSprite);
+            
+            Sprite losingSprite = new Sprite("havio.png", 1, 320, 240, 
+            		"loss", this.applet);
+            this.sprites.put(losingSprite.getName(), losingSprite);
+            
+            Sprite kssSprite = new Sprite("KSS.png", 1, 320, 240, 
+            		"kss", this.applet);
+            this.sprites.put(kssSprite.getName(), kssSprite);
+            
+            Sprite beginningSprite = new Sprite("aloitus.png", 1, 320, 240, 
+            		"beginning", this.applet);
+            this.sprites.put(beginningSprite.getName(), beginningSprite);
         }
         catch(FileNotFoundException fnfe)
         {

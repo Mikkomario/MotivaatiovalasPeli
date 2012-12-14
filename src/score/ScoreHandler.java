@@ -22,6 +22,8 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 	
 	private Sprite healthsprite;
 	
+	private double distance;
+	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
 	
@@ -38,6 +40,8 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 		this.score = 50;
 		
 		this.healthsprite = spritebank.getSprite("health");
+		
+		this.distance = 0;
 	}
 	
 	
@@ -48,6 +52,7 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 	{
 		// Reduces the current points
 		increaseScore(-0.05);
+		
 	}
 	
 	@Override
@@ -89,9 +94,29 @@ public class ScoreHandler extends DrawnObject2DProjected implements Actor
 	{
 		this.score += increasement;
 		
-		if (this.score < 0)
+		if (this.score < 0){
 			this.score = 0;
-		else if (this.score > 100)
+		//here the game is lost
+		}
+		else if (this.score > 100){
 			this.score = 100;
+		}
+	
+	}
+	
+	/**
+	 * Increases the current distance by the given amount. If distance gets high
+	 * enough, the method calls for a method that makes the game won.
+	 * 
+	 * @param increasement How much the distance is increased
+	 */
+	
+	public void increaseDistance(double increasement){
+		
+		this.distance += increasement;
+		
+		if(this.distance > 20000){
+			//here the game is won
+		}
 	}
 }

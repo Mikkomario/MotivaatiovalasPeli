@@ -25,7 +25,7 @@ import sprites.SpriteBank;
  */
 public class MotivaatiovalasPeli extends PApplet
 {
-	// ATTRIBUTES	-------------------------------------------------------
+    // ATTRIBUTES	-------------------------------------------------------
 	
 	private DrawableHandler mainDrawer;
 	private StepHandler stepHandler;
@@ -36,6 +36,7 @@ public class MotivaatiovalasPeli extends PApplet
 	private SpriteBank sprtbank;
 	private CollisionHandler mainCollisionHandler;
 	private ScoreHandler scorehandler;
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 *Starts the game

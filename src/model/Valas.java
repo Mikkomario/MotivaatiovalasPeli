@@ -4,6 +4,7 @@ import handleds.Colliding;
 import drawnobjects.PhysicObject3D;
 import listeners.CollisionListener;
 import listeners.KeyListener;
+import sounds.SoundPlayer;
 import motivaatiovalaspeli.HelpMath;
 import motivaatiovalaspeli.MotivaatiovalasPeli;
 import processing.core.PConstants;
@@ -27,6 +28,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
     private double normalScale, currentScale, scalePhase;
     private OBJModel model;
     private ScoreHandler score;
+    private SoundPlayer soundPlayer;
 
 
     // CONSTRUCTOR	------------------------------------------------------
@@ -84,6 +86,8 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
         this.currentScale = 12;
         this.scalePhase = 0;
         setScale(this.normalScale, this.normalScale, this.normalScale);
+        
+        this.soundPlayer = new SoundPlayer();
     }
 
 
@@ -215,6 +219,9 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
         // Scales the valas a bit for a funny effect
         adjustScaling();
         
+        //Adds the distance the valas has proceeded
+        this.score.increaseDistance(-this.getZspeed());
+        
         super.act();
     }
 
@@ -287,9 +294,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
         //System.out.println(getSpeed());
 
         if (collidedObject instanceof Rock){
-
-            //AePlayWave sound = new AePlayWave("/data/Antaa.wav");
-            //sound.start();
+            this.soundPlayer.playRandomKuhaSound();
             
             int ydir = HelpMath.PointYDirection((int) collidedObject.getX(), 
                     (int) collidedObject.getZ(), (int) getX(), (int) getZ());
@@ -302,6 +307,7 @@ public class Valas extends PhysicObject3D implements KeyListener, Scrollable, Co
         }
         else if (collidedObject instanceof Kuha)
         {
+            this.soundPlayer.playRandomValasSound();
         	// Valas eats kuhas and gets points from it
         	collidedObject.kill();
         	this.score.increaseScore(5);
