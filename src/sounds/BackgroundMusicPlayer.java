@@ -34,6 +34,7 @@ public class BackgroundMusicPlayer implements Actor {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean inActivate() {
         if (!this.active) 
@@ -41,7 +42,7 @@ public class BackgroundMusicPlayer implements Actor {
         else
         {
             this.active = false;
-            this.backgroundMusicThread.interrupt();
+            this.backgroundMusicThread.suspend();
             return true;
         }
     }
@@ -51,11 +52,12 @@ public class BackgroundMusicPlayer implements Actor {
         return !this.alive;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean kill() {
         if (this.alive)
         {
-            this.backgroundMusicThread.interrupt();
+            this.backgroundMusicThread.suspend();
             this.alive = false;
             return true;
         }
