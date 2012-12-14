@@ -28,7 +28,7 @@ public class HealthMeter extends DrawnObject2DProjected
 	 */
 	public HealthMeter(ScoreHandler scorehandler, SpriteBank spritebank)
 	{
-		super(100, 100, 100, 0, 0, 0, 0, 90);
+		super(120, 100, 100, 0, 0, 0, 0, 90);
 		
 		this.scorehandler = scorehandler;
 		this.healthsprite = spritebank.getSprite("health");
